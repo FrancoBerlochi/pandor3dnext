@@ -1,15 +1,16 @@
+"use client"
 import { useState, useEffect, useContext } from "react";
-import { ViewDetailsContext } from "../context/ViewDetailsContext";
-import ViewDetails from "./ViewDetails";
+import { ViewDetailsContext } from "../../app/providers/event-details-provider";
+import ViewDetails from "../cards/ViewDetails";
 import Swal from "sweetalert2";
-import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "next-themes";
 
 const ProductCard = ({ index, img, tittle, size }) => {
   const [amount, setAmount] = useState(1);
   const { details, setDetails } = useContext(ViewDetailsContext);
   const { id, setId } = useContext(ViewDetailsContext);
   const { data, setData } = useContext(ViewDetailsContext);
-  const { isDark } = useContext(ThemeContext);
+  const { resolvedTheme } = useTheme();
   const [order, setOrder] = useState(() => {
     return JSON.parse(localStorage.getItem("products")) || [];
   });
@@ -38,7 +39,7 @@ const ProductCard = ({ index, img, tittle, size }) => {
       amount: amount,
     };
 
-    if (isDark) {
+    if (resolvedTheme === "dark") {
       Swal.fire({
         position: "top-end",
         icon: "success",

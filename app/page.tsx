@@ -20,9 +20,9 @@ const homeCards = [
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="lucide lucide-printer-icon lucide-printer text-cyan-500 dark:text-orange-400"
       >
         <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
@@ -43,9 +43,9 @@ const homeCards = [
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="lucide lucide-zap-icon lucide-zap text-cyan-500 dark:text-orange-400"
       >
         <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
@@ -64,9 +64,9 @@ const homeCards = [
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="lucide lucide-package-icon lucide-package text-cyan-500 dark:text-orange-400"
       >
         <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
@@ -88,9 +88,9 @@ const homeCards = [
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         className="lucide lucide-message-circle-icon lucide-message-circle text-cyan-500 dark:text-orange-400"
       >
         <path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
@@ -119,11 +119,11 @@ const HomePage = () => {
       <main className="dark:bg-[#333] pb-20 dark:fadeIn dark:transition-all dark:duration-100">
         <section className="flex justify-between h-[100vh] items-center max-md:justify-center max-md:flex-col">
           <div className="flex flex-col ml-60 h-[50%] justify-center mb-20 logo max-md:ml-0 max-md:mb-10">
-            <h1 className="text-8xl font-semibold dark:text-white max-md:text-6xl">
+            <h1 className="text-9xl font-semibold dark:text-white max-md:text-6xl">
               PANDOR3D
             </h1>
             <div className="w-120 border-l-4 border-[#5bacf6] pl-4 mt-4 dark:border-[hsl(41,98%,51%)] max-md:w-[90vw]">
-              <h2 className="text-2xl font-semibold dark:text-white max-md:text-xl">
+              <h2 className="text-3xl font-semibold dark:text-white max-md:text-xl">
                 Impresiones por stock y a pedido
               </h2>
               <p className="mt-3 text-gray-700 text-xl dark:text-gray-300 max-md:text-[1rem]">
@@ -149,7 +149,7 @@ const HomePage = () => {
           </div>
           <div className="mr-60 mb-20 lg:pandor dark:bg-orange-400 dark:rounded-[50%] max-md:mr-0">
             <img
-              src={""}
+              src={resolvedTheme === "dark" ? linke.src : git.src}
               alt=""
               className="max-md:w-[40vw] max-md:h-[40vw ]"
             />

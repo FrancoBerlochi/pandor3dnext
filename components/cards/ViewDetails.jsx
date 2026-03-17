@@ -1,5 +1,6 @@
+"use client"
 import { useContext, useEffect } from "react";
-import { ViewDetailsContext } from "../context/ViewDetailsContext";
+import { ViewDetailsContext } from "../../app/providers/event-details-provider";
 
 const ViewDetails = ({ order }) => {
   const { details, setDetails } = useContext(ViewDetailsContext);

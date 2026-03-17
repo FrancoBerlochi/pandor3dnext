@@ -23,7 +23,7 @@ const Header = () => {
     <header className="dark:bg-[#3a3a3a] dark:text-white dark:fadeIn dark:transition-all dark:duration-100 flex justify-between py-3 dark:border-gray-800 border-b-1 border-gray-300 items-center fadeIn fixed w-full bg-white z-20 max-md:pr-4">
       <div className="gap-2 flex ml-8 items-center max-md:ml-4">
         <a href="#inicio" className="w-[3vw] logo max-md:w-[15vw]">
-          <img src={resolvedTheme === "dark" ? darkLogo : logo} alt="Logo" />
+          <img src={resolvedTheme === "dark" ? darkLogo.src : logo.src} alt="Logo" />
         </a>
         <a
           href="#inicio"
@@ -40,9 +40,9 @@ const Header = () => {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-menu-icon lucide-menu"
         >
           <path d="M4 5h16" />
@@ -71,9 +71,9 @@ const Header = () => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className={`${
               menu ? "max-md:h-fit " : "max-md:h-0 "
             } transition-all duration-300`}
