@@ -5,20 +5,27 @@ import Header from "../../components/cards/Header";
 import OrderSummaryCard from "../../components/cards/OrderSummaryCard";
 import ProductCardOrder from "../../components/cards/ProductCardOrder";
 
+interface OrderItem {
+  img: string;
+  title: string;
+  amount: number;
+  size: number;
+}
+
 const Order = () => {
 
-  const [orderList, setOrderList] = useState(
-    JSON.parse(localStorage.getItem("products")) || [],
+  const [orderList, setOrderList] = useState<OrderItem[]>(
+    JSON.parse(localStorage.getItem("products") ?? "[]"),
   );
 
-  const handleDelete = (title) => {
+  const handleDelete = (title: string) => {
     const updated = orderList.filter((p) => p.title !== title);
     setOrderList(updated);
     localStorage.setItem("products", JSON.stringify(updated));
   };
 
   const sendMsg = () => {
-    if (orderList.lenght == 0) {
+    if (orderList.length == 0) {
       alert("no tienes pedidos");
     }
 
@@ -46,7 +53,7 @@ const Order = () => {
         </h3>
         <section className="grid grid-cols-3 mt-10 max-md:grid-cols-1 max-md:w-[100vw] ">
           <div className="col-span-2 max-md:order-1 max-md:mb-12 max-md:w-[98vw]">
-            {orderList == "" ? (
+            {orderList.length === 0 ? (
               <div className="">
                 <p className="text-4xl text-[#5bacf6] mb-6 dark:text-[hsl(41,98%,51%)]">
                   No tenés pedidos!
@@ -55,7 +62,7 @@ const Order = () => {
                   Revisa nuestros productos que seguro te van a gustar
                 </p>
                 <Link
-                  to="/productos"
+                  href="/productos"
                   className="py-2 px-6 rounded-2xl bg-[#5bacf6] text-white dark:bg-[hsl(41,98%,51%)] hover:opacity-90"
                 >
                   Ver Productos

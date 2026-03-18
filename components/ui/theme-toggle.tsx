@@ -1,18 +1,11 @@
 "use client";
-
-import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
+  if (!resolvedTheme) {
     return (
       <button className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
         <div className="w-5 h-5 rounded-full bg-gray-300 dark:bg-gray-700 animate-pulse" />

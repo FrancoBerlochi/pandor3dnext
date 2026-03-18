@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { useTheme } from "next-themes";
 
 const ProductCardOrder = ({ img, title, size, amount, refresh }) => {
-  const {isDark} = useContext(ThemeContext)
+  const { resolvedTheme } = useTheme();
   const handleDeleteModal = () => {
-    if (isDark) {
+    if (resolvedTheme === "dark") {
       Swal.fire({
         title: "Estás seguro?",
         text: `Vas a eliminar tu pedido de ${title}`,
@@ -81,9 +81,9 @@ const ProductCardOrder = ({ img, title, size, amount, refresh }) => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               class="lucide lucide-trash2-icon lucide-trash-2"
             >
               <path d="M10 11v6" />
