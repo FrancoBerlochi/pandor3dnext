@@ -3,8 +3,7 @@ import git from "@/public/github.png";
 import HomeCard from "../components/cards/HomeCard";
 import Header from "../components/cards/Header";
 import { topCero } from "../lib/index";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { useContext } from "react";
+import { ArrowRight, Verified, Rocket } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import linke from "@/public/linkedin.png";
@@ -12,24 +11,7 @@ import linke from "@/public/linkedin.png";
 const homeCards = [
   {
     id: 1,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-printer-icon lucide-printer text-cyan-500 dark:text-orange-400"
-      >
-        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-        <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
-        <rect x="6" y="14" width="12" height="8" rx="1" />
-      </svg>
-    ),
+    icon: <Verified className="text-cyan-500"></Verified>,
     tittle: "Alta Calidad",
     text: "Impresiones 3D de alta fidelidad con los mejores materiales de impresión",
   },
@@ -119,6 +101,9 @@ const HomePage = () => {
       <main className="dark:bg-[#333] pb-20 dark:fadeIn dark:transition-all dark:duration-100">
         <section className="flex justify-between h-[100vh] items-center max-md:justify-center max-md:flex-col">
           <div className="flex flex-col ml-60 h-[50%] justify-center mb-20 logo max-md:ml-0 max-md:mb-10">
+            <p className="bg-blue-100 w-fit rounded-2xl px-2 py-0.5 text-sky-300 font-bold mb-2">
+              Inovación en cada capa
+            </p>
             <h1 className="text-9xl font-semibold dark:text-white max-md:text-6xl">
               PANDOR3D
             </h1>
@@ -135,9 +120,10 @@ const HomePage = () => {
               <Link
                 onClick={topCero}
                 href="/productos"
-                className="py-2 px-6 rounded-2xl bg-[#5bacf6] text-white hover:opacity-90 dark:bg-[hsl(41,98%,51%)]"
+                className="flex gap-4 items-center py-2 px-6 rounded-2xl bg-[#5bacf6] text-white hover:opacity-90 dark:bg-[hsl(41,98%,51%)]"
               >
                 Ver Productos
+                <ArrowRight></ArrowRight>
               </Link>
               <Link
                 href="/personalizar"
@@ -156,28 +142,29 @@ const HomePage = () => {
           </div>
         </section>
         <section className="flex flex-col justify-center">
-          <h2 className="text-4xl font-semibold mb-16 text-center dark:text-white">
+          <h2 className="text-4xl font-semibold text-stone-900 mb-16 text-center dark:text-white">
             ¿Por qué elegir PANDOR3D?
           </h2>
           <article className="flex justify-between mx-24 max-md:justify-center max-md:flex-col max-md:mx-0 max-md:items-center max-md:gap-20 ">
             {cardsToShow}
           </article>
         </section>
-        <section className="border-2 border-blue-200 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[90vw] shadow-2xs">
-          <div className=" flex flex-col justify-center items-center py-16">
-            <h2 className="text-4xl font-semibold dark:text-white max-md:text-2xl">
+        <section className="border-2  bg-sky-400 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
+          <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
+            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-white max-md:text-2xl">
               ¿Tenés un diseño en mente?
             </h2>
-            <p className="text-gray-600 text-xl mt-8 dark:text-gray-300 max-md:text-[1.1rem] max-md:text-center">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-300 max-md:text-[1.1rem] max-md:text-center">
               Convertimos tus ideas en realidad. Contactanos y hablemos sobre tu
               proyecto personalizado.
             </p>
             <Link
               href="/personalizar"
-              className="mt-8 bg-cyan-500 dark:bg-[hsl(41,98%,51%)] text-white rounded-2xl px-4 py-2 hover:opacity-90"
+              className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               onClick={topCero}
             >
               Personalizá tu diseño
+              <Rocket></Rocket>
             </Link>
           </div>
         </section>
@@ -185,7 +172,7 @@ const HomePage = () => {
       <footer className="w-full dark:bg-[#333]">
         <div className="border-1 border-gray-300 flex gap-20 py-12 justify-around pr-100 dark:border-gray-300 max-md:pr-0 max-md:gap-10 max-md:w-full max-md:flex-col ">
           <div className="flex flex-col max-md:ml-4">
-            <h3 className="text-xl font-semibold dark:text-white max-md:text-[1.1rem]">
+            <h3 className="text-xl  dark:text-white max-md:text-[1.1rem]">
               PANDOR3D
             </h3>
             <p className="text-gray-600 dark:text-gray-300 max-md:text-[1rem]">
@@ -193,9 +180,7 @@ const HomePage = () => {
             </p>
           </div>
           <div className="flex flex-col max-md:ml-4">
-            <h3 className="font-semibold dark:text-white max-md:text-[1.1rem]">
-              Enlaces
-            </h3>
+            <h3 className=" dark:text-white max-md:text-[1.1rem]">Enlaces</h3>
             <Link
               onClick={topCero}
               href="/productos"
@@ -220,9 +205,7 @@ const HomePage = () => {
           </div>
           <hr className="max-md:block hidden w-[90vw] mx-auto border-[hsl(41,98%,51%)]" />
           <div className="flex flex-col max-md:text-center">
-            <h3 className="font-semibold dark:text-white max-md:text-[1.1rem]">
-              Contacto
-            </h3>
+            <h3 className=" dark:text-white max-md:text-[1.1rem]">Contacto</h3>
             <p className="text-gray-600 dark:text-gray-300">
               Email: pandor3d@gmail.com
             </p>
