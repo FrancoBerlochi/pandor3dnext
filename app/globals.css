@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+/* dark:hover:border-[hsl(41,98%,65%)] */
 @custom-variant dark (&:is(.dark *));
 
 :root {

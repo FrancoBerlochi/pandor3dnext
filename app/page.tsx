@@ -1,5 +1,7 @@
 "use client"
 import git from "@/public/github.png";
+import logo from "@/public/logo.jpg";
+import darkLogo from "@/public/logoDark.png";
 import HomeCard from "../components/cards/HomeCard";
 import Header from "../components/cards/Header";
 import { topCero } from "../lib/index";
@@ -171,10 +173,17 @@ const HomePage = () => {
       </main>
       <footer className="w-full dark:bg-[#333]">
         <div className="border-1 border-gray-300 flex gap-20 py-12 justify-around pr-100 dark:border-gray-300 max-md:pr-0 max-md:gap-10 max-md:w-full max-md:flex-col ">
-          <div className="flex flex-col max-md:ml-4">
-            <h3 className="text-xl  dark:text-white max-md:text-[1.1rem]">
-              PANDOR3D
-            </h3>
+          <div className="flex flex-col gap-2 max-md:ml-4">
+            <div className="flex gap-2">
+              <img
+                src={resolvedTheme === "dark" ? darkLogo.src : logo.src}
+                alt="Logo"
+                 className="w-8 h-8"
+              />
+              <h3 className="text-xl  dark:text-white max-md:text-[1.1rem]">
+                PANDOR3D
+              </h3>
+            </div>
             <p className="text-gray-600 dark:text-gray-300 max-md:text-[1rem]">
               impresiones 3D de calidad para dar vida a tus diseños
             </p>
