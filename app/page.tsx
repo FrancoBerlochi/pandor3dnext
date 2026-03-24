@@ -106,7 +106,7 @@ const HomePage = () => {
             <p className="bg-blue-100 w-fit rounded-2xl px-2 py-0.5 text-sky-300 font-bold mb-2">
               Inovación en cada capa
             </p>
-            <h1 className="text-9xl font-semibold dark:text-white max-md:text-6xl">
+            <h1 className="text-9xl font-bold dark:text-white max-md:text-6xl">
               PANDOR3D
             </h1>
             <div className="w-120 border-l-4 border-[#5bacf6] pl-4 mt-4 dark:border-[hsl(41,98%,51%)] max-md:w-[90vw]">
