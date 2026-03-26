@@ -1,11 +1,40 @@
 "use client"
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { ViewDetailsContext } from "../../app/providers/event-details-provider";
-
+import { ShoppingCart} from "lucide-react";
 const ViewDetails = ({ order }) => {
   const { details, setDetails } = useContext(ViewDetailsContext);
   const { data } = useContext(ViewDetailsContext);
+  const { amount, setAmount } = useContext(ViewDetailsContext); 
   const handleOpen = () => setDetails(!details);
+
+  const spanRef = useRef<HTMLSpanElement>(null);
+
+  const MIN = 1, MAX = 200;
+
+  const set = (next) => {
+    const clamped = Math.min(MAX, Math.max(MIN, next));
+    setAmount(clamped);
+    if (spanRef.current) spanRef.current.textContent = String(clamped);
+  };
+
+  const handleBlur = () => {
+    const raw = Number(spanRef.current?.textContent ?? amount);
+    set(isNaN(raw) ? amount : raw);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") { e.preventDefault(); spanRef.current?.blur(); }
+    if (!/[\d]/.test(e.key) && !["Backspace", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+   useEffect(() => {
+     if (spanRef.current && spanRef.current.textContent !== String(amount)) {
+       spanRef.current.textContent = String(amount);
+     }
+   }, [amount]);
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", details);
@@ -14,40 +43,95 @@ const ViewDetails = ({ order }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-[#3339] flex justify-center items-center z-20 "
+      className="fixed inset-0 backdrop-blur-md flex justify-center items-center z-20 "
       onClick={handleOpen}
     >
       <div
-        className="flex border-2 bg-[#def] dark:bg-[#555] w-[70vw] h-[60vh] max-md:w-[95vw] max-md:h-[80vh] max-md:flex-col"
+        className="relative flex rounded-xl bg-white dark:bg-[#555] w-[75vw] h-[80vh] max-md:w-[95vw] max-md:h-[80vh] max-md:flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={data.img}
-          className="w-[35vw] bg-white max-md:w-full max-md:h-[40vh]"
-          alt="producto"
-        />
-        <div className="flex flex-col mt-20 ml-20 mr-20 dark:text-white max-md:ml-5 max-md:mr-0 max-md:mt-10">
-          <h3 className="text-4xl mb-8 font-semibold max-md:mb-6">
+        <button
+          className="absolute top-2 right-2 w-8 h-8 text-black hover:bg-gray-200  text-xl bg-gray-100  rounded-3xl cursor-pointer"
+          onClick={handleOpen}
+        >
+          X
+        </button>
+        <div className="w-[80%] flex items-center justify-center bg-gray-200">
+          <img
+            src={data.img}
+            className="w-[95%] h-[50vh] bg-white  rounded-xl"
+            alt="producto"
+          />
+        </div>
+
+        <div className="flex flex-col mt-20 ml-10 mr-20 dark:text-white max-md:ml-5 max-md:mr-0 max-md:mt-10">
+          <p className="text-cyan-400 font-bold">CATEGORÍA: insertar dato</p>
+          <h3 className="text-6xl mb-8 font-semibold max-md:mb-6 w-60">
             {data.title}
           </h3>
-          <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
-            {data.size} cm
+          <div className="flex flex-col">
+            <p className="text-gray-600">DIMENSIONES</p>
+            <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
+              {data.size} cm
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <p className="text-gray-600">COLORES DISPONIBLES:</p>
+            <ul className="flex gap-2 mt-1">
+              <li className="w-8 h-8 bg-red-400 rounded-md"></li>
+              <li className="w-8 h-8 bg-yellow-400 rounded-md"></li>
+              <li className="w-8 h-8 bg-green-400 rounded-md"></li>
+              <li className="w-8 h-8 bg-blue-400 rounded-md"></li>
+            </ul>
+          </div>
+          <p className="text-[18px] mt-12">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
+            eveniet nulla perferendis omnis quod qui sit repellendus inventore,
+            quas debitis dolore id nisi. Optio, nisi.
           </p>
-          <p className="text-xl max-md:text-[1rem] max-md:w-full max-md:mb-5">
-            
-          </p>
-          <div className="flex lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-8">
+          <p className="text-xl max-md:text-[1rem] max-md:w-full max-md:mb-5"></p>
+          <div className="flex lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-4 items-center">
+            {/* Mini input cantidad */}
+            <div className="flex items-center justify-between bg-black/5 rounded-full px-5 py-3 w-64 shadow-md">
+              <span className="text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">
+                Cantidad
+              </span>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => set(amount - 1)}
+                  disabled={amount <= MIN}
+                  className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+                >
+                  −
+                </button>
+
+                <input
+                  type="number"
+                  min={MIN}
+                  max={MAX}
+                  value={amount}
+                  onChange={(e) => set(Number(e.target.value))}
+                  className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none
+                  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+
+                <button
+                  onClick={() => set(amount + 1)}
+                  disabled={amount >= MAX}
+                  className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Botón agregar */}
             <button
-              className="bg-[hsl(41,98%,51%)] lg:w-[10vw] lg:mb-20 hover:bg-[hsl(41,98%,41%)] cursor-pointer text-xl max-md:p-4 rounded-2xl"
+              className="flex items-center gap-2 px-6 py-2 bg-cyan-500 lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:p-4 rounded-4xl"
               onClick={order}
             >
-              Añadir Pedido
-            </button>
-            <button
-              className="p-4 hover:bg-red-500 text-white text-xl bg-red-400 w-[10vw] rounded-3xl self-end mt-auto mb-20 cursor-pointer max-md:w-25 max-md:h-15 max-md:mt-0 max-md:mb-0 max-md:p-3 max-md:self-start"
-              onClick={handleOpen}
-            >
-              Cerrar
+              <ShoppingCart className="w-6 h-6" />
+              Añadir al Pedido
             </button>
           </div>
         </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ViewDetailsContext } from "../../app/providers/event-details-provider";
 import ViewDetails from "./ViewDetails";
 import Swal from "sweetalert2";
@@ -9,12 +9,11 @@ const MIN = 1;
 const MAX = 200;
 
 const ProductCard = ({ index, img, tittle, size }) => {
-  const [value, setValue] = useState(1);
+  const { amount, setAmount } = useContext(ViewDetailsContext);
   const { details, setDetails } = useContext(ViewDetailsContext);
   const { id, setId } = useContext(ViewDetailsContext);
   const { data, setData } = useContext(ViewDetailsContext);
   const { resolvedTheme } = useTheme();
-  const spanRef = useRef<HTMLSpanElement>(null);
 
   const [order, setOrder] = useState(() => {
     return JSON.parse(localStorage.getItem("products")) || [];
@@ -22,32 +21,13 @@ const ProductCard = ({ index, img, tittle, size }) => {
 
   const set = (next: number) => {
     const clamped = Math.min(MAX, Math.max(MIN, next));
-    setValue(clamped);
-    if (spanRef.current) spanRef.current.textContent = String(clamped);
-  };
-
-  const handleBlur = () => {
-    const raw = Number(spanRef.current?.textContent ?? value);
-    set(isNaN(raw) ? value : raw);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      spanRef.current?.blur();
-    }
-    if (
-      !/[\d]/.test(e.key) &&
-      !["Backspace", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)
-    ) {
-      e.preventDefault();
-    }
+    setAmount(clamped);
   };
 
   const handleViewDetails = () => {
     setDetails(!details);
     setId(index);
-    setData({ ...data, img, title: tittle, size, amount: value });
+    setData({ ...data, img, title: tittle, size, amount });
   };
 
   useEffect(() => {
@@ -55,7 +35,7 @@ const ProductCard = ({ index, img, tittle, size }) => {
   }, [order]);
 
   const orderStorage = () => {
-    const orderToStorage = { img, title: tittle, size, amount: value };
+    const orderToStorage = { img, title: tittle, size, amount };
 
     if (resolvedTheme === "dark") {
       Swal.fire({
@@ -83,7 +63,7 @@ const ProductCard = ({ index, img, tittle, size }) => {
       const existing = prev.find((p) => p.title === tittle);
       if (existing) {
         return prev.map((p) =>
-          p.title === tittle ? { ...p, amount: p.amount + value } : p,
+          p.title === tittle ? { ...p, amount: p.amount + amount } : p,
         );
       }
       return [...prev, orderToStorage];
@@ -107,30 +87,31 @@ const ProductCard = ({ index, img, tittle, size }) => {
           </p>
 
           <div className="flex items-center justify-between bg-black/5 rounded-full px-5 py-3 w-64 shadow-md">
-            <span className="text-xs font-semibold tracking-widest uppercase text-gray-900">
+            <span className="text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">
               Cantidad
             </span>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <button
-                onClick={() => set(value - 1)}
-                disabled={value <= MIN}
+                onClick={() => set(amount - 1)}
+                disabled={amount <= MIN}
                 className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
               >
                 −
               </button>
-              <span
-                ref={spanRef}
-                contentEditable
-                suppressContentEditableWarning
-                onBlur={handleBlur}
-                onKeyDown={handleKeyDown}
-                className="text-base font-medium text-gray-900 w-6 text-center outline-none cursor-text"
-              >
-                {value}
-              </span>
+
+              <input
+                type="number"
+                min={MIN}
+                max={MAX}
+                value={amount}
+                onChange={(e) => set(Number(e.target.value))}
+                className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none
+                  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              />
+
               <button
-                onClick={() => set(value + 1)}
-                disabled={value >= MAX}
+                onClick={() => set(amount + 1)}
+                disabled={amount >= MAX}
                 className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
               >
                 +
@@ -139,9 +120,9 @@ const ProductCard = ({ index, img, tittle, size }) => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 xl:mt-12 w-[80%] mx-auto ">
+        <div className="flex flex-col gap-4 xl:mt-12 w-[80%] mx-auto">
           <button
-            className=" bg-cyan-500 border dark:bg-[hsl(41,98%,51%)] dark:hover:text-[hsl(41,98%,51%)] dark:hover:bg-[#333] dark:hover:border-[hsl(41,98%,51%)] text-white rounded-2xl py-2 cursor-pointer hover:bg-cyan-200 hover:text-cyan-6  00  hover:border-cyan-500 transition-colors duration-300"
+            className="bg-cyan-500 border dark:bg-[hsl(41,98%,51%)] dark:hover:text-[hsl(41,98%,51%)] dark:hover:bg-[#333] dark:hover:border-[hsl(41,98%,51%)] text-white rounded-2xl py-2 cursor-pointer hover:bg-cyan-200 hover:text-cyan-600 hover:border-cyan-500 transition-colors duration-300"
             onClick={orderStorage}
           >
             Agregar Pedido
@@ -159,5 +140,6 @@ const ProductCard = ({ index, img, tittle, size }) => {
     </div>
   );
 };
+
 
 export default ProductCard;

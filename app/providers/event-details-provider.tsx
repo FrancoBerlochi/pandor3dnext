@@ -11,6 +11,8 @@ interface ViewDetailsData {
 interface ViewDetailsContextType {
   details: boolean;
   setDetails: (v: boolean) => void;
+  amount: number;
+  setAmount: (v: number) => void;
   id: number;
   setId: (v: number) => void;
   data: ViewDetailsData;
@@ -21,6 +23,7 @@ export const ViewDetailsContext = createContext<ViewDetailsContextType | null>(n
 
 export const ViewDetailsProvider = ({ children }: { children: React.ReactNode }) => {
   const [details, setDetails] = useState(false);
+  const [amount, setAmount] = useState(1);
   const [id, setId] = useState(0);
   const [data, setData] = useState<ViewDetailsData>({
     img: "",
@@ -31,7 +34,7 @@ export const ViewDetailsProvider = ({ children }: { children: React.ReactNode })
 
   return (
     <ViewDetailsContext.Provider
-      value={{ details, setDetails, id, setId, data, setData }}
+      value={{ details, setDetails, amount, setAmount, id, setId, data, setData }}
     >
       {children}
     </ViewDetailsContext.Provider>
