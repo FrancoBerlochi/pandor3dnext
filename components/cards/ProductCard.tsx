@@ -80,47 +80,57 @@ const ProductCard = ({ index, img, tittle, size }) => {
         />
       </div>
       <div className="max-md:mt-auto max-md:mx-2 max-md:mb-12 px-4">
-        <p className="text-2xl mt-8 dark:text-white font-bold">{tittle}</p>
-        <div className="flex justify-between items-center">
-          <p className="text-cyan-500 text-xl dark:text-[hsl(41,98%,51%)]">
-            {size} cm
-          </p>
-
-          <div className="flex items-center justify-between bg-black/5 rounded-full px-5 py-3 w-64 shadow-md">
-            <span className="text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">
-              Cantidad
-            </span>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => set(amount - 1)}
-                disabled={amount <= MIN}
-                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
-              >
-                −
-              </button>
-
-              <input
-                type="number"
-                min={MIN}
-                max={MAX}
-                value={amount}
-                onChange={(e) => set(Number(e.target.value))}
-                className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none
-                  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
-
-              <button
-                onClick={() => set(amount + 1)}
-                disabled={amount >= MAX}
-                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
-              >
-                +
-              </button>
-            </div>
+        <div className="flex justify-between mt-8">
+          <div className="flex flex-col">
+            <p className="text-2xl dark:text-white font-bold">{tittle}</p>
+            <p className="text-cyan-500 text-xl dark:text-[hsl(41,98%,51%)]">
+              {size} cm
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <p className="text-gray-600">COLORES DISPONIBLES:</p>
+            <ul className="flex gap-2 mt-1">
+              <li className="w-8 h-8 bg-red-400 rounded-md"></li>
+              <li className="w-8 h-8 bg-yellow-400 rounded-md"></li>
+              <li className="w-8 h-8 bg-green-400 rounded-md"></li>
+              <li className="w-8 h-8 bg-blue-400 rounded-md"></li>
+            </ul>
           </div>
         </div>
+        
+        <div className="flex items-center justify-between mt-6 bg-black/5 rounded-full px-5 py-3 w-64 shadow-md mx-auto">
+          <span className="text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">
+            Cantidad
+          </span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => set(amount - 1)}
+              disabled={amount <= MIN}
+              className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+            >
+              −
+            </button>
 
-        <div className="flex flex-col gap-4 xl:mt-12 w-[80%] mx-auto">
+            <input
+              type="number"
+              min={MIN}
+              max={MAX}
+              value={amount}
+              onChange={(e) => set(Number(e.target.value))}
+              className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none
+                  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            />
+
+            <button
+              onClick={() => set(amount + 1)}
+              disabled={amount >= MAX}
+              className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+            >
+              +
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 xl:mt-6 w-[80%] mx-auto">
           <button
             className="bg-cyan-500 border dark:bg-[hsl(41,98%,51%)] dark:hover:text-[hsl(41,98%,51%)] dark:hover:bg-[#333] dark:hover:border-[hsl(41,98%,51%)] text-white rounded-2xl py-2 cursor-pointer hover:bg-cyan-200 hover:text-cyan-600 hover:border-cyan-500 transition-colors duration-300"
             onClick={orderStorage}

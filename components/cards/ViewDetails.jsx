@@ -56,10 +56,10 @@ const ViewDetails = ({ order }) => {
         >
           X
         </button>
-        <div className="w-[80%] flex items-center justify-center bg-gray-200">
+        <div className="w-full flex items-center justify-center bg-gray-200">
           <img
             src={data.img}
-            className="w-[95%] h-[50vh] bg-white  rounded-xl"
+            className="w-[95%] h-[50vh] bg-white object-cover  rounded-xl"
             alt="producto"
           />
         </div>
@@ -127,7 +127,7 @@ const ViewDetails = ({ order }) => {
 
             {/* Botón agregar */}
             <button
-              className="flex items-center gap-2 px-6 py-2 bg-cyan-500 lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:p-4 rounded-4xl"
+              className="flex items-center text-white gap-2 px-6 py-2 bg-cyan-500 lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:p-4 rounded-4xl"
               onClick={order}
             >
               <ShoppingCart className="w-6 h-6" />
