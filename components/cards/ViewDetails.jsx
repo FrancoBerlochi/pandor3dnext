@@ -34,10 +34,7 @@ const ViewDetails = ({ order }) => {
             {data.size} cm
           </p>
           <p className="text-xl max-md:text-[1rem] max-md:w-full max-md:mb-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea
-            voluptate quasi, nemo cumque eos, officiis error non optio libero
-            doloribus inventore cupiditate. Distinctio quasi odio id eius
-            voluptate doloribus provident?
+            
           </p>
           <div className="flex lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-8">
             <button

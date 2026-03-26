@@ -4,8 +4,9 @@ import logo from "@/public/logo.jpg";
 import darkLogo from "@/public/logoDark.png";
 import HomeCard from "../components/cards/HomeCard";
 import Header from "../components/cards/Header";
+import SwiperComponent from "../components/ui/SwiperComponent"
 import { topCero } from "../lib/index";
-import { ArrowRight, Verified, Rocket } from "lucide-react";
+import { ArrowRight, Verified, Rocket, LayoutGrid } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import linke from "@/public/linkedin.png";
@@ -85,6 +86,8 @@ const homeCards = [
   },
 ];
 
+
+
 const HomePage = () => {
   const cardsToShow = homeCards.map((homeCard) => (
     <HomeCard
@@ -151,6 +154,9 @@ const HomePage = () => {
             {cardsToShow}
           </article>
         </section>
+        {/* <section>
+          <SwiperComponent></SwiperComponent>
+        </section> */}
         <section className="border-2  bg-sky-400 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-white max-md:text-2xl">
@@ -160,14 +166,24 @@ const HomePage = () => {
               Convertimos tus ideas en realidad. Contactanos y hablemos sobre tu
               proyecto personalizado.
             </p>
-            <Link
-              href="/personalizar"
-              className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
-              onClick={topCero}
-            >
-              Personalizá tu diseño
-              <Rocket></Rocket>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                href="/personalizar"
+                className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+                onClick={topCero}
+              >
+                Personalizá tu diseño
+                <Rocket></Rocket>
+              </Link>
+              <p className="mt-8">O</p>
+              <Link
+                href="/productos"
+                className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+              >
+                Ver todos los productos
+                <LayoutGrid></LayoutGrid>
+              </Link>
+            </div>
           </div>
         </section>
       </main>
@@ -178,7 +194,7 @@ const HomePage = () => {
               <img
                 src={resolvedTheme === "dark" ? darkLogo.src : logo.src}
                 alt="Logo"
-                 className="w-8 h-8"
+                className="w-8 h-8"
               />
               <h3 className="text-xl  dark:text-white max-md:text-[1.1rem]">
                 PANDOR3D

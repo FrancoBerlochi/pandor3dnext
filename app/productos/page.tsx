@@ -1,15 +1,16 @@
-"use client"
+"use client";
 import Header from "../../components/cards/Header";
 import { useState } from "react";
 import ProductCard from "../../components/cards/ProductCard";
-import  Link from "next/link";
+import Link from "next/link";
+import { Rocket } from "lucide-react";
 import { topCero } from "../../lib/index";
 
 const Products = () => {
   const products = [
     {
       id: 1,
-      img: "src/assets/rex.jpg",
+      img: "/rex.jpg",
       tittle: "T-Rex esqueleto",
       size: "20 x 50",
     },
@@ -114,21 +115,22 @@ const Products = () => {
             </button>
           </div>
         )}
-        <section className="border-2 border-blue-200 dark:border-[hsl(41,98%,71%)] dark:text-white rounded-xl mt-40 flex justify-center mx-auto w-[90vw] shadow-2xs">
-          <div className=" flex flex-col justify-center items-center py-16">
-            <h2 className="text-4xl font-semibold max-md:text-[1.4rem]">
+        <section className="border-2  bg-sky-400 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
+          <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
+            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-white max-md:text-2xl">
               ¿No encontrás lo que buscás?
             </h2>
-            <p className="text-gray-600 text-xl mt-8 w-220 text-center dark:text-gray-300 max-md:text-[1rem] max-md:w-fit">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-300 max-md:text-[1.1rem] max-md:text-center">
               Podemos imprimir cualquier diseño que tengas en mente. Contactanos
-              para un presupuesto personalizado
+              para un presupuesto personalizado.
             </p>
             <Link
               href="/personalizar"
-              className="mt-8 bg-cyan-500 dark:bg-[hsl(41,98%,51%)] text-white rounded-2xl px-4 py-2 hover:opacity-90"
+              className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               onClick={topCero}
             >
               Solicitá tu diseño
+              <Rocket></Rocket>
             </Link>
           </div>
         </section>
