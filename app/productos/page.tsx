@@ -69,12 +69,13 @@ const Products = () => {
       size: "",
     },
   ];
-
+  const [selected, setSelected] = useState("todos")
+  
   const handleCharge = () => {
     setCount((prev) => prev + 3);
     setTimeout(() => {
       window.scrollBy({
-        top: 300,
+        top: 500,
         behavior: "smooth",
       });
     }, 100);
@@ -94,27 +95,45 @@ const Products = () => {
             Explorá nuestra colección de impresiones 3D
           </h2>
         </div>
-        <div className="grid grid-cols-3 gap-4 mx-12 max-md:grid-cols-1 max-md:mx-0">
-          {products.slice(0, count).map((prod) => (
-            <ProductCard
-              key={prod.id}
-              index={prod.id}
-              img={prod.img}
-              tittle={prod.tittle}
-              size={prod.size}
-            />
-          ))}
-        </div>
-        {count < products.length && (
-          <div className="flex justify-center mt-12">
-            <button
-              className="px-4 py-2 rounded-2xl bg-orange-400 dark:bg-cyan-500 text-white hover:opacity-80 cursor-pointer"
-              onClick={handleCharge}
-            >
-              Cargar más
-            </button>
+        <section className="flex flex-col">
+          <div className="flex justify-between mx-12">
+            <div className="flex gap-12">
+              <span
+                className={`px-4 py-1 rounded-2xl ${selected === "todos" ? `bg-sky-400` : ``}`}
+              >
+                Todos
+              </span>
+              <span className={`px-4 py-1 rounded-2xl`}>
+                Llaveros
+              </span>
+              <span className={`px-4 py-1 rounded-2xl`}>
+                Figuras
+              </span>
+            </div>
+            <span>busca</span>
           </div>
-        )}
+          <div className="grid grid-cols-3 gap-4 mx-12 max-md:grid-cols-1 max-md:mx-0">
+            {products.slice(0, count).map((prod) => (
+              <ProductCard
+                key={prod.id}
+                index={prod.id}
+                img={prod.img}
+                tittle={prod.tittle}
+                size={prod.size}
+              />
+            ))}
+          </div>
+          {count < products.length && (
+            <div className="flex justify-center mt-12">
+              <button
+                className="px-4 py-2 rounded-2xl bg-orange-400 dark:bg-cyan-500 text-white hover:opacity-80 cursor-pointer"
+                onClick={handleCharge}
+              >
+                Cargar más
+              </button>
+            </div>
+          )}
+        </section>
         <section className="border-2  bg-sky-400 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-white max-md:text-2xl">
