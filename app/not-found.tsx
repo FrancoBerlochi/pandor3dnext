@@ -1,6 +1,6 @@
 export default function NotFound() {
   return <div>
-    hola
+    hola dsadas
   </div>
 }
 
