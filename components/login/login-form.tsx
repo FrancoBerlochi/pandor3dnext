@@ -41,11 +41,11 @@ export function LoginForm({
         
         {/* CardHeader */}
         <div className="flex flex-col gap-1.5 p-6">
-          <h2 className="text-2xl font-semibold leading-tight tracking-tight text-gray-900">
+          <h2 className="text-2xl tracking-wider font-semibold leading-tight tracking-tight text-gray-900">
             Login
           </h2>
           <p className="text-sm text-gray-500">
-            Enter your email below to login to your account
+            Ingresá tu email
           </p>
         </div>
 
@@ -114,15 +114,7 @@ export function LoginForm({
               </button>
             </div>
 
-            <div className="mt-4 text-center text-sm text-gray-600">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/auth/sign-up"
-                className="font-medium text-gray-900 underline underline-offset-4 hover:text-gray-700"
-              >
-                Sign up
-              </Link>
-            </div>
+            
           </form>
         </div>
       </div>
