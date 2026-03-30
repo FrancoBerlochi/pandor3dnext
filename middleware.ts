@@ -4,9 +4,11 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function middleware(req: NextRequest) {
   const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
   const isLoginRoute = req.nextUrl.pathname.startsWith("/auth/login");
+  const isForgotPasswordRoute = req.nextUrl.pathname.startsWith(
+    "/auth/forgot-password",
+  );
 
   const res = NextResponse.next();
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
@@ -28,8 +30,8 @@ export async function middleware(req: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Si está logueado y va al login, redirigir a /admin
-  if (isLoginRoute && user) {
+  // Si está logueado y va al login o forgot-password, redirigir a /admin
+  if ((isLoginRoute || isForgotPasswordRoute) && user) {
     return NextResponse.redirect(new URL("/admin", req.url));
   }
 
@@ -42,5 +44,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/auth/login"],
+  matcher: ["/admin/:path*", "/auth/login", "/auth/forgot-password"],
 };
