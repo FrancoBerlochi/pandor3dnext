@@ -69,11 +69,19 @@ const ViewDetails = ({ order }) => {
           <h3 className="text-6xl mb-8 font-semibold max-md:mb-6 w-60">
             {data.title}
           </h3>
-          <div className="flex flex-col">
-            <p className="text-gray-600">DIMENSIONES</p>
-            <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
-              {data.size} cm
-            </p>
+          <div className="flex gap-6">
+            <div className="flex flex-col">
+              <p className="text-gray-600">DIMENSIONES</p>
+              <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
+                {data.size} cm
+              </p>
+            </div>
+            <div className="flex flex-col">
+              <p className="text-gray-600">MATERIAL</p>
+              <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
+                {data.size} cm
+              </p>
+            </div>
           </div>
           <div className="flex flex-col">
             <p className="text-gray-600">COLORES DISPONIBLES:</p>
