@@ -6,10 +6,11 @@ import HomeCard from "../components/cards/HomeCard";
 import Header from "../components/cards/Header";
 import SwiperComponent from "../components/ui/SwiperComponent"
 import { topCero } from "../lib/index";
-import { ArrowRight, Verified, Rocket, LayoutGrid } from "lucide-react";
+import { ArrowRight, Verified, Rocket, LayoutGrid, Share2, Check,Mail, Phone } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import linke from "@/public/linkedin.png";
+import { useState } from "react";
 
 const homeCards = [
   {
@@ -86,8 +87,6 @@ const homeCards = [
   },
 ];
 
-
-
 const HomePage = () => {
   const cardsToShow = homeCards.map((homeCard) => (
     <HomeCard
@@ -97,9 +96,15 @@ const HomePage = () => {
       text={homeCard.text}
     />
   ));
-  
+  const [copied, setCopied] = useState(false)
   const { resolvedTheme } = useTheme();
 
+   const copy = async () => {
+    await navigator.clipboard.writeText("https://www.pandor3d.com.ar");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+   };
+  
   return (
     <div id="inicio" className="">
       <Header></Header>
@@ -200,42 +205,53 @@ const HomePage = () => {
                 PANDOR3D
               </h3>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 max-md:text-[1rem]">
-              impresiones 3D de calidad para dar vida a tus diseños
+            <p className="text-gray-600 w-60 text-sm dark:text-gray-300 max-md:text-[1rem]">
+              impresiones 3D de calidad para dar vida a tus diseños de manera
+              profesional.
             </p>
+            <div
+              className={`flex mt-1 w-fit rounded-2xl p-1 cursor-pointer ${copied ? "bg-green-300" : "bg-gray-200"}`}
+              onClick={copy}
+            >
+              {copied ? <Check></Check> : <Share2></Share2>}
+            </div>
           </div>
-          <div className="flex flex-col max-md:ml-4">
-            <h3 className=" dark:text-white max-md:text-[1.1rem]">Enlaces</h3>
+          <div className="flex flex-col max-md:ml-4 gap-6">
+            <h3 className=" dark:text-white text-xl max-md:text-[1.1rem] tracking-wider">
+              Explorar
+            </h3>
             <Link
               onClick={topCero}
               href="/productos"
-              className="text-gray-600 hover:text-cyan-500 hover:opacity-70 dark:text-gray-300 dark:hover:text-[hsl(41,98%,70%)] max-md:text-[1rem]"
+              className="text-gray-600 text-sm hover:text-cyan-500 hover:opacity-70 dark:text-gray-300 dark:hover:text-[hsl(41,98%,70%)] max-md:text-[1rem]"
             >
               Productos
             </Link>
             <Link
               onClick={topCero}
               href="/personalizar"
-              className="text-gray-600 hover:text-cyan-500 hover:opacity-70 dark:text-gray-300 dark:hover:text-[hsl(41,98%,70%)] max-md:text-[1rem]"
+              className="text-gray-600 text-sm hover:text-cyan-500 hover:opacity-70 dark:text-gray-300 dark:hover:text-[hsl(41,98%,70%)] max-md:text-[1rem]"
             >
               Personalizar
             </Link>
             <Link
               onClick={topCero}
               href="/contacto"
-              className="text-gray-600 hover:text-cyan-500 hover:opacity-70 dark:text-gray-300 dark:hover:text-[hsl(41,98%,70%)] max-md:text-[1rem]"
+              className="text-gray-600 text-sm hover:text-cyan-500 hover:opacity-70 dark:text-gray-300 dark:hover:text-[hsl(41,98%,70%)] max-md:text-[1rem]"
             >
               Contacto
             </Link>
           </div>
           <hr className="max-md:block hidden w-[90vw] mx-auto border-[hsl(41,98%,51%)]" />
-          <div className="flex flex-col max-md:text-center">
-            <h3 className=" dark:text-white max-md:text-[1.1rem]">Contacto</h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              Email: pandor3d@gmail.com
+          <div className="flex flex-col max-md:text-center gap-4">
+            <h3 className=" dark:text-white text-xl max-md:text-[1.1rem] tracking-wider">
+              Contacto
+            </h3>
+            <p className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <Mail className="text-sky-400"/> pandor3d@gmail.com
             </p>
-            <p className="text-gray-600 dark:text-gray-300">
-              WhatsApp: +54 numero de sergio
+            <p className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <Phone className="text-sky-400"/> +54 numero de sergio
             </p>
           </div>
         </div>
