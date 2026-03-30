@@ -117,7 +117,7 @@ const HomePage = () => {
             <h1 className="text-9xl font-bold dark:text-white max-md:text-6xl">
               PANDOR3D
             </h1>
-            <div className="w-120 border-l-4 border-[#5bacf6] pl-4 mt-4 dark:border-[hsl(41,98%,51%)] max-md:w-[90vw]">
+            <div className="w-120 border-l-4 border-sky-400 pl-4 mt-4 dark:border-[hsl(41,98%,51%)] max-md:w-[90vw]">
               <h2 className="text-3xl font-semibold dark:text-white max-md:text-xl">
                 Impresiones por stock y a pedido
               </h2>
@@ -130,14 +130,14 @@ const HomePage = () => {
               <Link
                 onClick={topCero}
                 href="/productos"
-                className="flex gap-4 items-center py-2 px-6 rounded-2xl bg-[#5bacf6] text-white hover:opacity-90 dark:bg-[hsl(41,98%,51%)]"
+                className="flex gap-4 items-center py-2 px-6 rounded-2xl bg-sky-400 text-white hover:opacity-90 dark:bg-[hsl(41,98%,51%)]"
               >
                 Ver Productos
                 <ArrowRight></ArrowRight>
               </Link>
               <Link
                 href="/personalizar"
-                className="py-2 px-6 rounded-2xl bg-white text-[#5bacf6] border-1 border-[#5bacf6] hover:brightness-95 dark:bg-[#3a3a3a] dark:border-[hsl(41,98%,51%)] dark:text-[hsl(41,98%,51%)]"
+                className="py-2 px-6 rounded-2xl bg-white text-sky-400 border-1 border-sky-400 hover:brightness-95 dark:bg-[#3a3a3a] dark:border-[hsl(41,98%,51%)] dark:text-[hsl(41,98%,51%)]"
               >
                 Personalizar
               </Link>

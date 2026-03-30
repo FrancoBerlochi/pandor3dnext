@@ -157,7 +157,7 @@ const Header = () => {
       </nav>
       <Link
         href="/contacto"
-        className="dark:bg-[hsl(41,95%,50%)] mr-8 bg-cyan-500 text-white py-2 px-4 rounded-xl hover:opacity-90 max-md:hidden"
+        className="dark:bg-[hsl(41,95%,50%)] mr-8 bg-sky-400 text-white py-2 px-4 rounded-xl hover:opacity-90 max-md:hidden"
       >
         Contacto
       </Link>

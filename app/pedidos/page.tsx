@@ -109,7 +109,7 @@ const Order = () => {
                 <div className="mt-6 max-md:flex max-md:justify-center">
                   <button
                     onClick={sendMsg}
-                    className=" border-1 border-cyan-500 rounded-2xl p-4 bg-cyan-500 dark:border-[hsl(41,98%,51%)] dark:bg-[hsl(41,98%,51%)] dark:hover:bg-[hsl(41,98%,41%)] text-white hover:bg-cyan-600 cursor-pointer"
+                    className=" border-1 border-cyan-500 rounded-2xl p-4 bg-sky-400 dark:border-[hsl(41,98%,51%)] dark:bg-[hsl(41,98%,51%)] dark:hover:bg-[hsl(41,98%,41%)] text-white hover:bg-cyan-600 cursor-pointer"
                   >
                     Enviar Pedidos
                   </button>

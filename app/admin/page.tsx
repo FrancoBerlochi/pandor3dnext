@@ -1,7 +1,7 @@
-export default function Admin() {
-  return <>
-    <main>
-      a
-    </main>
-  </>
+import { requireAdmin } from "@/lib/auth/requireAdmin";
+
+export default async function AdminPage() {
+  await requireAdmin();
+
+  return <div>Admin</div>;
 }
