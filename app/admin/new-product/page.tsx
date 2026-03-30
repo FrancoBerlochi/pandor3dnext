@@ -1,5 +1,5 @@
-import git from "@/public/github.png"
-import { PenLine } from "lucide-react";
+import git from "@/public/github.png";
+import { PenLine, Hammer } from "lucide-react";
 
 export default function NewProduct() {
   return (
@@ -56,9 +56,31 @@ export default function NewProduct() {
           </div>
         </article>
       </section>
-      <section className="w-[80%] bg-amber-200">
-        <article>
-
+      <section className="w-[80%] mt-12">
+        <article className="w-[60%] pt-6 bg-white">
+          <h2 className="text-3xl ml-12 mb-6 flex gap-3  items-center tracking-wide">
+            <Hammer className="text-sky-500"></Hammer> Especificaciones Técnicas
+          </h2>
+          <section>
+            <form>
+              <div>
+                <label></label>
+                <input type="text" />
+              </div>
+              <div>
+                <label></label>
+                <input type="text" />
+              </div>
+              <div>
+                <label></label>
+                <input type="text" />
+              </div>
+              <div>
+                <label></label>
+                <input type="text" />
+              </div>
+            </form>
+          </section>
         </article>
         <article>
           
