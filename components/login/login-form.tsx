@@ -13,7 +13,6 @@ export function LoginForm({
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,13 +79,13 @@ export function LoginForm({
                     htmlFor="password"
                     className="text-sm font-medium text-gray-700"
                   >
-                    Password
+                    Contraseña
                   </label>
                   <Link
                     href="/auth/forgot-password"
                     className="text-sm text-gray-500 underline-offset-4 hover:underline"
                   >
-                    Forgot your password?
+                    Olvidaste tu contraseña?
                   </Link>
                 </div>
                 <input
