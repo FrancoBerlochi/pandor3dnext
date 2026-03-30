@@ -7,7 +7,7 @@ export default async function AdminPage() {
 
   return (
     <>
-      <main className="flex w-full bg-gray-400/15">
+      <main className="flex w-full bg-gray-400/15 min-h-screen">
         <AdminDashboard></AdminDashboard>
       </main>
     </>
