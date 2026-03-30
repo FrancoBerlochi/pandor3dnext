@@ -1,5 +1,5 @@
 "use client" 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import  Link  from "next/link";
 import Header from "../../components/cards/Header";
 import OrderSummaryCard from "../../components/cards/OrderSummaryCard";
@@ -14,10 +14,24 @@ interface OrderItem {
 }
 
 const Order = () => {
-
+  
   const [orderList, setOrderList] = useState<OrderItem[]>(
     JSON.parse(localStorage.getItem("products") ?? "[]"),
   );
+
+  
+  const handleAmount = (tittle: string, amount: number) => {
+    setOrderList(() => {
+      const existing = orderList.find((p) => p.title === tittle);
+      if (existing) {
+        return orderList.map((p) =>
+          p.title === tittle ? { ...p, amount: amount } : p,
+        );
+      }
+      return [...orderList];
+    });
+  };
+  
 
   const handleDelete = (title: string) => {
     const updated = orderList.filter((p) => p.title !== title);
@@ -42,17 +56,18 @@ const Order = () => {
     window.open(`https://wa.me/5493402524738?text=${txt}`);
   };
 
+   useEffect(() => {
+      localStorage.setItem("products", JSON.stringify(orderList));
+   }, [orderList]);
+  
   return (
     <div id="inicio" className="dark:bg-[#333] bg-sky-50/60">
       <Header></Header>
       <main className="flex flex-col pt-28 h-screen w-[60vw] mx-auto max-md:mx-0 max-md:h-fit">
-        <h1 className="text-6xl font-semibold dark:text-white max-md:ml-16 max-md:w-fit">
-          Pedidos
+        <h1 className="text-7xl my-4 font-semibold dark:text-white max-md:ml-16 max-md:w-fit">
+          <span className=" border-b-sky-400 border-b-4 ">MIS</span> PEDIDOS
         </h1>
-        <h3 className="text-gray-600 dark:text-gray-300 max-md:ml-18 max-md:w-40">
-          productos pedidos
-        </h3>
-        <section className="grid grid-cols-3 gap-4 mt-10 max-md:grid-cols-1 max-md:w-[100vw] ">
+        <section className="grid grid-cols-3 gap-4 mt-4 max-md:grid-cols-1 max-md:w-[100vw] ">
           <div className="col-span-2 max-md:order-1 max-md:mb-12 max-md:w-[98vw]">
             {orderList.length === 0 ? (
               <div className="h-[60vh] bg-white shadow-2xs flex flex-col justify-center items-center">
@@ -86,6 +101,7 @@ const Order = () => {
                       title={ol.title}
                       size={ol.size}
                       amount={ol.amount}
+                      handleAmount={handleAmount}
                       refresh={handleDelete}
                     ></ProductCardOrder>
                   ))}

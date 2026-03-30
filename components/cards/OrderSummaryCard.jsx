@@ -1,8 +1,8 @@
 const OrderSummaryCard = () => {
   return (
-    <div className=" flex flex-col max-md:mb-8 max-md:order-1 max-md:">
-      <div className="flex flex-col border-2 border-gray-200 dark:border-[#111] rounded-2xl mx-2 shadow-xl ">
-        <h3 className="text-xl font-semibold mt-4 ml-4 dark:text-white">
+    <div className=" flex flex-col  max-md:mb-8 max-md:order-1 max-md:">
+      <div className="flex flex-col border-2 bg-white border-gray-200 dark:border-[#111] rounded-2xl mx-2 shadow-xl ">
+        <h3 className="text-xl tracking-wider font-semibold mt-4 ml-4 dark:text-white">
           Proceso de Pedido
         </h3>
         <ul className="pl-8 mt-8 mb-16 dark:text-white">
@@ -101,7 +101,7 @@ const OrderSummaryCard = () => {
         </ul>
       </div>
       <div className="flex flex-col items-center border-2 border-cyan-500 dark:border-[hsl(41,98%,71%)] rounded-2xl mt-8 mx-2 bg-blue-100 dark:bg-[hsl(41,78%,41%)]">
-        <h3 className="mt-6 text-xl font-semibold dark:text-white">
+        <h3 className="mt-6 tracking-wider text-xl font-semibold dark:text-white">
           ¿Necesitás ayuda?
         </h3>
         <p className="text-gray-600 text-md text-center mt-6 dark:text-gray-200">

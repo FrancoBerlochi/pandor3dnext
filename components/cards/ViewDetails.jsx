@@ -18,17 +18,17 @@ const ViewDetails = ({ order }) => {
     if (spanRef.current) spanRef.current.textContent = String(clamped);
   };
 
-  const handleBlur = () => {
-    const raw = Number(spanRef.current?.textContent ?? amount);
-    set(isNaN(raw) ? amount : raw);
-  };
+  // const handleBlur = () => {
+  //   const raw = Number(spanRef.current?.textContent ?? amount);
+  //   set(isNaN(raw) ? amount : raw);
+  // };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") { e.preventDefault(); spanRef.current?.blur(); }
-    if (!/[\d]/.test(e.key) && !["Backspace", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)) {
-      e.preventDefault();
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Enter") { e.preventDefault(); spanRef.current?.blur(); }
+  //   if (!/[\d]/.test(e.key) && !["Backspace", "ArrowLeft", "ArrowRight", "Tab"].includes(e.key)) {
+  //     e.preventDefault();
+  //   }
+  // };
 
    useEffect(() => {
      if (spanRef.current && spanRef.current.textContent !== String(amount)) {
