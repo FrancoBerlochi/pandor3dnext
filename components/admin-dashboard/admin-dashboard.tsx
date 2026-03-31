@@ -60,14 +60,40 @@ const productos = [
   },
 ];
 
-export default function AdminDashboard() {
-  const [search, setSearch] = useState("");
+interface ColorRelation {
+  colors: {
+    name: string;
+    hex_code: string;
+  };
+}
 
-  const filtrados = productos.filter(
-    (p) =>
-      p.titulo.toLowerCase().includes(search.toLowerCase()) ||
-      p.categoria.toLowerCase().includes(search.toLowerCase()),
-  );
+interface Producto {
+  id: string;
+  title: string;
+  description: string | null;
+  image_url: string | null;
+  height_cm: number | null;
+  product_categories: { name: string } | null;
+  product_materials: { name: string } | null;
+  product_states: { name: string } | null;
+  colores: ColorRelation[];
+}
+
+interface AdminDashboardProps {
+  productosIniciales: Producto[];
+}
+
+export default function AdminDashboard({ productosIniciales }: AdminDashboardProps) {
+  const [search, setSearch] = useState("");
+  console.log(productosIniciales)
+
+  const filtrados = productosIniciales.filter((p) => {
+    const query = search.toLowerCase();
+    return (
+      p.title.toLowerCase().includes(query) ||
+      p.product_categories?.name.toLowerCase().includes(query)
+    );
+  });
 
   return (
     <div className="w-full">
@@ -128,35 +154,45 @@ export default function AdminDashboard() {
                 >
                   <li className="w-16">
                     <img
-                      src={p.img}
-                      alt={p.titulo}
+                      src={p.image_url || "https://placehold.co/48x48"}
+                      alt={p.title}
                       className="w-16 h-16 rounded-md object-cover"
                     />
                   </li>
-                  <li className="w-32 font-medium text-gray-800">{p.titulo}</li>
-                  <li className="w-48 text-gray-500">{p.descripcion}</li>
-                  <li className="w-24 text-gray-600">{p.categoria}</li>
-                  <li className="w-20 text-gray-600">{p.material}</li>
-                  <li className="w-16 text-gray-600">{p.tamaño}</li>
+                  <li className="w-32 font-medium text-gray-800">{p.title}</li>
+                  <li className="w-48 text-gray-500 line-clamp-2">
+                    {p.description}
+                  </li>
+                  <li className="w-24 text-gray-600">
+                    {p.product_categories?.name}
+                  </li>
+                  <li className="w-20 text-gray-600">
+                    {p.product_materials?.name}
+                  </li>
+                  <li className="w-16 text-gray-600">{p.height_cm}cm</li>
+
+                  {/* Mapeo de colores (basado en la relación intermedia) */}
                   <li className="w-28 flex flex-wrap gap-1">
-                    {p.colores.map((c) => (
+                    {p.colores?.map((item) => (
                       <span
-                        key={c}
-                        className="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full"
+                        key={item.colors.name}
+                        className="text-white text-[10px] px-2 py-0.5 rounded-full"
+                        style={{ backgroundColor: item.colors.hex_code }}
                       >
-                        {c}
+                        {item.colors.name}
                       </span>
                     ))}
                   </li>
+
                   <li className="w-16">
                     <span
                       className={`text-xs font-medium px-2 py-1 rounded-full ${
-                        p.estado === "Activo"
+                        p.product_states?.name === "Activo"
                           ? "bg-green-100 text-green-700"
                           : "bg-red-100 text-red-600"
                       }`}
                     >
-                      {p.estado}
+                      {p.product_states?.name}
                     </span>
                   </li>
                 </ul>
