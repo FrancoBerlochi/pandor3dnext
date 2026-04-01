@@ -20,7 +20,7 @@ export default async function AdminPage() {
     `,
     )
     .order("created_at", { ascending: false });
-  console.log(productos)
+
 
   if (error) {
     console.error("Error cargando productos:", error);

@@ -51,10 +51,10 @@ const ViewDetails = ({ order }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute top-2 right-2 w-8 h-8 text-black hover:bg-gray-200  text-xl bg-gray-100  rounded-3xl cursor-pointer"
+          className="absolute top-2 right-2 w-9 h-9 flex justify-center items-center text-black hover:bg-gray-200 text-2xl bg-gray-100  rounded-3xl cursor-pointer"
           onClick={handleOpen}
         >
-          X
+          x
         </button>
         <div className="w-full flex items-center justify-center bg-gray-200">
           <img
@@ -93,9 +93,10 @@ const ViewDetails = ({ order }) => {
             </ul>
           </div>
           <p className="text-[18px] mt-12">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis
-            eveniet nulla perferendis omnis quod qui sit repellendus inventore,
-            quas debitis dolore id nisi. Optio, nisi.
+            Lleva la era prehistórica a tu escritorio con este modelo de{" "}
+            <span class="text-on-surface font-bold">precisión industrial</span>.
+            Una pieza maestra de ingeniería 3D con acabado premium y fidelidad
+            anatómica excepcional.
           </p>
           <p className="text-xl max-md:text-[1rem] max-md:w-full max-md:mb-5"></p>
           <div className="flex lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-4 items-center">

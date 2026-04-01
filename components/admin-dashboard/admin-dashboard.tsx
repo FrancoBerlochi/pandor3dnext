@@ -85,7 +85,7 @@ interface AdminDashboardProps {
 
 export default function AdminDashboard({ productosIniciales }: AdminDashboardProps) {
   const [search, setSearch] = useState("");
-  console.log(productosIniciales)
+
 
   const filtrados = productosIniciales.filter((p) => {
     const query = search.toLowerCase();
@@ -177,7 +177,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                       <span
                         key={item.colors.name}
                         className="text-white text-[10px] px-2 py-0.5 rounded-full"
-                        style={{ backgroundColor: item.colors.hex_code }}
+                        style={{ backgroundColor: "#"+item.colors.hex_code }}
                       >
                         {item.colors.name}
                       </span>
