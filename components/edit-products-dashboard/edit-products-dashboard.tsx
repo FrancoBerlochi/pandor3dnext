@@ -104,7 +104,7 @@ export default function EditProductsClient({
     }
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!selected) return;
     setLoading(true);
@@ -112,11 +112,11 @@ export default function EditProductsClient({
 
     const formData = new FormData(e.currentTarget);
     formData.set("image_url", imageUrl);
+    formData.set("badge_label", badge === "None" ? "" : badge);
 
     const result = await updateProduct(selected.id, formData, selectedColors);
 
     if (result.success) {
-      // Actualizamos la card en la grilla sin recargar
       setProducts((prev) =>
         prev.map((p) =>
           p.id === selected.id
