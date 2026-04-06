@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { PenLine, Grid2x2 } from "lucide-react";
+import { ThemeToggle } from "../ui/theme-toggle";
 import {
   createProduct,
   createCategory,
@@ -152,24 +153,28 @@ export default function NewProductForm({ categories, materials, states, colors }
   }
 
   return (
-    <main className="w-full min-h-screen bg-[#f0f2f5] pt-12 pb-16 flex justify-center">
+    <main className="w-full min-h-screen bg-[#f0f2f5] pt-12 pb-16 flex gap-12 flex-col items-center justify-center relative">
+      <div className="absolute top-6 right-6">
+        <ThemeToggle></ThemeToggle>
+      </div>
+      <h1 className="text-6xl">Crear Nuevo Producto</h1>
       <form
         ref={formRef}
         action={handleSubmit}
-        className="w-full max-w-4xl px-4 grid grid-cols-[1fr_280px] gap-4 items-start"
+        className="w-full max-w-4xl px-4 grid grid-cols-[1fr_280px] gap-4 items-center"
       >
         {/* ── Columna izquierda ── */}
         <div className="flex flex-col gap-4">
           {/* Product Identity */}
           <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <h2 className="flex items-center gap-2 text-base font-medium mb-5 text-gray-800">
-              <PenLine size={16} className="text-sky-500" />
-              Product identity
+            <h2 className="flex items-center gap-2 text-xl font-medium mb-5 text-gray-800 tracking-wider">
+              <PenLine size={16} className="text-sky-500 " />
+              Identidad del Producto
             </h2>
             <div className="flex flex-col gap-4">
               <div>
                 <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
-                  Title
+                  Título
                 </label>
                 <input
                   name="title"
@@ -181,7 +186,7 @@ export default function NewProductForm({ categories, materials, states, colors }
               </div>
               <div>
                 <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
-                  Description
+                  Descripción
                 </label>
                 <textarea
                   name="description"

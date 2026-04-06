@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
   const isLoginRoute = req.nextUrl.pathname.startsWith("/auth/login");
   const isForgotPasswordRoute = req.nextUrl.pathname.startsWith(

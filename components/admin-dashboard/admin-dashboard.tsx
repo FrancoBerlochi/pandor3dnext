@@ -1,64 +1,65 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-
-const productos = [
-  {
-    id: 1,
-    img: "https://placehold.co/48x48",
-    titulo: "Figura Dragon",
-    descripcion: "Figura impresa en resina de alta calidad",
-    categoria: "Figuras",
-    material: "Resina",
-    tamaño: "15cm",
-    colores: ["Rojo", "Negro"],
-    estado: "Activo",
-  },
-  {
-    id: 2,
-    img: "https://placehold.co/48x48",
-    titulo: "Soporte Celular",
-    descripcion: "Soporte de escritorio articulado",
-    categoria: "Accesorios",
-    material: "PLA",
-    tamaño: "10cm",
-    colores: ["Blanco"],
-    estado: "Activo",
-  },
-  {
-    id: 3,
-    img: "https://placehold.co/48x48",
-    titulo: "Maceta Geométrica",
-    descripcion: "Maceta con diseño hexagonal moderno",
-    categoria: "Decoración",
-    material: "PETG",
-    tamaño: "12cm",
-    colores: ["Verde", "Gris"],
-    estado: "Inactivo",
-  },
-  {
-    id: 4,
-    img: "https://placehold.co/48x48",
-    titulo: "Llavero Robot",
-    descripcion: "Llavero articulado con forma de robot",
-    categoria: "Llaveros",
-    material: "PLA",
-    tamaño: "5cm",
-    colores: ["Azul", "Plateado"],
-    estado: "Activo",
-  },
-  {
-    id: 5,
-    img: "https://placehold.co/48x48",
-    titulo: "Caja Organizadora",
-    descripcion: "Caja con compartimentos para escritorio",
-    categoria: "Organización",
-    material: "ABS",
-    tamaño: "20cm",
-    colores: ["Negro"],
-    estado: "Activo",
-  },
-];
+import { PenLine} from "lucide-react"
+import { ThemeToggle } from "../ui/theme-toggle";
+// const productos = [
+//   {
+//     id: 1,
+//     img: "https://placehold.co/48x48",
+//     titulo: "Figura Dragon",
+//     descripcion: "Figura impresa en resina de alta calidad",
+//     categoria: "Figuras",
+//     material: "Resina",
+//     tamaño: "15cm",
+//     colores: ["Rojo", "Negro"],
+//     estado: "Activo",
+//   },
+//   {
+//     id: 2,
+//     img: "https://placehold.co/48x48",
+//     titulo: "Soporte Celular",
+//     descripcion: "Soporte de escritorio articulado",
+//     categoria: "Accesorios",
+//     material: "PLA",
+//     tamaño: "10cm",
+//     colores: ["Blanco"],
+//     estado: "Activo",
+//   },
+//   {
+//     id: 3,
+//     img: "https://placehold.co/48x48",
+//     titulo: "Maceta Geométrica",
+//     descripcion: "Maceta con diseño hexagonal moderno",
+//     categoria: "Decoración",
+//     material: "PETG",
+//     tamaño: "12cm",
+//     colores: ["Verde", "Gris"],
+//     estado: "Inactivo",
+//   },
+//   {
+//     id: 4,
+//     img: "https://placehold.co/48x48",
+//     titulo: "Llavero Robot",
+//     descripcion: "Llavero articulado con forma de robot",
+//     categoria: "Llaveros",
+//     material: "PLA",
+//     tamaño: "5cm",
+//     colores: ["Azul", "Plateado"],
+//     estado: "Activo",
+//   },
+//   {
+//     id: 5,
+//     img: "https://placehold.co/48x48",
+//     titulo: "Caja Organizadora",
+//     descripcion: "Caja con compartimentos para escritorio",
+//     categoria: "Organización",
+//     material: "ABS",
+//     tamaño: "20cm",
+//     colores: ["Negro"],
+//     estado: "Activo",
+//   },
+// ];
 
 interface ColorRelation {
   colors: {
@@ -77,6 +78,7 @@ interface Producto {
   product_materials: { name: string } | null;
   product_states: { name: string } | null;
   colores: ColorRelation[];
+  badge_label: string | null;
 }
 
 interface AdminDashboardProps {
@@ -85,8 +87,7 @@ interface AdminDashboardProps {
 
 export default function AdminDashboard({ productosIniciales }: AdminDashboardProps) {
   const [search, setSearch] = useState("");
-
-
+  const [loading, setLoading] = useState("");
   const filtrados = productosIniciales.filter((p) => {
     const query = search.toLowerCase();
     return (
@@ -101,7 +102,9 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
         <div className="flex w-full justify-between">
           <div className="flex w-320">
             <div className="flex-col ml-4">
-              <div className="">PANDOR3D</div>
+              <div className="w-fit border-r-4 font-semibold pr-1 border-sky-500">
+                PANDOR3D
+              </div>
               <p className="text-sky-500">Panel de Administrador</p>
             </div>
             <div className=" ml-32 lg:w-[40%]">
@@ -115,29 +118,41 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
               />
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
+            <div>
+              <ThemeToggle></ThemeToggle>
+            </div>
             <Link
               href="admin/edit-products"
-              className="p-2 px-4 mr-4 text-white rounded-2xl flex items-center bg-sky-500"
+              className="p-2 px-4 hover:brightness-90  text-white rounded-2xl flex items-center bg-sky-500"
+              onClick={() => setLoading("edit")}
             >
-              Editar Productos
+              <div className="flex gap-2">
+                {loading === "edit" ? "Cargando..." : `EDITAR PRODUCTOS`}
+                <PenLine></PenLine>
+              </div>
             </Link>
             <Link
               href="admin/new-product"
-              className="p-2 px-4 mr-4 text-white rounded-2xl flex items-center bg-sky-500"
+              className="py-1 px-2 mr-4 hover:brightness-90 text-white rounded-4xl flex w-32 text-[14px] text-center justify-center items-center bg-sky-500"
+              onClick={() => setLoading("new")}
             >
-              Nuevo Producto
+              {loading === "new" ? "Cargando..." : "NUEVO PRODUCTO"}
             </Link>
           </div>
         </div>
       </section>
 
       <section className="flex flex-col items-center">
-        <h1 className="text-center w-full text-6xl mt-12">
+        <h2 className="mt-12 text-xl text-sky-500 tracking-wide">
+          Gestión de Inventario
+        </h2>
+        <h1 className="text-center w-fit text-6xl relative">
           Lista De Productos
+          <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 rounded-xl"></span>
         </h1>
         <article className="w-full bg-white mt-4">
-          <p className="my-4 ml-4 text-xl font-medium">Catalogo Activo</p>
+          <p className="my-4 ml-4 text-xl font-semibold">Catálogo Activo</p>
           <ul className="flex justify-between bg-gray-400/15 mx-6 items-center mt-2 text-sm font-semibold text-gray-600  p-2">
             <li className="w-12">Img</li>
             <li className="w-32">Título</li>
@@ -160,12 +175,15 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                   key={p.id}
                   className="flex justify-between items-center py-3 text-sm"
                 >
-                  <li className="w-16">
+                  <li className="w-16 relative">
                     <img
                       src={p.image_url || "https://placehold.co/48x48"}
                       alt={p.title}
                       className="w-16 h-16 rounded-md object-cover"
                     />
+                    <div className="absolute top-1 letf-1 text-[9px] text-white bg-sky-500 rounded-md">
+                      {p.badge_label}
+                    </div>
                   </li>
                   <li className="w-32 font-medium text-gray-800">{p.title}</li>
                   <li className="w-48 text-gray-500 line-clamp-2">
@@ -207,6 +225,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
               ))
             )}
           </div>
+          <section></section>
         </article>
       </section>
     </div>
