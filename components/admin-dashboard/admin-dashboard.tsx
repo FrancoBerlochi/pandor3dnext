@@ -115,12 +115,20 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
               />
             </div>
           </div>
-          <Link
-            href="admin/new-product"
-            className="p-2 px-4 mr-4 text-white rounded-2xl flex items-center bg-sky-500"
-          >
-            Nuevo Producto
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="admin/edit-products"
+              className="p-2 px-4 mr-4 text-white rounded-2xl flex items-center bg-sky-500"
+            >
+              Editar Productos
+            </Link>
+            <Link
+              href="admin/new-product"
+              className="p-2 px-4 mr-4 text-white rounded-2xl flex items-center bg-sky-500"
+            >
+              Nuevo Producto
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -177,7 +185,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                       <span
                         key={item.colors.name}
                         className="text-white text-[10px] px-2 py-0.5 rounded-full"
-                        style={{ backgroundColor: "#"+item.colors.hex_code }}
+                        style={{ backgroundColor: "#" + item.colors.hex_code }}
                       >
                         {item.colors.name}
                       </span>

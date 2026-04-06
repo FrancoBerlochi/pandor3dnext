@@ -359,7 +359,7 @@ export default function NewProductForm({ categories, materials, states, colors }
               type="file"
               accept="image/png,image/jpeg,image/webp"
               className="hidden"
-              onChange={handleImageChange}  
+              onChange={handleImageChange}
             />
             <input name="image_url" type="hidden" value={imageUrl} />
             {/* Badge */}
