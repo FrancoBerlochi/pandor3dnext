@@ -98,14 +98,16 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
 
   return (
     <div className="w-full">
-      <section className="w-full bg-white py-4 shadow-2xs flex">
+      <section className="w-full bg-white dark:bg-dark3 py-4 shadow-2xs border-b-[0.5px] border-b-light dark:border-b-dark2 flex">
         <div className="flex w-full justify-between">
-          <div className="flex w-320">
+          <div className="flex w-7xl">
             <div className="flex-col ml-4">
-              <div className="w-fit border-r-4 font-semibold pr-1 border-sky-500">
+              <div className="w-fit border-r-4 font-semibold pr-1 border-sky-500 dark:border-[hsl(41,98%,45%)]">
                 PANDOR3D
               </div>
-              <p className="text-sky-500">Panel de Administrador</p>
+              <p className="text-sky-500 dark:text-[hsl(41,98%,65%)]">
+                Panel de Administrador
+              </p>
             </div>
             <div className=" ml-32 lg:w-[40%]">
               <input
@@ -124,7 +126,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
             </div>
             <Link
               href="admin/edit-products"
-              className="p-2 px-4 hover:brightness-90  text-white rounded-2xl flex items-center bg-sky-500"
+              className="p-2 px-4 hover:brightness-90  text-white rounded-2xl flex items-center bg-sky-500 dark:text-dark3 dark:bg-[hsl(41,98%,65%)]"
               onClick={() => setLoading("edit")}
             >
               <div className="flex gap-2">
@@ -134,7 +136,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
             </Link>
             <Link
               href="admin/new-product"
-              className="py-1 px-2 mr-4 hover:brightness-90 text-white rounded-4xl flex w-32 text-[14px] text-center justify-center items-center bg-sky-500"
+              className="py-1 px-2 mr-4 hover:brightness-90 text-white dark:text-dark3 dark:bg-[hsl(41,98%,65%)] rounded-4xl flex w-32 text-[14px] text-center justify-center items-center bg-sky-500"
               onClick={() => setLoading("new")}
             >
               {loading === "new" ? "Cargando..." : "NUEVO PRODUCTO"}
@@ -143,17 +145,17 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
         </div>
       </section>
 
-      <section className="flex flex-col items-center">
-        <h2 className="mt-12 text-xl text-sky-500 tracking-wide">
+      <section className="flex flex-col items-center dark:bg-dark2">
+        <h2 className="mt-12 text-xl text-sky-500 dark:text-[hsl(41,98%,65%)] tracking-wide">
           Gestión de Inventario
         </h2>
         <h1 className="text-center w-fit text-6xl relative">
           Lista De Productos
-          <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 rounded-xl"></span>
+          <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 dark:border-[hsl(41,98%,65%)] rounded-xl"></span>
         </h1>
-        <article className="w-full bg-white mt-4">
+        <article className="w-[98%] bg-white dark:bg-dark3 mt-4 shadow-2xs">
           <p className="my-4 ml-4 text-xl font-semibold">Catálogo Activo</p>
-          <ul className="flex justify-between bg-gray-400/15 mx-6 items-center mt-2 text-sm font-semibold text-gray-600  p-2">
+          <ul className="flex justify-between bg-gray-400/15 dark:text-white mx-6 items-center mt-2 text-sm font-semibold text-gray-600  p-2">
             <li className="w-12">Img</li>
             <li className="w-32">Título</li>
             <li className="w-48">Descripción</li>
@@ -166,7 +168,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
 
           <div className="flex flex-col mx-6">
             {filtrados.length === 0 ? (
-              <p className="text-center text-gray-400 py-8">
+              <p className="text-center text-gray-400 py-8 dark:text-gray-200">
                 No se encontraron productos.
               </p>
             ) : (
@@ -185,17 +187,17 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                       {p.badge_label}
                     </div>
                   </li>
-                  <li className="w-32 font-medium text-gray-800">{p.title}</li>
-                  <li className="w-48 text-gray-500 line-clamp-2">
+                  <li className="w-32 font-medium text-gray-800 dark:text-gray-100">{p.title}</li>
+                  <li className="w-48 text-gray-500 line-clamp-2 dark:text-gray-100">
                     {p.description}
                   </li>
-                  <li className="w-24 text-gray-600">
+                  <li className="w-24 text-gray-600 dark:text-gray-100">
                     {p.product_categories?.name}
                   </li>
-                  <li className="w-20 text-gray-600">
+                  <li className="w-20 text-gray-600 dark:text-gray-100">
                     {p.product_materials?.name}
                   </li>
-                  <li className="w-16 text-gray-600">{p.height_cm}cm</li>
+                  <li className="w-16 text-gray-600 dark:text-gray-100">{p.height_cm}cm</li>
 
                   {/* Mapeo de colores (basado en la relación intermedia) */}
                   <li className="w-28 flex flex-wrap gap-1">
@@ -214,8 +216,8 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                     <span
                       className={`text-xs font-medium px-2 py-1 rounded-full ${
                         p.product_states?.name === "Activo"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-600"
+                          ? "bg-green-100 text-green-700 dark:text-white dark:bg-green-700"
+                          : "bg-red-100 text-red-600 dark:text-white dark:bg-red-600"
                       }`}
                     >
                       {p.product_states?.name}

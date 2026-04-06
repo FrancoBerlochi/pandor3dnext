@@ -27,7 +27,7 @@ export default async function AdminPage() {
   }
 
   return (
-    <main className="flex w-full bg-gray-400/15 min-h-screen">
+    <main className="flex w-full bg-gray-400/15 dark:bg-dark2 min-h-screen">
       {/* Pasamos los datos al componente de cliente */}
       <AdminDashboard productosIniciales={productos || []} />
     </main>
