@@ -73,6 +73,8 @@ interface Producto {
   title: string;
   description: string | null;
   image_url: string | null;
+  length_cm: number | null;
+  width_cm: number | null;
   height_cm: number | null;
   product_categories: { name: string } | null;
   product_materials: { name: string } | null;
@@ -153,15 +155,15 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
           Lista De Productos
           <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 dark:border-[hsl(41,98%,65%)] rounded-xl"></span>
         </h1>
-        <article className="w-[98%] bg-white dark:bg-dark3 mt-4 rounded-2xl shadow-2xs">
+        <article className="w-[98%] bg-white dark:bg-dark3 mt-6 rounded-2xl shadow-2xs">
           <p className="my-4 ml-4 text-xl font-semibold">Catálogo Activo</p>
           <ul className="flex justify-between bg-gray-400/15 dark:text-white mx-6 items-center mt-2 text-sm font-semibold text-gray-600  p-2">
             <li className="w-12">Img</li>
             <li className="w-32">Título</li>
             <li className="w-48">Descripción</li>
-            <li className="w-24">Categoría</li>
-            <li className="w-20">Material</li>
-            <li className="w-16">Tamaño</li>
+            <li className="w-22">Categoría</li>
+            <li className="w-19">Material</li>
+            <li className="w-24">Tamaño</li>
             <li className="w-28">Colores</li>
             <li className="w-16">Estado</li>
           </ul>
@@ -193,13 +195,14 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                   <li className="w-48 text-gray-800 line-clamp-2 dark:text-gray-100">
                     {p.description}
                   </li>
-                  <li className="w-24 text-gray-800 dark:text-gray-100">
+                  <li className="w-22 text-gray-800 dark:text-gray-100">
                     {p.product_categories?.name}
                   </li>
-                  <li className="w-20 text-gray-800 dark:text-gray-100">
+                  <li className="w-19 text-gray-800 dark:text-gray-100">
                     {p.product_materials?.name}
                   </li>
-                  <li className="w-16 text-gray-800 dark:text-gray-100">
+                  <li className="w-24 text-gray-800 dark:text-gray-100">
+                    {p.length_cm}x{p.width_cm ? `${p.width_cm} x` : ""}
                     {p.height_cm}cm
                   </li>
 
