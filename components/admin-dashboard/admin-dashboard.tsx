@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { PenLine} from "lucide-react"
 import { ThemeToggle } from "../ui/theme-toggle";
 // const productos = [
@@ -89,6 +89,9 @@ interface AdminDashboardProps {
 
 export default function AdminDashboard({ productosIniciales }: AdminDashboardProps) {
   const [search, setSearch] = useState("");
+  const [clampedItems, setClampedItems] = useState<Set<string>>(new Set());
+  const [viewMore, setViewMore] = useState("");
+  const measuredIds = useRef<Set<string>>(new Set());
   const [loading, setLoading] = useState("");
   const filtrados = productosIniciales.filter((p) => {
     const query = search.toLowerCase();
@@ -97,6 +100,18 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
       p.product_categories?.name.toLowerCase().includes(query)
     );
   });
+
+  const handleViewMore = (id: string) => {
+    setViewMore(viewMore === id ? "" : id);
+  };
+ 
+ const descriptionRef = (id: string) => (el: HTMLDivElement | null) => {
+   if (!el || measuredIds.current.has(id)) return;
+   measuredIds.current.add(id);
+   if (el.scrollHeight > el.clientHeight) {
+     setClampedItems((prev) => new Set(prev).add(id));
+   }
+ };
 
   return (
     <div className="w-full">
@@ -192,8 +207,29 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                   <li className="w-32 font-medium text-gray-800 dark:text-gray-100">
                     {p.title}
                   </li>
-                  <li className="w-48 text-gray-800 line-clamp-2 dark:text-gray-100">
-                    {p.description}
+                  <li className={` w-48 text-gray-800 dark:text-gray-100`}>
+                    <div
+                      ref={descriptionRef(p.id)}
+                      className={`${viewMore === p.id ? "" : "line-clamp-1"}`}
+                    >
+                      {p.description}
+                    </div>
+                    {clampedItems.has(p.id) && viewMore !== p.id && (
+                      <div
+                        className="text-[10px] w-fit cursor-pointer"
+                        onClick={() => handleViewMore(p.id)}
+                      >
+                        Ver más.
+                      </div>
+                    )}
+                    {viewMore === p.id && (
+                      <div
+                        className="text-[10px] w-fit cursor-pointer"
+                        onClick={() => handleViewMore(p.id)}
+                      >
+                        Ver menos.
+                      </div>
+                    )}
                   </li>
                   <li className="w-22 text-gray-800 dark:text-gray-100">
                     {p.product_categories?.name}
