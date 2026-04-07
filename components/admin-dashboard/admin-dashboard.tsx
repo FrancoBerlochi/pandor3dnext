@@ -115,7 +115,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 id="search-input"
-                className="border border-gray-100 shadow-md dark:shadow-[#111] dark:border-stone-800 h-10 px-4 rounded-2xl w-full dark:bg-stone-900 dark:text-white"
+                className="border border-gray-100 outline-0 focus:border-sky-500 focus:border-2 dark:focus:border-[hsl(41,98%,65%)] shadow-md dark:shadow-[#111] dark:border-stone-800 h-10 px-4 rounded-2xl w-full dark:bg-stone-900 dark:text-white"
                 placeholder="🔍 Buscar inventario..."
               />
             </div>
@@ -153,7 +153,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
           Lista De Productos
           <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 dark:border-[hsl(41,98%,65%)] rounded-xl"></span>
         </h1>
-        <article className="w-[98%] bg-white dark:bg-dark3 mt-4 shadow-2xs">
+        <article className="w-[98%] bg-white dark:bg-dark3 mt-4 rounded-2xl shadow-2xs">
           <p className="my-4 ml-4 text-xl font-semibold">Catálogo Activo</p>
           <ul className="flex justify-between bg-gray-400/15 dark:text-white mx-6 items-center mt-2 text-sm font-semibold text-gray-600  p-2">
             <li className="w-12">Img</li>
@@ -183,21 +183,25 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                       alt={p.title}
                       className="w-16 h-16 rounded-md object-cover"
                     />
-                    <div className="absolute top-1 letf-1 text-[9px] text-white bg-sky-500 rounded-md">
+                    <div className="absolute top-1 letf-1 text-[9px] text-white bg-sky-500 dark:bg-[hsl(41,98%,45%)] dark:text-gray-800 rounded-md">
                       {p.badge_label}
                     </div>
                   </li>
-                  <li className="w-32 font-medium text-gray-800 dark:text-gray-100">{p.title}</li>
-                  <li className="w-48 text-gray-500 line-clamp-2 dark:text-gray-100">
+                  <li className="w-32 font-medium text-gray-800 dark:text-gray-100">
+                    {p.title}
+                  </li>
+                  <li className="w-48 text-gray-800 line-clamp-2 dark:text-gray-100">
                     {p.description}
                   </li>
-                  <li className="w-24 text-gray-600 dark:text-gray-100">
+                  <li className="w-24 text-gray-800 dark:text-gray-100">
                     {p.product_categories?.name}
                   </li>
-                  <li className="w-20 text-gray-600 dark:text-gray-100">
+                  <li className="w-20 text-gray-800 dark:text-gray-100">
                     {p.product_materials?.name}
                   </li>
-                  <li className="w-16 text-gray-600 dark:text-gray-100">{p.height_cm}cm</li>
+                  <li className="w-16 text-gray-800 dark:text-gray-100">
+                    {p.height_cm}cm
+                  </li>
 
                   {/* Mapeo de colores (basado en la relación intermedia) */}
                   <li className="w-28 flex flex-wrap gap-1">
