@@ -164,24 +164,27 @@ export default function NewProductForm({ categories, materials, states, colors }
         <h1 className="text-6xl relative">
           Crear Nuevo Producto
           <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 dark:border-[hsl(41,98%,65%)] rounded-xl"></span>
-        </h1> 
+        </h1>
       </div>
       <form
         ref={formRef}
         action={handleSubmit}
-        className="w-full max-w-4xl px-4 grid grid-cols-[1fr_280px] gap-4 items-center"
+        className="w-full max-w-4xl px-4 grid grid-cols-[1fr_280px] gap-4 items-center dark:bg-dark3"
       >
         {/* ── Columna izquierda ── */}
         <div className="flex flex-col gap-4">
           {/* Product Identity */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <h2 className="flex items-center gap-2 text-xl font-medium mb-5 text-gray-800 tracking-wider">
-              <PenLine size={16} className="text-sky-500 " />
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 dark:bg-dark3">
+            <h2 className="flex items-center gap-2 text-xl font-medium mb-5 text-gray-800 tracking-wider dark:text-white">
+              <PenLine
+                size={16}
+                className="text-sky-500 dark:text-[hsl(41,98%,65%)]"
+              />
               Identidad del Producto
             </h2>
             <div className="flex flex-col gap-4">
               <div>
-                <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                   Título
                 </label>
                 <input
@@ -189,32 +192,35 @@ export default function NewProductForm({ categories, materials, states, colors }
                   type="text"
                   required
                   placeholder="e.g. Aeronautical Bracket V4"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 transition-colors"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] transition-colors"
                 />
               </div>
               <div>
-                <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                   Descripción
                 </label>
                 <textarea
                   name="description"
                   rows={5}
                   placeholder="Describe the mechanical properties and intended use cases..."
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 transition-colors resize-none"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] transition-colors resize-none"
                 />
               </div>
             </div>
           </div>
 
           {/* Technical Specifications */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <h2 className="flex items-center gap-2 text-base font-medium mb-5 text-gray-800">
-              <Grid2x2 size={16} className="text-sky-500" />
-              Technical specifications
+          <div className="bg-white rounded-2xl border border-gray-200 p-6 dark:bg-dark3">
+            <h2 className="flex items-center gap-2 tracking-wider text-xl font-medium mb-5 text-gray-800 dark:text-gray-200">
+              <Grid2x2
+                size={16}
+                className="text-sky-500 dark:text-[hsl(41,98%,65%)]"
+              />
+              Especificaciones Técnicas
             </h2>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2 sm:col-span-1">
-                <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                   Dimensions (cm)
                 </label>
                 <div className="flex items-center gap-1">
@@ -224,7 +230,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                     step="0.1"
                     min="0"
                     placeholder="L"
-                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
                   />
                   <span className="text-gray-300 text-xs shrink-0">×</span>
                   <input
@@ -233,7 +239,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                     step="0.1"
                     min="0"
                     placeholder="W"
-                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
                   />
                   <span className="text-gray-300 text-xs shrink-0">×</span>
                   <input
@@ -242,19 +248,19 @@ export default function NewProductForm({ categories, materials, states, colors }
                     step="0.1"
                     min="0"
                     placeholder="H"
-                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                   Category
                 </label>
                 <div className="flex gap-2">
                   <select
                     name="category_id"
-                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white text-gray-700"
+                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
                   >
                     <option value="">Select Category</option>
                     {categoryList.map((c) => (
@@ -269,7 +275,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                       setNewName("");
                       setModal("category");
                     }}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 hover:text-sky-500 transition-colors text-gray-400"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 dark:hover:text-[hsl(41,98%,65%)] transition-colors text-gray-400 dark:text-gray-200"
                   >
                     <Plus size={16} />
                   </button>
@@ -277,13 +283,13 @@ export default function NewProductForm({ categories, materials, states, colors }
               </div>
 
               <div>
-                <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                   Material
                 </label>
                 <div className="flex gap-2">
                   <select
                     name="material_id"
-                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white text-gray-700"
+                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
                   >
                     <option value="">Select Material</option>
                     {materialList.map((m) => (
@@ -298,7 +304,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                       setNewName("");
                       setModal("material");
                     }}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 hover:text-sky-500 transition-colors text-gray-400"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 dark:hover:text-[hsl(41,98%,65%)] transition-colors text-gray-400 dark:text-gray-200"
                   >
                     <Plus size={16} />
                   </button>
@@ -306,12 +312,12 @@ export default function NewProductForm({ categories, materials, states, colors }
               </div>
 
               <div>
-                <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                   State
                 </label>
                 <select
                   name="state_id"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white text-gray-700"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
                 >
                   <option value="">Select State</option>
                   {states.map((s) => (
