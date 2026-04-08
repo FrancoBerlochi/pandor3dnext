@@ -153,11 +153,19 @@ export default function NewProductForm({ categories, materials, states, colors }
   }
 
   return (
-    <main className="w-full min-h-screen bg-[#f0f2f5] pt-12 pb-16 flex gap-12 flex-col items-center justify-center relative">
+    <main className="w-full min-h-screen bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16 flex gap-12 flex-col items-center justify-center relative">
       <div className="absolute top-6 right-6">
         <ThemeToggle></ThemeToggle>
       </div>
-      <h1 className="text-6xl">Crear Nuevo Producto</h1>
+      <div className="flex flex-col items-center">
+        <h2 className="text-xl text-sky-500 dark:text-[hsl(41,98%,65%)] tracking-wide">
+          Gestión de productos
+        </h2>
+        <h1 className="text-6xl relative">
+          Crear Nuevo Producto
+          <span className="absolute w-20 border-b-4 bottom-0 left-[calc(50%-40px)] border-sky-500 dark:border-[hsl(41,98%,65%)] rounded-xl"></span>
+        </h1> 
+      </div>
       <form
         ref={formRef}
         action={handleSubmit}
