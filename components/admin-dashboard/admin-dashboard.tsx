@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import { useState,useRef } from "react";
-import { PenLine, SlidersHorizontal, X, FunnelX} from "lucide-react";
+import { useState, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { PenLine, SlidersHorizontal, X, FunnelX } from "lucide-react";
 import { ThemeToggle } from "../ui/theme-toggle";
 // const productos = [
 //   {
@@ -83,41 +84,131 @@ interface Producto {
   badge_label: string | null;
 }
 
-interface AdminDashboardProps {
-  productosIniciales: Producto[];
+interface FilterOptions {
+  categories: string[];
+  materials: string[];
+  states: string[];
+  badges: string[];
 }
 
-export default function AdminDashboard({ productosIniciales }: AdminDashboardProps) {
-  const [search, setSearch] = useState("");
+interface ActiveFilters {
+  search: string;
+  categories: string[];
+  materials: string[];
+  states: string[];
+  badges: string[];
+}
+
+interface AdminDashboardProps {
+  productosIniciales: Producto[];
+  totalCount: number;
+  currentPage: number;
+  pageSize: number;
+  filterOptions: FilterOptions;
+  activeFilters: ActiveFilters;
+}
+
+export default function AdminDashboard({
+  productosIniciales,
+  totalCount,
+  currentPage,
+  pageSize,
+  filterOptions,
+  activeFilters,
+}: AdminDashboardProps) {
+  const router = useRouter();
+  const [showFilters, setShowFilters] = useState(false);
+  const [search, setSearch] = useState(activeFilters.search);
+  const [draftCategories, setDraftCategories] = useState<string[]>(
+    activeFilters.categories,
+  );
+  const [draftMaterials, setDraftMaterials] = useState<string[]>(
+    activeFilters.materials,
+  );
+  const [draftStates, setDraftStates] = useState<string[]>(
+    activeFilters.states,
+  );
+  const [draftBadges, setDraftBadges] = useState<string[]>(
+    activeFilters.badges,
+  );
+  const searchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const totalPages = Math.ceil(totalCount / pageSize);
   const [clampedItems, setClampedItems] = useState<Set<string>>(new Set());
   const [viewMore, setViewMore] = useState("");
   const measuredIds = useRef<Set<string>>(new Set());
   const [loading, setLoading] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-  const [filterCategories, setFilterCategories] = useState<string[]>([]);
-  const [filterMaterials, setFilterMaterials] = useState<string[]>([]);
-  const [filterStates, setFilterStates] = useState<string[]>([]);
-  const [filterBadges, setFilterBadges] = useState<string[]>([]);
-  const uniqueCategories = [
-    ...new Set(
-      productosIniciales.map((p) => p.product_categories?.name).filter(Boolean),
-    ),
-  ] as string[];
-  const uniqueMaterials = [
-    ...new Set(
-      productosIniciales.map((p) => p.product_materials?.name).filter(Boolean),
-    ),
-  ] as string[];
-  const uniqueStates = [
-    ...new Set(
-      productosIniciales.map((p) => p.product_states?.name).filter(Boolean),
-    ),
-  ] as string[];
-  const uniqueBadges = [
-    ...new Set(productosIniciales.map((p) => p.badge_label).filter(Boolean)),
-  ] as string[];
 
-  function toggleFilter(
+ const activeFiltersCount =
+   activeFilters.categories.length +
+   activeFilters.materials.length +
+   activeFilters.states.length +
+   activeFilters.badges.length;
+
+  function buildUrl(overrides: Record<string, string | undefined>) {
+    const params = new URLSearchParams();
+    const merged = {
+      search: activeFilters.search,
+      categories: activeFilters.categories.join(","),
+      materials: activeFilters.materials.join(","),
+      states: activeFilters.states.join(","),
+      badges: activeFilters.badges.join(","),
+      page: String(currentPage),
+      ...overrides,
+    };
+    Object.entries(merged).forEach(([k, v]) => {
+      if (v) params.set(k, v);
+    });
+    return `/admin?${params.toString()}`;
+  }
+
+  function handleSearchChange(value: string) {
+    setSearch(value);
+    if (searchTimeout.current) clearTimeout(searchTimeout.current);
+    searchTimeout.current = setTimeout(() => {
+      router.push(buildUrl({ search: value, page: "0" }));
+    }, 400);
+  }
+
+  function applyFilters() {
+    router.push(
+      buildUrl({
+        categories: draftCategories.join(","),
+        materials: draftMaterials.join(","),
+        states: draftStates.join(","),
+        badges: draftBadges.join(","),
+        page: "0",
+      }),
+    );
+    setShowFilters(false);
+  }
+
+  function clearFilters() {
+    setDraftCategories([]);
+    setDraftMaterials([]);
+    setDraftStates([]);
+    setDraftBadges([]);
+    router.push(
+      buildUrl({
+        categories: "",
+        materials: "",
+        states: "",
+        badges: "",
+        page: "0",
+      }),
+    );
+    setShowFilters(false);
+  }
+
+  function openFilters() {
+    // Sincroniza los drafts con los filtros activos al abrir
+    setDraftCategories(activeFilters.categories);
+    setDraftMaterials(activeFilters.materials);
+    setDraftStates(activeFilters.states);
+    setDraftBadges(activeFilters.badges);
+    setShowFilters(true);
+  }
+
+  function toggleDraft(
     value: string,
     current: string[],
     setter: React.Dispatch<React.SetStateAction<string[]>>,
@@ -129,53 +220,22 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
     );
   }
 
-  const activeFiltersCount =
-    filterCategories.length +
-    filterMaterials.length +
-    filterStates.length +
-    filterBadges.length;
-
-  function clearFilters() {
-    setFilterCategories([]);
-    setFilterMaterials([]);
-    setFilterStates([]);
-    setFilterBadges([]);
+  function goToPage(page: number) {
+    router.push(buildUrl({ page: String(page) }));
   }
 
-  const filtrados = productosIniciales.filter((p) => {
-    const query = search.toLowerCase();
-    const matchSearch =
-      p.title.toLowerCase().includes(query) ||
-      p.product_categories?.name.toLowerCase().includes(query);
-
-    const matchCategory =
-      filterCategories.length === 0 ||
-      filterCategories.includes(p.product_categories?.name ?? "");
-    const matchMaterial =
-      filterMaterials.length === 0 ||
-      filterMaterials.includes(p.product_materials?.name ?? "");
-    const matchState =
-      filterStates.length === 0 ||
-      filterStates.includes(p.product_states?.name ?? "");
-    const matchBadge =
-      filterBadges.length === 0 || filterBadges.includes(p.badge_label ?? "");
-
-    return (
-      matchSearch && matchCategory && matchMaterial && matchState && matchBadge
-    );
-  });
 
   const handleViewMore = (id: string) => {
     setViewMore(viewMore === id ? "" : id);
   };
- 
- const descriptionRef = (id: string) => (el: HTMLDivElement | null) => {
-   if (!el || measuredIds.current.has(id)) return;
-   measuredIds.current.add(id);
-   if (el.scrollHeight > el.clientHeight) {
-     setClampedItems((prev) => new Set(prev).add(id));
-   }
- };
+
+  const descriptionRef = (id: string) => (el: HTMLDivElement | null) => {
+    if (!el || measuredIds.current.has(id)) return;
+    measuredIds.current.add(id);
+    if (el.scrollHeight > el.clientHeight) {
+      setClampedItems((prev) => new Set(prev).add(id));
+    }
+  };
 
   return (
     <div className="w-full">
@@ -193,13 +253,13 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
             <div className="ml-32 lg:w-[40%] flex gap-2">
               <input
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 type="text"
                 className="border border-gray-100 outline-0 focus:border-sky-500 focus:border-2 dark:focus:border-[hsl(41,98%,65%)] shadow-md dark:shadow-[#111] dark:border-stone-800 h-10 px-4 rounded-2xl w-full dark:bg-stone-900 dark:text-white"
                 placeholder="🔍 Buscar inventario..."
               />
               <button
-                onClick={() => setShowFilters(true)}
+                onClick={openFilters}
                 className="relative h-10 px-4 rounded-2xl border border-gray-100 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-md dark:shadow-[#111] text-sm text-gray-600 dark:text-white hover:border-sky-500 dark:hover:border-[hsl(41,98%,65%)] transition-colors flex items-center gap-2 shrink-0"
               >
                 <SlidersHorizontal size={15} />
@@ -259,12 +319,12 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
           </ul>
 
           <div className="flex flex-col mx-6">
-            {filtrados.length === 0 ? (
+            {productosIniciales.length === 0 ? (
               <p className="text-center text-gray-400 py-8 dark:text-gray-200">
                 No se encontraron productos.
               </p>
             ) : (
-              filtrados.map((p) => (
+              productosIniciales.map((p) => (
                 <ul
                   key={p.id}
                   className="flex justify-between items-center py-3 text-sm"
@@ -349,6 +409,44 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
           </div>
           <section></section>
         </article>
+        <div className="flex items-center justify-between px-6 py-4 mt-2">
+          <p className="text-xs text-gray-400 dark:text-gray-500">
+            Mostrando {currentPage * pageSize + 1}–
+            {Math.min((currentPage + 1) * pageSize, totalCount)} de {totalCount}{" "}
+            productos
+          </p>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 0}
+              className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-stone-700 text-gray-500 dark:text-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              ← Anterior
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => goToPage(i)}
+                className={`w-8 h-8 text-sm rounded-lg border transition-colors ${
+                  i === currentPage
+                    ? "bg-sky-500 dark:bg-[hsl(41,98%,65%)] border-sky-500 dark:border-[hsl(41,98%,65%)] text-white dark:text-dark3 font-medium"
+                    : "border-gray-200 dark:border-stone-700 text-gray-500 dark:text-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)]"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage >= totalPages - 1}
+              className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-stone-700 text-gray-500 dark:text-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            >
+              Siguiente →
+            </button>
+          </div>
+        </div>
       </section>
       {showFilters && (
         <div
@@ -381,27 +479,27 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
               {[
                 {
                   label: "Categoría",
-                  options: uniqueCategories,
-                  current: filterCategories,
-                  setter: setFilterCategories,
+                  options: filterOptions.categories,
+                  current: draftCategories,
+                  setter: setDraftCategories,
                 },
                 {
                   label: "Material",
-                  options: uniqueMaterials,
-                  current: filterMaterials,
-                  setter: setFilterMaterials,
+                  options: filterOptions.materials,
+                  current: draftMaterials,
+                  setter: setDraftMaterials,
                 },
                 {
                   label: "Estado",
-                  options: uniqueStates,
-                  current: filterStates,
-                  setter: setFilterStates,
+                  options: filterOptions.states,
+                  current: draftStates,
+                  setter: setDraftStates,
                 },
                 {
                   label: "Badge",
-                  options: uniqueBadges,
-                  current: filterBadges,
-                  setter: setFilterBadges,
+                  options: filterOptions.badges,
+                  current: draftBadges,
+                  setter: setDraftBadges,
                 },
               ].map(({ label, options, current, setter }) => (
                 <div key={label}>
@@ -413,7 +511,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                       <button
                         key={opt}
                         type="button"
-                        onClick={() => toggleFilter(opt, current, setter)}
+                        onClick={() => toggleDraft(opt, current, setter)}
                         className={`text-xs px-3 py-1.5 rounded-full border transition-colors cursor-pointer hover:border-sky-400 dark:hover:border-amber-300 ${
                           current.includes(opt)
                             ? "bg-sky-500 border-sky-500 dark:bg-[hsl(41,98%,65%)] dark:border-[hsl(41,98%,65%)] text-white dark:text-dark3 font-medium"
@@ -439,7 +537,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                 <FunnelX className=""></FunnelX>
               </button>
               <button
-                onClick={() => setShowFilters(false)}
+                onClick={applyFilters}
                 className="px-5 py-2 bg-sky-500 hover:bg-sky-600 dark:bg-[hsl(41,98%,65%)] dark:hover:bg-[hsl(41,98%,45%)] dark:text-dark3 text-white text-sm font-medium rounded-xl transition-colors"
               >
                 Aplicar
