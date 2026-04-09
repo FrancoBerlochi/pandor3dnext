@@ -43,3 +43,22 @@ export async function updateProduct(
   revalidatePath("/admin/productos");
   return { success: true };
 }
+
+export async function deleteProduct(id: string) {
+  const supabase = await createClient();
+
+  // 1. Borrar colores asociados primero
+  const { error: colorsError } = await supabase
+    .from("product_colors")
+    .delete()
+    .eq("product_id", id);
+
+  if (colorsError) return { success: false, error: colorsError.message };
+
+  // 2. Borrar el producto
+  const { error } = await supabase.from("products").delete().eq("id", id);
+
+  if (error) return { success: false, error: error.message };
+
+  return { success: true };
+}

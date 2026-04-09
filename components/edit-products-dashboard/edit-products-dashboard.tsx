@@ -2,8 +2,8 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { X, PenLine, Grid2x2, Plus, Trash2 } from "lucide-react";
-import { updateProduct } from "../../app/admin/edit-products/actions";
+import { X, PenLine, Grid2x2, Plus, Trash2, ArrowLeft } from "lucide-react";
+import { updateProduct, deleteProduct } from "../../app/admin/edit-products/actions";
 import { uploadProductImage } from "@/lib/supabase/upload";
 import { ThemeToggle } from "../ui/theme-toggle";
 
@@ -43,6 +43,8 @@ export default function EditProductsClient({
 }: Props) {
   const [products, setProducts] = useState(initialProducts);
   const [selected, setSelected] = useState<Product | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   // Estados del modal
   const [title, setTitle] = useState("");
@@ -105,6 +107,24 @@ export default function EditProductsClient({
     }
   }
 
+  async function handleDelete() {
+    if (!selected) return;
+    setDeleting(true);
+    setError(null);
+
+    const result = await deleteProduct(selected.id);
+
+    if (result.success) {
+      setProducts((prev) => prev.filter((p) => p.id !== selected.id));
+      setShowDeleteConfirm(false);
+      closeModal();
+    } else {
+      setError(result.error ?? "Error al eliminar");
+      setShowDeleteConfirm(false);
+    }
+    setDeleting(false);
+  }
+
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!selected) return;
@@ -144,6 +164,10 @@ export default function EditProductsClient({
     }
     setLoading(false);
   }
+  
+  const comeBack = () => {
+    window.location.href = "/admin";
+  }
 
   return (
     <main className="w-full relative min-h-screen bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16">
@@ -151,9 +175,18 @@ export default function EditProductsClient({
         <ThemeToggle></ThemeToggle>
       </div>
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-2xl font-medium text-gray-800 dark:text-gray-200 tracking-wide mb-8">
-          Editar productos
-        </h1>
+        <div className="flex flex-col gap-6 mb-8">
+          <p
+            className="text-xs flex items-center gap-2 cursor-pointer hover:text-sky-400 dark:hover:text-orange-300"
+            onClick={comeBack}
+          >
+            {" "}
+            <ArrowLeft className="w-4  h-4"></ArrowLeft> Volver al Dashboard
+          </p>
+          <h1 className="text-2xl font-medium text-gray-800 dark:text-gray-200 tracking-wide ">
+            Editar productos
+          </h1>
+        </div>
 
         {/* Grilla */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -183,11 +216,25 @@ export default function EditProductsClient({
                     className="object-cover"
                   />
                 )}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center gap-3">
                   <PenLine
                     size={20}
                     className="text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity"
                   />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal(product);
+                      setTimeout(() => setShowDeleteConfirm(true), 0);
+                    }}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <Trash2
+                      size={20}
+                      className="text-red-400 dark:text-red-400"
+                    />
+                  </button>
                 </div>
               </div>
               <div className="p-3">
@@ -460,6 +507,14 @@ export default function EditProductsClient({
               {/* Footer */}
               <div className="col-span-2 flex items-center justify-between pt-4 border-t border-gray-100">
                 {error && <p className="text-xs text-red-500">{error}</p>}
+                <button
+                  type="button"
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="flex items-center gap-1.5 text-sm text-red-600 hover:text-red-800 dark:bg-dark2/65 dark:text-red-400 dark:hover:text-red-500 border-red-6 00 rounded-2xl p-2 bg-red-200 border transition-colors"
+                >
+                  <Trash2 size={15} />
+                  Eliminar
+                </button>
                 <div className="flex gap-3 ml-auto">
                   <button
                     type="button"
@@ -479,6 +534,39 @@ export default function EditProductsClient({
               </div>
             </form>
           </div>
+          {showDeleteConfirm && (
+            <div className="absolute inset-0 z-10 bg-black/30 flex items-center justify-center rounded-2xl">
+              <div className="bg-white dark:bg-dark2 rounded-xl shadow-lg p-6 mx-4 max-w-sm w-full">
+                <h3 className="text-base font-medium text-gray-800 dark:text-gray-200 mb-1 tracking-wider">
+                  ¿Eliminar producto?
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5 ">
+                  Esta acción no se puede deshacer. Se eliminará{" "}
+                  <span className="font-semibold text-gray-700   dark:text-gray-300">
+                    {selected?.title}
+                  </span>{" "}
+                  permanentemente.
+                </p>
+                <div className="flex gap-3 justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setShowDeleteConfirm(false)}
+                    className="px-4 py-2 border border-gray-200 cursor-pointer rounded-xl text-sm text-gray-600 dark:text-gray-200 hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    disabled={deleting}
+                    className="px-4 py-2 bg-red-500 hover:bg-red-600 cursor-pointer text-white text-sm font-medium rounded-xl disabled:opacity-50 transition-colors"
+                  >
+                    {deleting ? "Eliminando..." : "Sí, eliminar"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </main>
