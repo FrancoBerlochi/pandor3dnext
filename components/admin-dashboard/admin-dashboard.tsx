@@ -180,7 +180,7 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
             <li className="w-19">Material</li>
             <li className="w-24">Tamaño</li>
             <li className="w-28">Colores</li>
-            <li className="w-16">Estado</li>
+            <li className="w-18">Estado</li>
           </ul>
 
           <div className="flex flex-col mx-6">
@@ -255,15 +255,17 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                     ))}
                   </li>
 
-                  <li className="w-16">
+                  <li className="w-18">
                     <span
-                      className={`text-xs font-medium px-2 py-1 rounded-full ${
+                      className={`text-xs font-medium rounded-full ${
                         p.product_states?.name === "Activo"
-                          ? "bg-green-100 text-green-700 dark:text-white dark:bg-green-700"
-                          : "bg-red-100 text-red-600 dark:text-white dark:bg-red-600"
+                          ? "bg-green-100 text-green-700 dark:text-white dark:bg-green-700 px-2 py-1"
+                          : p.product_states?.name === "Inactivo"
+                            ? "bg-red-100 text-red-600 dark:text-white dark:bg-red-600 px-2 py-1"
+                            : "bg-black px-1 py-1 dark:bg-white dark:text-black text-white"
                       }`}
                     >
-                      {p.product_states?.name}
+                      {p.product_states?.name ?? "Sin estado"}
                     </span>
                   </li>
                 </ul>
