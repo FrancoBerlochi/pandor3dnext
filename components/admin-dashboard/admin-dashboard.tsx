@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState,useRef } from "react";
-import { PenLine} from "lucide-react"
+import { PenLine, SlidersHorizontal, X, FunnelX} from "lucide-react";
 import { ThemeToggle } from "../ui/theme-toggle";
 // const productos = [
 //   {
@@ -93,11 +93,75 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
   const [viewMore, setViewMore] = useState("");
   const measuredIds = useRef<Set<string>>(new Set());
   const [loading, setLoading] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const [filterCategories, setFilterCategories] = useState<string[]>([]);
+  const [filterMaterials, setFilterMaterials] = useState<string[]>([]);
+  const [filterStates, setFilterStates] = useState<string[]>([]);
+  const [filterBadges, setFilterBadges] = useState<string[]>([]);
+  const uniqueCategories = [
+    ...new Set(
+      productosIniciales.map((p) => p.product_categories?.name).filter(Boolean),
+    ),
+  ] as string[];
+  const uniqueMaterials = [
+    ...new Set(
+      productosIniciales.map((p) => p.product_materials?.name).filter(Boolean),
+    ),
+  ] as string[];
+  const uniqueStates = [
+    ...new Set(
+      productosIniciales.map((p) => p.product_states?.name).filter(Boolean),
+    ),
+  ] as string[];
+  const uniqueBadges = [
+    ...new Set(productosIniciales.map((p) => p.badge_label).filter(Boolean)),
+  ] as string[];
+
+  function toggleFilter(
+    value: string,
+    current: string[],
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
+  ) {
+    setter(
+      current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value],
+    );
+  }
+
+  const activeFiltersCount =
+    filterCategories.length +
+    filterMaterials.length +
+    filterStates.length +
+    filterBadges.length;
+
+  function clearFilters() {
+    setFilterCategories([]);
+    setFilterMaterials([]);
+    setFilterStates([]);
+    setFilterBadges([]);
+  }
+
   const filtrados = productosIniciales.filter((p) => {
     const query = search.toLowerCase();
-    return (
+    const matchSearch =
       p.title.toLowerCase().includes(query) ||
-      p.product_categories?.name.toLowerCase().includes(query)
+      p.product_categories?.name.toLowerCase().includes(query);
+
+    const matchCategory =
+      filterCategories.length === 0 ||
+      filterCategories.includes(p.product_categories?.name ?? "");
+    const matchMaterial =
+      filterMaterials.length === 0 ||
+      filterMaterials.includes(p.product_materials?.name ?? "");
+    const matchState =
+      filterStates.length === 0 ||
+      filterStates.includes(p.product_states?.name ?? "");
+    const matchBadge =
+      filterBadges.length === 0 || filterBadges.includes(p.badge_label ?? "");
+
+    return (
+      matchSearch && matchCategory && matchMaterial && matchState && matchBadge
     );
   });
 
@@ -126,15 +190,26 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
                 Panel de Administrador
               </p>
             </div>
-            <div className=" ml-32 lg:w-[40%]">
+            <div className="ml-32 lg:w-[40%] flex gap-2">
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
-                id="search-input"
                 className="border border-gray-100 outline-0 focus:border-sky-500 focus:border-2 dark:focus:border-[hsl(41,98%,65%)] shadow-md dark:shadow-[#111] dark:border-stone-800 h-10 px-4 rounded-2xl w-full dark:bg-stone-900 dark:text-white"
                 placeholder="🔍 Buscar inventario..."
               />
+              <button
+                onClick={() => setShowFilters(true)}
+                className="relative h-10 px-4 rounded-2xl border border-gray-100 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-md dark:shadow-[#111] text-sm text-gray-600 dark:text-white hover:border-sky-500 dark:hover:border-[hsl(41,98%,65%)] transition-colors flex items-center gap-2 shrink-0"
+              >
+                <SlidersHorizontal size={15} />
+                Filtrar
+                {activeFiltersCount > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-sky-500 dark:bg-[hsl(41,98%,65%)] text-white dark:text-dark3 text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                    {activeFiltersCount}
+                  </span>
+                )}
+              </button>
             </div>
           </div>
           <div className="flex gap-4 items-center">
@@ -275,6 +350,104 @@ export default function AdminDashboard({ productosIniciales }: AdminDashboardPro
           <section></section>
         </article>
       </section>
+      {showFilters && (
+        <div
+          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowFilters(false);
+          }}
+        >
+          <div className="bg-white dark:bg-dark3 rounded-2xl shadow-xl w-full max-w-md">
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100 dark:border-stone-700">
+              <div>
+                <p className="text-[11px] tracking-widest text-sky-500 dark:text-[hsl(41,98%,65%)] uppercase font-medium">
+                  Filtros
+                </p>
+                <h2 className="text-lg font-medium text-gray-800 tracking-wider dark:text-gray-200">
+                  Filtrar productos
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="text-gray-400 hover:text-red-600 transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Grupos */}
+            <div className="px-6 py-5 flex flex-col gap-5">
+              {[
+                {
+                  label: "Categoría",
+                  options: uniqueCategories,
+                  current: filterCategories,
+                  setter: setFilterCategories,
+                },
+                {
+                  label: "Material",
+                  options: uniqueMaterials,
+                  current: filterMaterials,
+                  setter: setFilterMaterials,
+                },
+                {
+                  label: "Estado",
+                  options: uniqueStates,
+                  current: filterStates,
+                  setter: setFilterStates,
+                },
+                {
+                  label: "Badge",
+                  options: uniqueBadges,
+                  current: filterBadges,
+                  setter: setFilterBadges,
+                },
+              ].map(({ label, options, current, setter }) => (
+                <div key={label}>
+                  <p className="text-[11px] tracking-widest text-gray-700 dark:text-gray-200 uppercase mb-2">
+                    {label}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {options.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => toggleFilter(opt, current, setter)}
+                        className={`text-xs px-3 py-1.5 rounded-full border transition-colors cursor-pointer hover:border-sky-400 dark:hover:border-amber-300 ${
+                          current.includes(opt)
+                            ? "bg-sky-500 border-sky-500 dark:bg-[hsl(41,98%,65%)] dark:border-[hsl(41,98%,65%)] text-white dark:text-dark3 font-medium"
+                            : "border-gray-200 dark:border-stone-600 text-gray-600 dark:text-gray-300 hover:border-gray-400"
+                        }`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between px-6 pb-5 pt-4 border-t border-gray-100 dark:border-stone-700">
+              <button
+                onClick={clearFilters}
+                disabled={activeFiltersCount === 0}
+                className="text-sm flex gap-2 text-gray-700 hover:text-gray-800 dark:text-gray-200 dark:hover:text-gray-100 cursor-pointer disabled:cursor-auto disabled:opacity-75 dark:disabled:opacity-30 transition-colors"
+              >
+                Limpiar filtros
+                <FunnelX className=""></FunnelX>
+              </button>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="px-5 py-2 bg-sky-500 hover:bg-sky-600 dark:bg-[hsl(41,98%,65%)] dark:hover:bg-[hsl(41,98%,45%)] dark:text-dark3 text-white text-sm font-medium rounded-xl transition-colors"
+              >
+                Aplicar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
