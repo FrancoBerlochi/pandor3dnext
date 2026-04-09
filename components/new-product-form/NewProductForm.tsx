@@ -27,7 +27,7 @@ type Props = {
   colors: Color[];
 };
 
-const BADGES = ["None", "Best Seller", "New", "Discount"];
+const BADGES = ["Ninguna", "Mas vendido", "Nuevo", "Descontinuado"];
 
 export default function NewProductForm({ categories, materials, states, colors }: Props) {
   const [imageUrl, setImageUrl] = useState<string>("");
@@ -174,7 +174,7 @@ export default function NewProductForm({ categories, materials, states, colors }
         {/* ── Columna izquierda ── */}
         <div className="flex flex-col gap-4">
           {/* Product Identity */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 dark:bg-dark3">
+          <div className="bg-white rounded-2xl border border-gray-200 dark:border-black p-6 dark:bg-dark3">
             <h2 className="flex items-center gap-2 text-xl font-medium mb-5 text-gray-800 tracking-wider dark:text-white">
               <PenLine
                 size={16}
@@ -210,7 +210,7 @@ export default function NewProductForm({ categories, materials, states, colors }
           </div>
 
           {/* Technical Specifications */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 dark:bg-dark3">
+          <div className="bg-white rounded-2xl border border-gray-200 dark:border-black p-6 dark:bg-dark3">
             <h2 className="flex items-center gap-2 tracking-wider text-xl font-medium mb-5 text-gray-800 dark:text-gray-200">
               <Grid2x2
                 size={16}
@@ -230,7 +230,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                     step="0.1"
                     min="0"
                     placeholder="L"
-                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                    className="w-full border border-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
                   />
                   <span className="text-gray-300 text-xs shrink-0">×</span>
                   <input
@@ -239,7 +239,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                     step="0.1"
                     min="0"
                     placeholder="W"
-                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                    className="w-full border border-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
                   />
                   <span className="text-gray-300 text-xs shrink-0">×</span>
                   <input
@@ -248,21 +248,21 @@ export default function NewProductForm({ categories, materials, states, colors }
                     step="0.1"
                     min="0"
                     placeholder="H"
-                    className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                    className="w-full border border-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
                   />
                 </div>
               </div>
 
               <div>
                 <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                  Category
+                  Categoría
                 </label>
                 <div className="flex gap-2">
                   <select
                     name="category_id"
-                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
+                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none dark:bg-dark2/65 dark:text-gray-300 focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
                   >
-                    <option value="">Select Category</option>
+                    <option value="">Elige una Categoría</option>
                     {categoryList.map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name}
@@ -275,7 +275,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                       setNewName("");
                       setModal("category");
                     }}
-                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 dark:hover:text-[hsl(41,98%,65%)] transition-colors text-gray-400 dark:text-gray-200"
+                    className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200  hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 dark:hover:text-[hsl(41,98%,65%)] transition-colors text-gray-400 dark:text-gray-200"
                   >
                     <Plus size={16} />
                   </button>
@@ -284,14 +284,14 @@ export default function NewProductForm({ categories, materials, states, colors }
 
               <div>
                 <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                  Material
+                  Materiales
                 </label>
                 <div className="flex gap-2">
                   <select
                     name="material_id"
-                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
+                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none dark:bg-dark2/65 dark:text-gray-300 focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
                   >
-                    <option value="">Select Material</option>
+                    <option value="">Selecciona un Material</option>
                     {materialList.map((m) => (
                       <option key={m.id} value={m.id}>
                         {m.name}
@@ -313,13 +313,13 @@ export default function NewProductForm({ categories, materials, states, colors }
 
               <div>
                 <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                  State
+                  Estado
                 </label>
                 <select
                   name="state_id"
-                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none dark:bg-dark2/65 dark:text-gray-300 focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)] bg-white text-gray-700"
                 >
-                  <option value="">Select State</option>
+                  <option value="">Sin estado</option>
                   {states.map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.name}
@@ -333,15 +333,15 @@ export default function NewProductForm({ categories, materials, states, colors }
 
         {/* ── Sidebar ── */}
         <div className="flex flex-col gap-4">
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col gap-5">
+          <div className="bg-white dark:bg-dark3 rounded-2xl border border-gray-200 dark:border-black p-5 flex flex-col gap-5">
             {/* Placeholder imagen — lo conectamos después con Storage */}
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="aspect-square bg-gray-100 rounded-xl flex items-center justify-center border border-dashed border-gray-300 hover:border-sky-400 transition-colors cursor-pointer overflow-hidden relative"
+              className="aspect-square bg-gray-100 dark:bg-dark2 rounded-xl flex items-center justify-center border border-dashed border-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] transition-colors cursor-pointer overflow-hidden relative"
             >
               {/* Badge preview */}
               {badge !== "None" && (
-                <div className="absolute top-2 left-2 z-10 bg-sky-400 text-sky-900 text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
+                <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-white text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
                   {badge}
                 </div>
               )}
@@ -363,8 +363,8 @@ export default function NewProductForm({ categories, materials, states, colors }
                   )}
                 </>
               ) : (
-                <div className="text-center px-4">
-                  <p className="text-xs text-gray-400">
+                <div className="text-center px-4 ">
+                  <p className="text-xs text-gray-400 ">
                     Click para subir imagen
                   </p>
                   <p className="text-[11px] text-gray-300 mt-1">
@@ -383,8 +383,8 @@ export default function NewProductForm({ categories, materials, states, colors }
             <input name="image_url" type="hidden" value={imageUrl} />
             {/* Badge */}
             <div>
-              <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
-                Badge label
+              <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-2">
+                Etiqueta
               </label>
               <div className="flex flex-wrap gap-2">
                 {BADGES.map((b) => (
@@ -394,8 +394,8 @@ export default function NewProductForm({ categories, materials, states, colors }
                     onClick={() => setBadge(b)}
                     className={`text-xs px-3 py-1 rounded-full border transition-colors ${
                       badge === b
-                        ? "bg-sky-400 border-sky-400 text-sky-900 font-medium"
-                        : "border-gray-200 text-gray-500 hover:border-gray-400"
+                        ? "bg-sky-400 dark:bg-[hsl(41,98%,65%)] border-sky-400 dark:border-orange-600 text-sky-900 dark:text-[hsl(41,58%,25%)] font-medium"
+                        : "border-gray-200 text-gray-500 hover:border-gray-400 dark:text-gray-200 dark:hover:border-orange-500"
                     }`}
                   >
                     {b}
@@ -406,7 +406,7 @@ export default function NewProductForm({ categories, materials, states, colors }
             {/* Colores */}
 
             <div>
-              <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
+              <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-2">
                 Color palette
               </label>
               <div className="flex flex-wrap gap-2 items-center">
@@ -431,23 +431,26 @@ export default function NewProductForm({ categories, materials, states, colors }
                     setNewHex("#000000");
                     setModal("color");
                   }}
-                  className="w-7 h-7 rounded-full bg-gray-100 border border-dashed border-gray-300 hover:border-sky-400 flex items-center justify-center transition-colors"
+                  className="w-7 h-7 rounded-full bg-gray-100 dark:bg-dark3 border border-dashed border-gray-300  hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] flex items-center justify-center transition-colors"
                 >
-                  <Plus size={12} className="text-gray-400" />
+                  <Plus
+                    size={12}
+                    className="text-gray-400 dark:text-gray-200"
+                  />
                 </button>
               </div>
             </div>
           </div>
 
           {/* Botones */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col gap-3">
+          <div className="bg-white dark:bg-dark3 rounded-2xl border border-gray-200 dark:border-black p-5 flex flex-col gap-3">
             {error && (
               <p className="text-xs text-red-500 text-center">{error}</p>
             )}
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-sky-400 hover:bg-sky-500 text-sky-900 font-medium text-sm rounded-xl tracking-widest disabled:opacity-50 transition-colors"
+              className="w-full py-3 bg-sky-400 hover:bg-sky-500 dark:bg-[hsl(41,98%,65%)] cursor-pointer dark:text-white text-sky-900 font-medium text-sm rounded-xl tracking-widest disabled:opacity-50 transition-colors"
             >
               {loading ? "PUBLISHING..." : "PUBLISH PRODUCT"}
             </button>
@@ -464,7 +467,7 @@ export default function NewProductForm({ categories, materials, states, colors }
             list={categoryList}
           >
             <div>
-              <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+              <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                 Nombre
               </label>
               <input
@@ -473,7 +476,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Figuras"
                 autoFocus
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
               />
             </div>
           </AddOptionModal>
@@ -489,7 +492,7 @@ export default function NewProductForm({ categories, materials, states, colors }
             list={materialList}
           >
             <div>
-              <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+              <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                 Nombre
               </label>
               <input
@@ -498,7 +501,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Resina"
                 autoFocus
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
               />
             </div>
           </AddOptionModal>
@@ -514,7 +517,7 @@ export default function NewProductForm({ categories, materials, states, colors }
             list={colorList}
           >
             <div>
-              <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-1">
+              <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                 Nombre (opcional)
               </label>
               <input
@@ -522,7 +525,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Azul Marino"
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400"
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
               />
             </div>
             <div>

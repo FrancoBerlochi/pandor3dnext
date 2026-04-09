@@ -40,14 +40,16 @@ export default function AddOptionModal({
       onClick={(e) => {
         if (e.target === overlayRef.current) onClose();
       }}
-      className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center"
+      className="fixed inset-0 z-50 bg-black/40  flex items-center justify-center"
     >
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6">
+      <div className="bg-white dark:bg-dark3 rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-base font-medium text-gray-800">{title}</h3>
+          <h3 className="text-base font-medium text-gray-800 dark:text-gray-200 tracking-wider">
+            {title}
+          </h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-gray-600 dark:hover:text-red-400 transition-colors"
           >
             <X size={18} />
           </button>
@@ -59,7 +61,7 @@ export default function AddOptionModal({
             {list.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 group"
+                className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-dark2 group"
               >
                 <div className="flex items-center gap-2">
                   {item.hex_code && (
@@ -68,13 +70,15 @@ export default function AddOptionModal({
                       style={{ backgroundColor: `#${item.hex_code}` }}
                     />
                   )}
-                  <span className="text-sm text-gray-700">{item.name}</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {item.name}
+                  </span>
                 </div>
                 {onDelete && (
                   <button
                     type="button"
                     onClick={() => onDelete(item.id)}
-                    className="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-400 transition-all"
+                    className="opacity-0 group-hover:opacity-100 text-red-400 cursor-pointer transition-all"
                   >
                     <Trash2 size={14} />
                   </button>
@@ -86,7 +90,7 @@ export default function AddOptionModal({
 
         {list && list.length > 0 && (
           <div className="border-t border-gray-100 pt-4 mb-4">
-            <p className="text-[11px] tracking-widest text-gray-400 uppercase mb-3">
+            <p className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase mb-3">
               Agregar nuevo
             </p>
           </div>
@@ -98,7 +102,7 @@ export default function AddOptionModal({
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:border-gray-400 transition-colors"
+            className="flex-1 py-2 border border-gray-200 dark:text-gray-300 dark:hover:border-orange-500 cursor-pointer rounded-xl text-sm text-gray-600 hover:border-gray-400 transition-colors"
           >
             Cancelar
           </button>
@@ -106,7 +110,7 @@ export default function AddOptionModal({
             type="button"
             onClick={onConfirm}
             disabled={loading}
-            className="flex-1 py-2 bg-sky-400 hover:bg-sky-500 text-sky-900 font-medium text-sm rounded-xl disabled:opacity-50 transition-colors"
+            className="flex-1 py-2 bg-sky-400 hover:bg-sky-500 dark:bg-[hsl(41,98%,65%)] dark:text-gray-500 cursor-pointer text-sky-900 font-medium text-sm rounded-xl disabled:opacity-50 transition-colors"
           >
             {loading ? "Guardando..." : "Guardar"}
           </button>
