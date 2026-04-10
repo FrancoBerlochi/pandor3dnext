@@ -15,7 +15,7 @@ import { useState } from "react";
 const homeCards = [
   {
     id: 1,
-    icon: <Verified className="text-cyan-500"></Verified>,
+    icon: <Verified className="text-cyan-500 dark:text-[hsl(38,98%,45%)]"></Verified>,
     tittle: "Alta Calidad",
     text: "Impresiones 3D de alta fidelidad con los mejores materiales de impresión",
   },
@@ -111,14 +111,14 @@ const HomePage = () => {
       <main className="dark:bg-[#333] pb-20 dark:fadeIn dark:transition-all dark:duration-100">
         <section className="flex justify-between h-[100vh] items-center max-md:justify-center max-md:flex-col">
           <div className="flex flex-col ml-60 h-[50%] justify-center mb-20 logo max-md:ml-0 max-md:mb-10">
-            <p className="bg-blue-100 w-fit rounded-2xl px-2 py-0.5 text-sky-300 font-bold mb-2">
+            <p className="bg-blue-100 w-fit rounded-2xl px-2 py-0.5 text-sky-300 dark:text-white dark:bg-[hsl(41,98%,55%)] font-bold mb-2">
               Inovación en cada capa
             </p>
-            <h1 className="text-9xl font-bold dark:text-white max-md:text-6xl">
+            <h1 className="text-9xl font-bold tracking-wide dark:text-white max-md:text-6xl">
               PANDOR3D
             </h1>
             <div className="w-120 border-l-4 border-sky-400 pl-4 mt-4 dark:border-[hsl(41,98%,51%)] max-md:w-[90vw]">
-              <h2 className="text-3xl font-semibold dark:text-white max-md:text-xl">
+              <h2 className="text-3xl font-semibold dark:text-white max-md:text-xl tracking-wide">
                 Impresiones por stock y a pedido
               </h2>
               <p className="mt-3 text-gray-700 text-xl dark:text-gray-300 max-md:text-[1rem]">
@@ -152,7 +152,7 @@ const HomePage = () => {
           </div>
         </section>
         <section className="flex flex-col justify-center">
-          <h2 className="text-4xl font-semibold text-stone-900 mb-16 text-center dark:text-white">
+          <h2 className="text-4xl font-semibold tracking-wide text-stone-900 mb-16 text-center dark:text-white">
             ¿Por qué elegir PANDOR3D?
           </h2>
           <article className="flex justify-between mx-24 max-md:justify-center max-md:flex-col max-md:mx-0 max-md:items-center max-md:gap-20 ">
@@ -162,28 +162,28 @@ const HomePage = () => {
         {/* <section>
           <SwiperComponent></SwiperComponent>
         </section> */}
-        <section className="border-2  bg-sky-400 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
+        <section className="border-2  bg-sky-400 dark:border-dark1 dark:bg-[hsl(36,100%,50%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
-            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-white max-md:text-2xl">
+            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-2xl">
               ¿Tenés un diseño en mente?
             </h2>
-            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-300 max-md:text-[1.1rem] max-md:text-center">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:text-center">
               Convertimos tus ideas en realidad. Contactanos y hablemos sobre tu
               proyecto personalizado.
             </p>
             <div className="flex items-center gap-3">
               <Link
                 href="/personalizar"
-                className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+                className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
                 onClick={topCero}
               >
                 Personalizá tu diseño
                 <Rocket></Rocket>
               </Link>
-              <p className="mt-8">O</p>
+              <p className="mt-8 dark:text-black">O</p>
               <Link
                 href="/productos"
-                className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+                className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               >
                 Ver todos los productos
                 <LayoutGrid></LayoutGrid>
@@ -210,7 +210,7 @@ const HomePage = () => {
               profesional.
             </p>
             <div
-              className={`flex mt-1 w-fit rounded-2xl p-1 cursor-pointer ${copied ? "bg-green-300" : "bg-gray-200"}`}
+              className={`flex mt-1 w-fit rounded-2xl p-1 cursor-pointer ${copied ? "bg-green-300 dark:bg-green-500" : "bg-gray-200 dark:bg-dark2"}`}
               onClick={copy}
             >
               {copied ? <Check></Check> : <Share2></Share2>}
@@ -248,10 +248,10 @@ const HomePage = () => {
               Contacto
             </h3>
             <p className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
-              <Mail className="text-sky-400"/> pandor3d@gmail.com
+              <Mail className="text-sky-400 dark:text-amber-500"/> pandor3d@gmail.com
             </p>
             <p className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
-              <Phone className="text-sky-400"/> +54 numero de sergio
+              <Phone className="text-sky-400 dark:text-amber-500"/> +54 numero de sergio
             </p>
           </div>
         </div>
