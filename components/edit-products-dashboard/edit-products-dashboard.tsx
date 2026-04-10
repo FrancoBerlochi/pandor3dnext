@@ -32,7 +32,7 @@ type Props = {
   colors: Color[];
 };
 
-const BADGES = ["None", "Best Seller", "New", "Discount"];
+const BADGES = ["Ninguna", "Mas vendido", "Nuevo", "Descontinuado"];
 
 export default function EditProductsClient({
   products: initialProducts,

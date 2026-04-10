@@ -10,7 +10,8 @@ import { ArrowRight, Verified, Rocket, LayoutGrid, Share2, Check,Mail, Phone } f
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import linke from "@/public/linkedin.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 const homeCards = [
   {
@@ -87,6 +88,14 @@ const homeCards = [
   },
 ];
 
+type Product = {
+  id: string;
+  title: string;
+  image_url: string | null;
+  badge_label: string | null;
+  product_categories: { name: string }[] | null;
+};
+
 const HomePage = () => {
   const cardsToShow = homeCards.map((homeCard) => (
     <HomeCard
@@ -96,8 +105,27 @@ const HomePage = () => {
       text={homeCard.text}
     />
   ));
+
   const [copied, setCopied] = useState(false)
   const { resolvedTheme } = useTheme();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      async function fetchBestSellers() {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("products")
+          .select("id, title, image_url, badge_label, product_categories(name)")
+          .eq("badge_label", "Mas vendido")
+          .limit(3);
+        console.log(data)
+        if (!error && data) setProducts(data);
+        setLoading(false);
+      }
+
+      fetchBestSellers();
+    }, []);
 
    const copy = async () => {
     await navigator.clipboard.writeText("https://www.pandor3d.com.ar");
@@ -159,9 +187,9 @@ const HomePage = () => {
             {cardsToShow}
           </article>
         </section>
-        {/* <section>
-          <SwiperComponent></SwiperComponent>
-        </section> */}
+         <section className="w-full px-16 mt-16">
+          {loading ? <div>Cargando...</div> : <SwiperComponent data={products}></SwiperComponent>}
+        </section> 
         <section className="border-2  bg-sky-400 dark:border-dark1 dark:bg-[hsl(36,100%,50%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-2xl">
@@ -193,7 +221,7 @@ const HomePage = () => {
         </section>
       </main>
       <footer className="w-full dark:bg-[#333]">
-        <div className="border-1 border-gray-300 flex gap-20 py-12 justify-around pr-100 dark:border-gray-300 max-md:pr-0 max-md:gap-10 max-md:w-full max-md:flex-col ">
+        <div className="border-y border-gray-900 flex gap-20 py-12 justify-around pr-100 dark:border-black max-md:pr-0 max-md:gap-10 max-md:w-full max-md:flex-col ">
           <div className="flex flex-col gap-2 max-md:ml-4">
             <div className="flex gap-2">
               <img
