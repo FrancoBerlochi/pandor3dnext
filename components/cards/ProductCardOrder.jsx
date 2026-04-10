@@ -70,18 +70,25 @@ const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) =>
   [amountDetails])
   
   return (
-    <div className="flex border-2 border-gray-300 dark:border-[#111] shadow-md rounded-2xl">
+    <div className="flex border-2 border-gray-300 dark:border-[#111] dark:bg-dark3 shadow-md rounded-2xl">
       <img className="w-50 h-50" src={img} alt="" />
       <div className="flex flex-col mt-4 gap-4 ml-4 mr-auto">
-        <p className="text-base text-cyan-500">Categoría:</p>
+        <p className="text-base text-cyan-500 dark:text-amber-400">
+          Categoría:
+        </p>
         <p className="text-xl font-semibold dark:text-white">{title}</p>
-        <p className="text-base text-gray-600 w-62 ">material</p>
+        <p className="text-base text-gray-600 w-62 dark:text-gray-200">
+          material
+        </p>
         <p className="text-cyan-500 text-base dark:text-[hsl(41,98%,51%)]">
           {size} cm
         </p>
       </div>
       <div className="flex flex-col justify-center gap-4 items-center">
-        <div className="">Color seleccionado: <div className="w-6 h-6 bg-blue-600 rounded-md"></div></div>
+        <div className="">
+          Color seleccionado:{" "}
+          <div className="w-6 h-6 bg-blue-600 rounded-md"></div>
+        </div>
         <div className="flex items-center">
           <div className="flex  bg-black/5 rounded-full px-5 py-3  shadow-md">
             <div className="flex items-center gap-3">
@@ -90,7 +97,7 @@ const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) =>
                   setAmountDetail(amountDetails - 1);
                 }}
                 disabled={amountDetails <= MIN}
-                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-600 hover:text-gray-100 dark:text-gray-400 text-xl font-light dark:hover:bg-gray-100 dark:hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
               >
                 −
               </button>
@@ -103,7 +110,7 @@ const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) =>
                 onChange={(e) => {
                   setAmountDetail(Number(e.target.value));
                 }}
-                className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none
+                className="w-8 text-center text-base font-medium text-gray-900 dark:text-gray-200 bg-transparent border-none outline-none
                   [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
 
@@ -112,7 +119,7 @@ const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) =>
                   setAmountDetail(amountDetails + 1);
                 }}
                 disabled={amountDetails >= MAX}
-                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+                className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-600 hover:text-gray-100 dark:text-gray-400 text-xl font-light dark:hover:bg-gray-100 dark:hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
               >
                 +
               </button>
