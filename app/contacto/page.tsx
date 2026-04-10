@@ -90,8 +90,8 @@ const Contact = () => {
     <div id="inicio" className="flex justify-center dark:bg-[#333]">
       <Header></Header>
       <main className="pt-32 flex flex-col items-center h-screen w-[60vw] max-md:w-[100vw] max-md:h-fit">
-        <h1 className="text-7xl font-semibold dark:text-white">Contacto</h1>
-        <h2 className="text-xl text-gray-600 mt-4 dark:text-gray-300 max-md:w-70 ">
+        <h1 className="text-7xl font-semibold dark:text-white tracking-wide">Contacto</h1>
+        <h2 className="text-xl text-gray-600 mt-4 dark:text-gray-300 tracking-wide max-md:w-70 ">
           Estamos acá para ayudarte. Envianos tu consulta y te responderemos a
           la brevedad
         </h2>
@@ -191,7 +191,7 @@ const Contact = () => {
             <div className="shadow-xl rounded-2xl h-60 border-2 border-gray-200 dark:border-[#111]">
               <ul className="pl-10 mt-8 mb-16">
                 <li className="flex gap-4 mb-4">
-                  <div className="w-10 h-10 bg-cyan-100 dark:bg-[hsl(41,98%,75%)] items-center flex justify-center rounded-xl">
+                  <div className="w-10 h-10 bg-cyan-100 dark:bg-[hsl(36,98%,75%)] items-center flex justify-center rounded-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -209,14 +209,14 @@ const Contact = () => {
                     </svg>
                   </div>
                   <div className="flex flex-col">
-                    <h3 className="font-semibold dark:text-white">Email</h3>
+                    <h3 className="dark:font-semibold dark:text-white tracking-wider">Email</h3>
                     <p className="text-gray-600 text-sm dark:text-gray-300">
                       pandor3d@gmail.com
                     </p>
                   </div>
                 </li>
                 <li className="flex gap-4 mb-4">
-                  <div className="w-10 h-10 bg-cyan-100 dark:bg-[hsl(41,98%,75%)] items-center flex justify-center rounded-xl">
+                  <div className="w-10 h-10 bg-cyan-100 dark:bg-[hsl(36,98%,75%)] items-center flex justify-center rounded-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -233,14 +233,14 @@ const Contact = () => {
                     </svg>
                   </div>
                   <div className="flex flex-col">
-                    <h3 className="font-semibold dark:text-white">Teléfono</h3>
+                    <h3 className="dark:font-semibold dark:text-white tracking-wider">Teléfono</h3>
                     <p className="text-gray-600 text-sm dark:text-gray-300">
                       +54 341 1234567
                     </p>
                   </div>
                 </li>
                 <li className="flex gap-4 mb-4">
-                  <div className="w-10 h-10 bg-cyan-100 dark:bg-[hsl(41,98%,75%)] items-center flex justify-center rounded-xl">
+                  <div className="w-10 h-10 bg-cyan-100 dark:bg-[hsl(36,98%,75%)] items-center flex justify-center rounded-xl">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -259,7 +259,7 @@ const Contact = () => {
                   </div>
 
                   <div className="flex flex-col">
-                    <h3 className="font-semibold dark:text-white">Ubicación</h3>
+                    <h3 className="dark:font-semibold dark:text-white tracking-wider">Ubicación</h3>
                     <p className="text-gray-600 text-sm dark:text-gray-300">
                       Santa Fe, Argentina
                     </p>
@@ -267,9 +267,9 @@ const Contact = () => {
                 </li>
               </ul>
             </div>
-            <div className="bg-sky-200 border-1 border-sky-300 dark:bg-[hsl(41,68%,51%)] dark:border-[hsl(41,98%,51%)] rounded-2xl mt-6">
+            <div className="bg-sky-200 border border-sky-300 dark:bg-[hsl(36,100%,51%)] dark:border-[hsl(41,98%,51%)] rounded-2xl mt-6">
               <div className="flex flex-col mx-6">
-                <h3 className="text-xl font-semibold mb-6 mt-8 dark:text-white">
+                <h3 className="text-xl tracking-wider  mb-6 mt-8 dark:text-white">
                   Horarios de Atención
                 </h3>
                 <div className="flex flex-col mb-8 gap-2">

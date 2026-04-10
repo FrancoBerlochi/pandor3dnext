@@ -93,7 +93,7 @@ type Product = {
   title: string;
   image_url: string | null;
   badge_label: string | null;
-  product_categories: { name: string }[] | null;
+  product_categories: { name: string } | { name: string }[] | null;
 };
 
 const HomePage = () => {
@@ -119,7 +119,7 @@ const HomePage = () => {
           .select("id, title, image_url, badge_label, product_categories(name)")
           .eq("badge_label", "Mas vendido")
           .limit(3);
-        console.log(data)
+
         if (!error && data) setProducts(data);
         setLoading(false);
       }

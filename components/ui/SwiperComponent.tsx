@@ -30,7 +30,7 @@ const SwiperComponent = ({ data }: { data: Product[] }) => {
       {data.map((s) => (
         <SwiperSlide key={s.id}>
           <div className="rounded-2xl overflow-hidden bg-sky-400 dark:bg-neutral-900 group cursor-pointer">
-            <div className="relative aspect-[4/3] w-full overflow-hidden">
+            <div className="relative aspect-4/3 w-full overflow-hidden">
               {s.badge_label && (
                 <div className="absolute top-3 left-3 z-10 bg-sky-400 text-white dark:bg-amber-400 dark:text-amber-900 text-[10px] font-semibold px-2 py-1 rounded-md tracking-wide uppercase">
                   {s.badge_label}
