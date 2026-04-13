@@ -166,6 +166,21 @@ const Products = () => {
     );
   }
 
+  const siguiente = () => {
+    setCurrentPage((p) => p + 1);
+    topCero()
+  }
+
+  const anterior = () => {
+    setCurrentPage((p) => p - 1);
+    topCero();
+  };
+
+  const actual = (i) => {
+    setCurrentPage(i);
+    topCero();
+  }
+
   return (
     <div id="inicio">
       <Header></Header>
@@ -260,7 +275,7 @@ const Products = () => {
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-10">
               <button
-                onClick={() => setCurrentPage((p) => p - 1)}
+                onClick={anterior}
                 disabled={currentPage === 0}
                 className="px-4 py-2 rounded-xl border border-gray-300 text-sm text-gray-600 dark:border-dark1 dark:bg-dark2 dark:text-white hover:border-sky-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
@@ -270,7 +285,7 @@ const Products = () => {
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
-                  onClick={() => setCurrentPage(i)}
+                  onClick={()=> actual(i)}
                   className={`w-9 h-9 rounded-xl border text-sm transition-colors ${
                     i === currentPage
                       ? "bg-sky-400 border-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 text-white font-medium"
@@ -282,7 +297,7 @@ const Products = () => {
               ))}
 
               <button
-                onClick={() => setCurrentPage((p) => p + 1)}
+                onClick={siguiente}
                 disabled={currentPage >= totalPages - 1}
                 className="px-4 py-2 rounded-xl border border-gray-300 text-sm text-gray-600 dark:border-dark1 dark:bg-dark2 dark:text-white hover:border-sky-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >

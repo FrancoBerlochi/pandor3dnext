@@ -6,6 +6,15 @@ import { X, PenLine, Grid2x2, Plus, Trash2, ArrowLeft } from "lucide-react";
 import { updateProduct, deleteProduct } from "../../app/admin/edit-products/actions";
 import { uploadProductImage } from "@/lib/supabase/upload";
 import { ThemeToggle } from "../ui/theme-toggle";
+import AddOptionModal from "../../app/admin/new-product/AddOptionalModal";
+import {
+  createCategory,
+  createMaterial,
+  createColor,
+  deleteCategory,
+  deleteMaterial,
+  deleteColor,
+} from "../../app/admin/new-product/actions";
 
 type Color = { id: number; name: string; hex_code: string };
 type Option = { id: number; name: string };
@@ -62,6 +71,15 @@ export default function EditProductsClient({
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [categoryList, setCategoryList] = useState(categories);
+  const [materialList, setMaterialList] = useState(materials);
+  const [colorList, setColorList] = useState(colors);
+  const [modal, setModal] = useState<"category" | "material" | "color" | null>(
+    null,
+  );
+  const [modalLoading, setModalLoading] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newHex, setNewHex] = useState("#000000");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function openModal(product: Product) {
@@ -167,6 +185,61 @@ export default function EditProductsClient({
   
   const comeBack = () => {
     window.location.href = "/admin";
+  }
+
+  async function handleAddCategory() {
+    if (!newName.trim()) return;
+    setModalLoading(true);
+    const result = await createCategory(newName.trim());
+    if (result.success && result.data)
+      setCategoryList((prev) => [...prev, result.data]);
+    setModalLoading(false);
+    setModal(null);
+    setNewName("");
+  }
+
+  async function handleAddMaterial() {
+    if (!newName.trim()) return;
+    setModalLoading(true);
+    const result = await createMaterial(newName.trim());
+    if (result.success && result.data)
+      setMaterialList((prev) => [...prev, result.data]);
+    setModalLoading(false);
+    setModal(null);
+    setNewName("");
+  }
+
+  async function handleAddColor() {
+    setModalLoading(true);
+    const result = await createColor(newName || newHex, newHex);
+    if (result.success && result.data) {
+      setColorList((prev) => [...prev, result.data]);
+      setSelectedColors((prev) => [...prev, result.data.id]);
+    }
+    setModalLoading(false);
+    setModal(null);
+    setNewName("");
+    setNewHex("#000000");
+  }
+
+  async function handleDeleteCategory(id: number) {
+    const result = await deleteCategory(id);
+    if (result.success)
+      setCategoryList((prev) => prev.filter((c) => c.id !== id));
+  }
+
+  async function handleDeleteMaterial(id: number) {
+    const result = await deleteMaterial(id);
+    if (result.success)
+      setMaterialList((prev) => prev.filter((m) => m.id !== id));
+  }
+
+  async function handleDeleteColor(id: number) {
+    const result = await deleteColor(id);
+    if (result.success) {
+      setColorList((prev) => prev.filter((c) => c.id !== id));
+      setSelectedColors((prev) => prev.filter((c) => c !== id));
+    }
   }
 
   return (
@@ -325,37 +398,63 @@ export default function EditProductsClient({
                     <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                       Categoría
                     </label>
-                    <select
-                      name="category_id"
-                      value={categoryId}
-                      onChange={(e) => setCategoryId(e.target.value)}
-                      className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
-                    >
-                      <option value="">Sin categoría</option>
-                      {categories.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="flex gap-2">
+                      <select
+                        name="category_id"
+                        value={categoryId}
+                        onChange={(e) => setCategoryId(e.target.value)}
+                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
+                      >
+                        <option value="">Sin categoría</option>
+                        {categoryList.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNewName("");
+                          setModal("category");
+                        }}
+                        className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] dark:hover:text-white hover:text-sky-500 transition-colors text-gray-400"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
                   </div>
+
+                  {/* Material */}
                   <div>
                     <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                       Material
                     </label>
-                    <select
-                      name="material_id"
-                      value={materialId}
-                      onChange={(e) => setMaterialId(e.target.value)}
-                      className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
-                    >
-                      <option value="">Sin material</option>
-                      {materials.map((m) => (
-                        <option key={m.id} value={m.id}>
-                          {m.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="flex gap-2">
+                      <select
+                        name="material_id"
+                        value={materialId}
+                        onChange={(e) => setMaterialId(e.target.value)}
+                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
+                      >
+                        <option value="">Sin material</option>
+                        {materialList.map((m) => (
+                          <option key={m.id} value={m.id}>
+                            {m.name}
+                          </option>
+                        ))}
+                      </select>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNewName("");
+                          setModal("material");
+                        }}
+                        className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border dark:hover:text-white border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 transition-colors text-gray-400"
+                      >
+                        <Plus size={16} />
+                      </button>
+                    </div>
                   </div>
                   <div>
                     <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
@@ -444,8 +543,8 @@ export default function EditProductsClient({
                   <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
                     Colores
                   </label>
-                  <div className="flex flex-wrap gap-2">
-                    {colors.map((c) => (
+                  <div className="flex flex-wrap gap-2 items-center">
+                    {colorList.map((c) => (
                       <button
                         key={c.id}
                         type="button"
@@ -459,6 +558,16 @@ export default function EditProductsClient({
                         }`}
                       />
                     ))}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setNewHex("#000000");
+                        setModal("color");
+                      }}
+                      className="w-7 h-7 rounded-full bg-gray-100 dark:bg-dark2 border border-dashed border-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] flex items-center justify-center transition-colors"
+                    >
+                      <Plus size={12} className="text-gray-400" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -532,6 +641,95 @@ export default function EditProductsClient({
                   </button>
                 </div>
               </div>
+              {modal === "category" && (
+                <AddOptionModal
+                  title="Categorías"
+                  onClose={() => setModal(null)}
+                  onConfirm={handleAddCategory}
+                  onDelete={handleDeleteCategory}
+                  loading={modalLoading}
+                  list={categoryList}
+                >
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      placeholder="e.g. Figuras"
+                      autoFocus
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                    />
+                  </div>
+                </AddOptionModal>
+              )}
+
+              {modal === "material" && (
+                <AddOptionModal
+                  title="Materiales"
+                  onClose={() => setModal(null)}
+                  onConfirm={handleAddMaterial}
+                  onDelete={handleDeleteMaterial}
+                  loading={modalLoading}
+                  list={materialList}
+                >
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                      Nombre
+                    </label>
+                    <input
+                      type="text"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      placeholder="e.g. Resina"
+                      autoFocus
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                    />
+                  </div>
+                </AddOptionModal>
+              )}
+
+              {modal === "color" && (
+                <AddOptionModal
+                  title="Colores"
+                  onClose={() => setModal(null)}
+                  onConfirm={handleAddColor}
+                  onDelete={handleDeleteColor}
+                  loading={modalLoading}
+                  list={colorList}
+                >
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                      Nombre (opcional)
+                    </label>
+                    <input
+                      type="text"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      placeholder="e.g. Azul Marino"
+                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
+                      Color
+                    </label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="color"
+                        value={newHex}
+                        onChange={(e) => setNewHex(e.target.value)}
+                        className="w-12 h-12 rounded-lg border border-gray-200 cursor-pointer p-1"
+                      />
+                      <span className="text-sm text-gray-500 font-mono">
+                        {newHex}
+                      </span>
+                    </div>
+                  </div>
+                </AddOptionModal>
+              )}
             </form>
           </div>
           {showDeleteConfirm && (

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import EditProductsClient from "../../../components/edit-products-dashboard/edit-products-dashboard";
+import { Plus } from "lucide-react";
 
 export default async function EditProductsPage() {
   const supabase = await createClient();
