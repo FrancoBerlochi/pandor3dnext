@@ -4,6 +4,7 @@ import { useState } from "react";
 import OrderSummaryCard from "../../components/cards/OrderSummaryCard";
 import Swal from "sweetalert2";
 import { useTheme } from "next-themes";
+import WhatsApp from "@/components/ui/whatsapp-button";
 
 interface FormErrors {
   nombre: boolean;
@@ -178,6 +179,7 @@ const Custom = () => {
 
   return (
     <div id="inicio" className="dark:bg-[#333] pb-4">
+      <WhatsApp></WhatsApp>
       <Header></Header>
       <main className="flex flex-col pt-35 mx-auto w-[60vw] max-md:items-center ">
         <h1 className="text-6xl font-semibold tracking-wide dark:text-white max-md:text-5xl max-md:mb-2">

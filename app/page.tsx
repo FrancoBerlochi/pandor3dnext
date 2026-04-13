@@ -12,6 +12,7 @@ import Link from "next/link";
 import linke from "@/public/linkedin.png";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import WhatsApp from "@/components/ui/whatsapp-button";
 
 const homeCards = [
   {
@@ -135,6 +136,7 @@ const HomePage = () => {
   
   return (
     <div id="inicio" className="">
+      <WhatsApp></WhatsApp>
       <Header></Header>
       <main className="dark:bg-[#333] pb-20 dark:fadeIn dark:transition-all dark:duration-100">
         <section className="flex justify-between h-[100vh] items-center max-md:justify-center max-md:flex-col">
@@ -187,9 +189,13 @@ const HomePage = () => {
             {cardsToShow}
           </article>
         </section>
-         <section className="w-full px-16 mt-16">
-          {loading ? <div>Cargando...</div> : <SwiperComponent data={products}></SwiperComponent>}
-        </section> 
+        <section className="w-full px-16 mt-16">
+          {loading ? (
+            <div>Cargando...</div>
+          ) : (
+            <SwiperComponent data={products}></SwiperComponent>
+          )}
+        </section>
         <section className="border-2  bg-sky-400 dark:border-dark1 dark:bg-[hsl(36,100%,50%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-2xl">
@@ -276,10 +282,12 @@ const HomePage = () => {
               Contacto
             </h3>
             <p className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
-              <Mail className="text-sky-400 dark:text-amber-500"/> pandor3d@gmail.com
+              <Mail className="text-sky-400 dark:text-amber-500" />{" "}
+              pandor3d@gmail.com
             </p>
             <p className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
-              <Phone className="text-sky-400 dark:text-amber-500"/> +54 numero de sergio
+              <Phone className="text-sky-400 dark:text-amber-500" /> +54 numero
+              de sergio
             </p>
           </div>
         </div>

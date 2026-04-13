@@ -6,6 +6,7 @@ import OrderSummaryCard from "../../components/cards/OrderSummaryCard";
 import ProductCardOrder from "../../components/cards/ProductCardOrder";
 import { LayoutGrid } from "lucide-react";
 import { useTheme } from "next-themes";
+import WhatsApp from "@/components/ui/whatsapp-button";
 
 type ColorRelation = {
   colors: { name: string; hex_code: string };
@@ -71,6 +72,7 @@ const Order = () => {
   
   return (
     <div id="inicio" className="dark:bg-[#333] bg-sky-50/60">
+      <WhatsApp></WhatsApp>
       <Header></Header>
       <main className="flex flex-col pt-28 h-screen w-[60vw] mx-auto max-md:mx-0 max-md:h-fit">
         <h1 className="text-7xl my-4 font-semibold dark:text-white max-md:ml-16 max-md:w-fit">

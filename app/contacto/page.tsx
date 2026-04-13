@@ -1,5 +1,6 @@
 "use client"
 import Header from "../../components/cards/Header";
+import WhatsApp from "@/components/ui/whatsapp-button";
 import { useState} from "react";
 import Swal from "sweetalert2";
 import { useTheme } from "next-themes";
@@ -88,6 +89,7 @@ const Contact = () => {
 
   return (
     <div id="inicio" className="flex justify-center dark:bg-[#333]">
+      <WhatsApp></WhatsApp>
       <Header></Header>
       <main className="pt-32 flex flex-col items-center h-screen w-[60vw] max-md:w-[100vw] max-md:h-fit">
         <h1 className="text-7xl font-semibold dark:text-white tracking-wide">Contacto</h1>

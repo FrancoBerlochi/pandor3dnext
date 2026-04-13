@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Rocket, X, SlidersHorizontal } from "lucide-react";
 import { topCero } from "../../lib/index";
 import { createClient } from "@/lib/supabase/client";
+import WhatsApp from "@/components/ui/whatsapp-button";
 
 type ColorRelation = {
   colors: { name: string; hex_code: string };
@@ -183,6 +184,7 @@ const Products = () => {
 
   return (
     <div id="inicio">
+      <WhatsApp></WhatsApp>
       <Header></Header>
       <main className="dark:bg-[#333] pb-20">
         <div className="flex flex-col pt-32 ml-12 max-md:w-[90vw] max-md:mx-auto">

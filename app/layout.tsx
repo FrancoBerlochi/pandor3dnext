@@ -5,6 +5,7 @@ import { Montserrat, Bebas_Neue } from "next/font/google";
 import { ThemeProvider } from "./providers/theme-provider";
 import {ViewDetailsProvider} from "./providers/event-details-provider";
 
+
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </ViewDetailsProvider>
+        
       </body>
     </html>
   );
