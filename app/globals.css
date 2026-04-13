@@ -34,3 +34,16 @@ h3,
 h4 {
   font-family: var(--font-bebas);
 }
+
+.dark .swiper-pagination-bullet-active {
+  background-color: #fbbf24 !important; /* amber-400 */
+  opacity: 1;
+}
+
+.dark .swiper-pagination-bullet {
+  background-color: #737373; /* neutral-400 */
+}
+
+.dark .swiper-pagination {
+  bottom: -6px !important; /* Ajusta la altura final */
+}

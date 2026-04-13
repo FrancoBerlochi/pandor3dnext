@@ -23,7 +23,10 @@ const Header = () => {
     <header className="dark:bg-[#3a3a3a] dark:text-white dark:fadeIn dark:transition-all dark:duration-100 flex justify-between py-3 dark:border-gray-800 border-b-1 border-gray-300 items-center fadeIn fixed w-full bg-white z-20 max-md:pr-4">
       <div className="gap-2 flex ml-8 items-center max-md:ml-4">
         <a href="#inicio" className="w-[3vw] logo max-md:w-[15vw]">
-          <img src={resolvedTheme === "dark" ? darkLogo.src : logo.src} alt="Logo" />
+          <img
+            src={resolvedTheme === "dark" ? darkLogo.src : logo.src}
+            alt="Logo"
+          />
         </a>
         <a
           href="#inicio"
@@ -32,7 +35,7 @@ const Header = () => {
           Pandor3D
         </a>
       </div>
-      <button className="hidden max-md:block" onClick={handleMenu}>
+      <button className={`${menu === false ? "hidden max-md:block" : "max-md:hidden"}`} onClick={handleMenu}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -87,7 +90,7 @@ const Header = () => {
           href="/"
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-6xl"
+              ? "max-md:h-fit max-md:text-5xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
           onClick={topCero}
@@ -98,7 +101,7 @@ const Header = () => {
           href="/productos"
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-6xl"
+              ? "max-md:h-fit max-md:text-5xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
           onClick={topCero}
@@ -109,7 +112,7 @@ const Header = () => {
           href="/personalizar"
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-6xl"
+              ? "max-md:h-fit max-md:text-5xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
           onClick={topCero}
@@ -121,7 +124,7 @@ const Header = () => {
           onClick={topCero}
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-6xl"
+              ? "max-md:h-fit max-md:text-5xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
         >
@@ -132,7 +135,7 @@ const Header = () => {
           onClick={topCero}
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-6xl"
+              ? "max-md:h-fit max-md:text-5xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
         >
@@ -147,7 +150,11 @@ const Header = () => {
         <Link href="/productos" className="anchor relative" onClick={topCero}>
           Productos
         </Link>
-        <Link href="/personalizar" className="anchor relative" onClick={topCero}>
+        <Link
+          href="/personalizar"
+          className="anchor relative"
+          onClick={topCero}
+        >
           Personalizar
         </Link>
         <Link href="/pedidos" onClick={topCero} className="anchor relative">

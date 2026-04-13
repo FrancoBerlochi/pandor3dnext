@@ -16,15 +16,15 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="w-10 cursor-pointer h-10 rounded-full bg-gray-200 hover:bg-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all flex items-center justify-center"
+      className="w-10 cursor-pointer h-10 max-md:w-16 max-md:h-16 rounded-full bg-gray-200 hover:bg-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 transition-all flex items-center justify-center"
       aria-label={
         resolvedTheme === "dark" ? "Activar modo claro" : "Activar modo oscuro"
       }
     >
       {resolvedTheme === "dark" ? (
-        <Sun className="w-5 h-5 text-yellow-500" />
+        <Sun className="w-5 h-5 max-md:w-8 max-md:h-8 text-yellow-500" />
       ) : (
-        <Moon className="w-5 h-5 text-gray-700" />
+        <Moon className="w-5 h-5 max-md:w-8 max-md:h-8 text-gray-700" />
       )}
     </button>
   );

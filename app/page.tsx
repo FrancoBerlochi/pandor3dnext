@@ -160,14 +160,14 @@ const HomePage = () => {
               <Link
                 onClick={topCero}
                 href="/productos"
-                className="flex gap-4 items-center py-2 px-6 rounded-2xl bg-sky-400 text-white hover:opacity-90 dark:bg-[hsl(41,98%,51%)]"
+                className="flex gap-4 items-center py-2 max-md:px-2 px-6 rounded-2xl bg-sky-400 text-white hover:opacity-90 dark:bg-[hsl(41,98%,51%)]"
               >
                 Ver Productos
                 <ArrowRight></ArrowRight>
               </Link>
               <Link
                 href="/personalizar"
-                className="py-2 px-6 rounded-2xl bg-white text-sky-400 border-1 border-sky-400 hover:brightness-95 dark:bg-[#3a3a3a] dark:border-[hsl(41,98%,51%)] dark:text-[hsl(41,98%,51%)]"
+                className="py-2 px-6 rounded-2xl max-md:px-2 max-md:py-0 max-md:flex max-md:items-center bg-white text-sky-400 border-1 border-sky-400 hover:brightness-95 dark:bg-[#3a3a3a] dark:border-[hsl(41,98%,51%)] dark:text-[hsl(41,98%,51%)]"
               >
                 Personalizar
               </Link>
@@ -189,38 +189,38 @@ const HomePage = () => {
             {cardsToShow}
           </article>
         </section>
-        <section className="w-full px-16 mt-16">
+        <section className="w-full px-16 max-md:px-6 mt-16">
           {loading ? (
             <div>Cargando...</div>
           ) : (
             <SwiperComponent data={products}></SwiperComponent>
           )}
         </section>
-        <section className="border-2  bg-sky-400 dark:border-dark1 dark:bg-[hsl(36,100%,50%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
+        <section className="border-2  bg-sky-400 dark:border-dark1 dark:bg-[hsl(36,100%,50%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] max-md:w-[95vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-2xl">
               ¿Tenés un diseño en mente?
             </h2>
-            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:text-center">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:w-80">
               Convertimos tus ideas en realidad. Contactanos y hablemos sobre tu
               proyecto personalizado.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 max-md:flex-col max-md:gap-0">
               <Link
                 href="/personalizar"
-                className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+                className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 max-md:items-center text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
                 onClick={topCero}
               >
                 Personalizá tu diseño
-                <Rocket></Rocket>
+                <Rocket className="max-md:w-10 max-md:h-10"></Rocket>
               </Link>
-              <p className="mt-8 dark:text-black">O</p>
+              <p className="mt-8 max-md:mt-2 dark:text-black">O</p>
               <Link
                 href="/productos"
-                className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+                className="flex gap-4 mt-8 max-md:mt-2 max-md:items-center bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               >
                 Ver todos los productos
-                <LayoutGrid></LayoutGrid>
+                <LayoutGrid className="max-md:w-10 max-md:h-10"></LayoutGrid>
               </Link>
             </div>
           </div>
@@ -276,7 +276,7 @@ const HomePage = () => {
               Contacto
             </Link>
           </div>
-          <hr className="max-md:block hidden w-[90vw] mx-auto border-[hsl(41,98%,51%)]" />
+          <hr className="max-md:block hidden w-[90vw] mx-auto border-black " />
           <div className="flex flex-col max-md:text-center gap-4">
             <h3 className=" dark:text-white text-xl max-md:text-[1.1rem] tracking-wider">
               Contacto

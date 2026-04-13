@@ -1,6 +1,8 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/pagination";
 
 type Product = {
   id: string;
@@ -25,6 +27,11 @@ const SwiperComponent = ({ data }: { data: Product[] }) => {
         640: { slidesPerView: 2.2 },
         1024: { slidesPerView: 3 },
       }}
+      pagination={{
+        clickable: true,
+        el: ".pagination",
+      }}
+      modules={[Pagination]}
       className="mySwiper w-full"
     >
       {data.map((s) => (
@@ -59,6 +66,7 @@ const SwiperComponent = ({ data }: { data: Product[] }) => {
           </div>
         </SwiperSlide>
       ))}
+      <div className="pagination w-full flex justify-center items-center mt-4"></div>
     </Swiper>
   );
 };

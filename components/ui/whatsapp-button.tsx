@@ -25,7 +25,7 @@ export default function WhatsApp() {
       className="fixed bottom-6 right-6  rounded-full bg-white z-100 flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-pointer"
     >
       {resolvedTheme === "dark" ? (
-        <svg viewBox="0 0 20 20" className="w-14 h-14" fill="#ff9900">
+        <svg viewBox="0 0 20 20" className="w-14 h-14 max-md:w-12 max-md:h-12" fill="#ff9900">
           {/* Tu primer SVG (puedes limpiar el código del SVG para que sea más corto) */}
           <g id="SVGRepo_iconCarrier">
             <g transform="translate(-300.000000, -7599.000000)" fill="#ff9900">
@@ -36,7 +36,7 @@ export default function WhatsApp() {
           </g>
         </svg>
       ) : (
-        <svg viewBox="0 0 20 20" className="w-14 h-14" fill="#56d7f1">
+        <svg viewBox="0 0 20 20" className="w-14 h-14 max-md:w-12 max-md:h-12" fill="#56d7f1">
           {/* Tu segundo SVG */}
           <g id="SVGRepo_iconCarrier">
             <g transform="translate(-300.000000, -7599.000000)" fill="#56d7f1">
