@@ -57,7 +57,7 @@ const Order = () => {
     const msg = orderList
       .map(
         (p, i) =>
-          `${i + 1}. ${p.title} - Cantidad: ${p.amount} - Tamaño: CM${p.size}`,
+          `${i + 1}. ${p.title} - Cantidad: ${p.amount} - Tamaño: ${p.size} cm`,
       )
       .join("%0A");
 

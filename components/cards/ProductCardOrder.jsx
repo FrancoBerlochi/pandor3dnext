@@ -86,7 +86,7 @@ const ProductCardOrder = ({ img, title, size, amount,description,category,materi
       </div>
       <div className="flex flex-col justify-center gap-4 items-center">
         <div className="">
-          Color seleccionado:{" "}
+          Colores disponibles:{" "}
           <div className="flex gap-2">
             {colores.map((c) => (
               <div
