@@ -182,14 +182,14 @@ const Custom = () => {
       <WhatsApp></WhatsApp>
       <Header></Header>
       <main className="flex flex-col pt-35 mx-auto w-[60vw] max-md:items-center ">
-        <h1 className="text-6xl font-semibold tracking-wide dark:text-white max-md:text-5xl max-md:mb-2">
+        <h1 className="text-6xl font-semibold tracking-wide max-md:w-80 dark:text-white max-md:text-5xl max-md:mb-2">
           Pesonalizar Pedido
         </h1>
-        <h2 className="text-2xl tracking-wide text-gray-600 dark:text-gray-300">
+        <h2 className="text-xl max-md:mt-2 tracking-wider text-gray-600 max-md:w-80 dark:text-gray-300">
           Contanos sobre tu proyecto y te ayudaremos a hacerlo realidad.
         </h2>
-        <div className="grid grid-cols-3 w-[60vw] mt-15 max-md:grid-cols-1 max-md:w-[95vw]">
-          <div className="col-span-2 border-2 border-gray-200 dark:border-[#111] rounded-2xl mx-2 p-8 shadow-xl max-md:mb-8 max-md:order-2">
+        <div className="grid grid-cols-3 w-[60vw] mt-15 max-md:grid-cols-1 max-md:w-[98vw]">
+          <div className="col-span-2 border-2 border-gray-200 dark:border-[#111] rounded-2xl mx-2 p-8 max-md:p-6 shadow-xl max-md:mb-8 max-md:order-2">
             <form onSubmit={handleSubmit} className="space-y-6 dark:text-white">
               <div>
                 <label className="block font-semibold mb-1">
