@@ -76,10 +76,12 @@ const Order = () => {
       <Header></Header>
       <main className="flex flex-col pt-28 h-screen w-[60vw] mx-auto max-md:mx-0 max-md:h-fit">
         <h1 className="text-7xl my-4 font-semibold dark:text-white max-md:ml-16 max-md:w-fit">
-          <span className=" border-b-sky-400 border-b-4 dark:border-b-amber-400">
+          <span className="max-md:hidden border-b-sky-400 border-b-4 dark:border-b-amber-400 ">
             MIS
-          </span>{" "}
+          </span>
+          <span className="lg:hidden">MIS</span>{" "}
           PEDIDOS
+          <div className="lg:hidden border-b-sky-400 border-b-4  dark:border-b-amber-400 w-12 h-1"></div>
         </h1>
         <section className="grid grid-cols-3 gap-4 mt-4 max-md:grid-cols-1 max-md:w-[100vw] ">
           <div className="col-span-2 max-md:order-1 max-md:mb-12 max-md:w-[98vw]">

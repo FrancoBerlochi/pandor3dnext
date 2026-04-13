@@ -99,7 +99,7 @@ const ViewDetails = ({ order }) => {
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="text-gray-600 dark:text-gray-300 max-md:text-[12px]">
+            <p className="text-gray-600 dark:text-gray-300 mt-8 max-md:mt-0 max-md:text-[12px]">
               COLORES DISPONIBLES:
             </p>
             <ul className="flex gap-2 mt-1">

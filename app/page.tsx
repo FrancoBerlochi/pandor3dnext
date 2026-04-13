@@ -197,7 +197,7 @@ const HomePage = () => {
           )}
         </section>
         <section className="border-2  bg-sky-400 dark:border-dark1 dark:bg-[hsl(36,100%,50%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] max-md:w-[95vw] shadow-2xs">
-          <div className=" flex flex-col justify-center items-center py-16 ">
+          <div className=" flex flex-col justify-center items-center py-16 lg:w-120">
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-3xl">
               ¿Tenés un diseño en mente?
             </h2>
@@ -208,7 +208,7 @@ const HomePage = () => {
             <div className="flex items-center gap-3 max-md:flex-col max-md:gap-0">
               <Link
                 href="/personalizar"
-                className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 max-md:items-center text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 max-md:p-3 max-md:py-2 shadow-md hover:opacity-90"
+                className="flex gap-4 mt-8 bg-dark1 lg:justify-between lg:w-65 dark:bg-dark1 items-center text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 max-md:p-3 max-md:py-2 shadow-md hover:opacity-90"
                 onClick={topCero}
               >
                 Personalizá tu diseño
@@ -217,7 +217,7 @@ const HomePage = () => {
               <p className="mt-8 max-md:mt-2 dark:text-black">O</p>
               <Link
                 href="/productos"
-                className="flex gap-4 mt-8 max-md:mt-2 max-md:items-center bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 max-md:p-3 max-md:py-2 shadow-md hover:opacity-90"
+                className="flex gap-4 mt-8 max-md:mt-2 lg:justify-between lg:w-68 items-center bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 max-md:p-3 max-md:py-2 shadow-md hover:opacity-90"
               >
                 Ver todos los productos
                 <LayoutGrid className="max-md:w-8 max-md:h-8"></LayoutGrid>
