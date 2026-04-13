@@ -262,7 +262,7 @@ const Products = () => {
               <button
                 onClick={() => setCurrentPage((p) => p - 1)}
                 disabled={currentPage === 0}
-                className="px-4 py-2 rounded-xl border border-gray-300 text-sm text-gray-600 hover:border-sky-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 rounded-xl border border-gray-300 text-sm text-gray-600 dark:border-dark1 dark:bg-dark2 dark:text-white hover:border-sky-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 ← Anterior
               </button>
@@ -273,8 +273,8 @@ const Products = () => {
                   onClick={() => setCurrentPage(i)}
                   className={`w-9 h-9 rounded-xl border text-sm transition-colors ${
                     i === currentPage
-                      ? "bg-sky-400 border-sky-400 text-white font-medium"
-                      : "border-gray-300 text-gray-600 hover:border-sky-400"
+                      ? "bg-sky-400 border-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 text-white font-medium"
+                      : "border-gray-300 text-gray-600 hover:border-sky-400 dark:text-gray-500 dark:hover:border-[hsl(36,100%,50%)]"
                   }`}
                 >
                   {i + 1}
@@ -284,25 +284,25 @@ const Products = () => {
               <button
                 onClick={() => setCurrentPage((p) => p + 1)}
                 disabled={currentPage >= totalPages - 1}
-                className="px-4 py-2 rounded-xl border border-gray-300 text-sm text-gray-600 hover:border-sky-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 rounded-xl border border-gray-300 text-sm text-gray-600 dark:border-dark1 dark:bg-dark2 dark:text-white hover:border-sky-400 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               >
                 Siguiente →
               </button>
             </div>
           )}
         </section>
-        <section className="border-2  bg-sky-400 dark:border-[hsl(41,98%,70%)] rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
+        <section className="border-2  bg-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
-            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-white max-md:text-2xl">
+            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-2xl">
               ¿No encontrás lo que buscás?
             </h2>
-            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-300 max-md:text-[1.1rem] max-md:text-center">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:text-center">
               Podemos imprimir cualquier diseño que tengas en mente. Contactanos
               para un presupuesto personalizado.
             </p>
             <Link
               href="/personalizar"
-              className="flex gap-4 mt-8 bg-dark1 dark:bg-[hsl(41,98%,51%)] text-white font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+              className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               onClick={topCero}
             >
               Solicitá tu diseño
