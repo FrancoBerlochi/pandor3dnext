@@ -336,8 +336,8 @@ const Products = () => {
           )}
         </section>
         <section className="border-2  bg-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 rounded-xl mt-30 flex justify-center mx-auto w-[60vw] max-md:w-[95vw] shadow-2xs">
-          <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
-            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-[26px]">
+          <div className=" flex flex-col justify-center items-center py-16">
+            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-[29px] max-md:w-45 ">
               ¿No encontrás lo que buscás?
             </h2>
             <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1rem] max-md:w-80">
