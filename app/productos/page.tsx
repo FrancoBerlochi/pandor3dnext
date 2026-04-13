@@ -207,7 +207,7 @@ const Products = () => {
                     filterMaterials.length +
                     filterBadges.length >
                     0 && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-sky-400 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                    <span className="absolute -top-1.5 -right-1.5 bg-sky-400 dark:bg-[hsl(36,100%,50%)] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                       {filterCategories.length +
                         filterMaterials.length +
                         filterBadges.length}
@@ -220,7 +220,7 @@ const Products = () => {
                   (f) => (
                     <span
                       key={f}
-                      className="flex items-center gap-1 px-3 py-1 rounded-2xl bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 text-xs"
+                      className="flex items-center gap-1 px-3 py-1 rounded-2xl bg-sky-100 dark:bg-[hsl(36,100%,50%)] text-sky-700 dark:text-white text-xs"
                     >
                       {f}
                       <X
@@ -274,9 +274,10 @@ const Products = () => {
                       : prod.length_cm && prod.width_cm
                         ? `${prod.length_cm} x ${prod.width_cm}`
                         : prod.height_cm && prod.width_cm
-                  ? `${prod.height_cm} x ${prod.width_cm}`: ""
+                          ? `${prod.height_cm} x ${prod.width_cm}`
+                          : ""
                 }
-                description={(prod.description)}
+                description={prod.description}
                 category={(prod.product_categories as any)?.name ?? null}
                 material={(prod.product_materials as any)?.name ?? null}
                 colores={prod.colores ?? []}
@@ -351,7 +352,7 @@ const Products = () => {
       >
         <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-100 dark:border-stone-700">
           <div>
-            <p className="text-[11px] tracking-widest text-sky-500 uppercase font-medium">
+            <p className="text-[11px] tracking-widest text-sky-500 dark:text-[hsl(36,100%,50%)] uppercase font-medium">
               Filtros
             </p>
             <h2 className="text-lg font-medium text-gray-800 dark:text-gray-200">
@@ -360,7 +361,7 @@ const Products = () => {
           </div>
           <button
             onClick={() => setShowSidebar(false)}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-red-500 transition-colors"
           >
             <X size={20} />
           </button>
@@ -398,8 +399,8 @@ const Products = () => {
                     onClick={() => toggleFilter(opt, current, setter)}
                     className={`text-xs px-3 py-1.5 rounded-full border transition-colors cursor-pointer ${
                       current.includes(opt)
-                        ? "bg-sky-400 border-sky-400 text-white font-medium"
-                        : "border-gray-200 dark:border-stone-600 text-gray-600 dark:text-gray-300 hover:border-sky-400"
+                        ? "bg-sky-400 border-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-[hsl(36,100%,50%)] text-white font-medium"
+                        : "border-gray-200 dark:border-stone-600 text-gray-600 dark:text-gray-300 hover:border-sky-400 dark:hover:border-[hsl(36,100%,50%)]"
                     }`}
                   >
                     {opt}
