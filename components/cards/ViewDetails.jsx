@@ -48,70 +48,73 @@ const ViewDetails = ({ order }) => {
       onClick={handleOpen}
     >
       <div
-        className="relative flex rounded-xl bg-white dark:bg-dark2 w-[75vw] h-[80vh] max-md:w-[95vw] max-md:h-[80vh] max-md:flex-col"
+        className="relative flex rounded-xl bg-white  dark:bg-dark2 w-[75vw] h-[80vh] max-md:w-[100vw] max-md:h-[100vh] max-md:flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="absolute top-2 right-2 w-9 h-9 flex justify-center items-center text-black hover:bg-gray-200 text-2xl bg-gray-100  rounded-3xl cursor-pointer"
+          className="absolute top-2 right-2 w-9 h-9 text-center flex max-md:pb-1 justify-center items-center text-black hover:bg-gray-200 text-2xl bg-gray-100  rounded-3xl cursor-pointer"
           onClick={handleOpen}
         >
           x
         </button>
-        <div className="w-full flex items-center justify-center bg-gray-200 dark:bg-dark1">
+        <div className="w-full flex items-center max-md:h-[45vh] max-md:  justify-center bg-gray-200 dark:bg-dark1">
           <img
             src={data.img}
-            className="w-[85%] h-[60vh] bg-white object-cover  rounded-xl"
+            className="w-[85%] h-[60vh] max-md:h-[80%] max-md:w-[90%] max-md:object-cover   bg-white object-cover  rounded-xl"
             alt="producto"
           />
         </div>
 
-        <div className="flex flex-col mt-20 ml-10 mr-20 dark:text-white max-md:ml-5 max-md:mr-0 max-md:mt-10">
-          <p className="text-cyan-400 font-bold dark:text-[hsl(36,100%,50%)]">
+        <div className="flex flex-col mt-20 ml-10 mr-20 dark:text-white max-md:ml-5 max-md:mr-0 max-md:mt-2">
+          <p className="text-cyan-400 font-bold max-md:text-[12px] dark:text-[hsl(36,100%,50%)]">
             CATEGORÍA: {data.category}
           </p>
-          <h3 className="text-6xl mb-8 font-semibold max-md:mb-6 w-60">
+          <h3 className="text-6xl tracking-wide mb-8 max-md:mt-2 font-semibold max-md:mb-4 w-60 max-md:text-4xl">
             {data.title}
           </h3>
-          <div className="flex gap-8">
-            <div className="flex flex-col">
-              <p className="text-gray-600 dark:text-gray-300">DIMENSIONES</p>
-              <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
+          <div className="flex gap-8 max-md:mb-4">
+            <div className="flex flex-col ">
+              <p className="text-gray-600 dark:text-gray-300 max-md:text-[12px]">
+                DIMENSIONES
+              </p>
+              <p className="text-2xl text-cyan-500 max-md:text-base dark:text-[hsl(41,98%,51%)] ">
                 {data.size} cm
               </p>
             </div>
             <div className="flex flex-col">
-              <p className="text-gray-600 dark:text-gray-300">MATERIAL</p>
-              <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
+              <p className="text-gray-600 dark:text-gray-300 max-md:text-[12px]">
+                MATERIAL
+              </p>
+              <p className="text-2xl text-cyan-500 max-md:text-base dark:text-[hsl(41,98%,51%)]">
                 {data.material}
               </p>
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="text-gray-600 dark:text-gray-300">
+            <p className="text-gray-600 dark:text-gray-300 max-md:text-[12px]">
               COLORES DISPONIBLES:
             </p>
             <ul className="flex gap-2 mt-1">
               {data.colores.map((c) => (
                 <li
                   key={c.colors.name}
-                  className={`w-8 h-8 rounded-md`}
+                  className={`w-8 h-8 max-md:w-6 max-md:h-6 rounded-md`}
                   style={{ backgroundColor: `#${c.colors.hex_code}` }}
                 ></li>
               ))}
             </ul>
           </div>
 
-          <p className="text-[18px] mt-12 w-100 break-all">
+          <p className="text-[18px] max-md:text-[0.9rem] mt-12  max-md:mt-4  max-md:w-fit max-md:pr-2 w-100 break-all">
             {data.description}
           </p>
-          <p className="text-xl max-md:text-[1rem] max-md:w-full max-md:mb-5"></p>
-          <div className="flex lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-4 items-center">
+          <div className="flex max-md:mt-6 lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-4 items-center">
             {/* Mini input cantidad */}
-            <div className="flex items-center justify-between bg-black/5 rounded-full px-5 py-3 w-64 shadow-md">
-              <span className="text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">
+            <div className="flex items-center justify-between max-md:justify-center bg-black/5 rounded-full px-5 py-3 max-md:w-32 w-64 shadow-md">
+              <span className="max-md:hidden text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">
                 Cantidad
               </span>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 ">
                 <button
                   onClick={() => set(amount - 1)}
                   disabled={amount <= MIN}
@@ -142,10 +145,10 @@ const ViewDetails = ({ order }) => {
 
             {/* Botón agregar */}
             <button
-              className="flex items-center text-white gap-2 px-6 py-2 bg-cyan-500 dark:bg-[hsl(36,100%,50%)] dark:text-black lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:p-4 rounded-4xl"
+              className="flex items-center text-white gap-2 px-6 py-2 bg-cyan-500 dark:bg-[hsl(36,100%,50%)] dark:text-black lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:text-[1rem] max-md:p-2 rounded-4xl"
               onClick={order}
             >
-              <ShoppingCart className="w-6 h-6" />
+              <ShoppingCart className="w-6 h-6 max-md:w-8 max-md:h-8" />
               Añadir al Pedido
             </button>
           </div>

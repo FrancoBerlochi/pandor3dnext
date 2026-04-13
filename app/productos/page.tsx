@@ -1,6 +1,7 @@
 "use client";
 import Header from "../../components/cards/Header";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ViewDetailsContext } from "../providers/event-details-provider";
 import ProductCard from "../../components/cards/ProductCard";
 import Link from "next/link";
 import { Rocket, X, SlidersHorizontal } from "lucide-react";
@@ -100,6 +101,7 @@ const Products = () => {
   const [filterBadges, setFilterBadges] = useState<string[]>([]);
   const [filterSearch, setFilterSearch] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
+  const { details, setDetails } = useContext(ViewDetailsContext);
   const uniqueCategories = [
     ...new Set(
       products.map((p) => (p.product_categories as any)?.name).filter(Boolean),
@@ -196,7 +198,7 @@ const Products = () => {
 
   return (
     <div id="inicio">
-      <WhatsApp></WhatsApp>
+      {details ? "" : <WhatsApp></WhatsApp>}
       <Header></Header>
       <main className="dark:bg-[#333] pb-20">
         <div className="flex flex-col pt-32 ml-12 max-md:w-[90vw] max-md:mx-auto">
@@ -338,17 +340,17 @@ const Products = () => {
             <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-[26px]">
               ¿No encontrás lo que buscás?
             </h2>
-            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:w-80">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1rem] max-md:w-80">
               Podemos imprimir cualquier diseño que tengas en mente. Contactanos
               para un presupuesto personalizado.
             </p>
             <Link
               href="/personalizar"
-              className="flex gap-4 max-md:items-center max-md:justify-around max-md:p-2 mt-8 bg-dark1 max-md:w-68 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+              className="flex gap-4 max-md:items-center max-md:justify-around  mt-8 bg-dark1 max-md:w-68 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               onClick={topCero}
             >
               Solicitá tu diseño
-              <Rocket className="max-md:w-10 max-md:h-10"></Rocket>
+              <Rocket className="max-md:w-9 max-md:h-9"></Rocket>
             </Link>
           </div>
         </section>
