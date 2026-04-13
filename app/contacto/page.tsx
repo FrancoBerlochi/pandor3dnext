@@ -298,6 +298,7 @@ const Contact = () => {
             </div>
           </div>
         </section>
+        <div className="mt-2"></div>
       </main>
     </div>
   );
