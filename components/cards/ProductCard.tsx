@@ -160,7 +160,7 @@ const ProductCard = ({
                   <li
                     key={item.colors.name}
                     title={item.colors.name}
-                    className="w-6 h-6 rounded-full border border-gray-200 dark:border-stone-600"
+                    className="w-6 h-6 rounded-full border border-gray-200 dark:border-black"
                     style={{ backgroundColor: `#${item.colors.hex_code}` }}
                   />
                 ))
@@ -189,7 +189,7 @@ const ProductCard = ({
               max={MAX}
               value={amount}
               onChange={(e) => set(Number(e.target.value))}
-              className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="w-8 text-center text-base font-medium text-gray-900 dark:text-gray-300 bg-transparent border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <button
               onClick={() => set(amount + 1)}

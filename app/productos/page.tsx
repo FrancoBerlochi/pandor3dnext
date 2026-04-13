@@ -148,8 +148,20 @@ const Products = () => {
     return matchSearch && matchCategory && matchMaterial && matchBadge;
   });
 
+  const sortedProducts = [...filtered].sort((a, b) => {
+    const stateA = (a.product_states as any)?.name?.toLowerCase();
+    const stateB = (b.product_states as any)?.name?.toLowerCase();
+
+    // Si 'a' es inactivo y 'b' no, 'a' va después (retorna 1)
+    if (stateA === "inactivo" && stateB !== "inactivo") return 1;
+    // Si 'b' es inactivo y 'a' no, 'a' va antes (retorna -1)
+    if (stateA !== "inactivo" && stateB === "inactivo") return -1;
+
+    return 0; 
+  });
+
   const totalPages = Math.ceil(products.length / PAGE_SIZE);
-  const paginated = filtered.slice(
+  const paginated = sortedProducts.slice(
     currentPage * PAGE_SIZE,
     (currentPage + 1) * PAGE_SIZE,
   );
@@ -197,7 +209,7 @@ const Products = () => {
         </div>
         <section className="flex flex-col">
           <div className="flex justify-end mx-12">
-            <div className="flex justify-between mx-12 gap-6 mb-12">
+            <div className="flex justify-between max-md:flex-col mx-12 gap-6 mb-12">
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowSidebar(true)}
@@ -257,7 +269,7 @@ const Products = () => {
               />
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4 mx-12 max-md:grid-cols-1 max-md:mx-0">
+          <div className="grid grid-cols-3 gap-4 max-md:gap-8 mx-12 max-md:grid-cols-1 max-md:mx-0">
             {paginated.map((prod) => (
               <ProductCard
                 key={prod.id}
@@ -321,22 +333,22 @@ const Products = () => {
             </div>
           )}
         </section>
-        <section className="border-2  bg-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 rounded-xl mt-30 flex justify-center mx-auto w-[60vw] shadow-2xs">
+        <section className="border-2  bg-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 rounded-xl mt-30 flex justify-center mx-auto w-[60vw] max-md:w-[95vw] shadow-2xs">
           <div className=" flex flex-col justify-center items-center py-16 w-[50%]">
-            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-2xl">
+            <h2 className="text-7xl font-semibold text-stone-900 text-center dark:text-black max-md:text-[26px]">
               ¿No encontrás lo que buscás?
             </h2>
-            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:text-center">
+            <p className="text-gray-8 00 text-xl mt-8 text-center dark:text-gray-900 max-md:text-[1.1rem] max-md:w-80">
               Podemos imprimir cualquier diseño que tengas en mente. Contactanos
               para un presupuesto personalizado.
             </p>
             <Link
               href="/personalizar"
-              className="flex gap-4 mt-8 bg-dark1 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
+              className="flex gap-4 max-md:items-center max-md:justify-around max-md:p-2 mt-8 bg-dark1 max-md:w-68 dark:bg-dark1 text-white dark:text-[hsl(36,100%,50%)] font-bold rounded-2xl p-4 shadow-md hover:opacity-90"
               onClick={topCero}
             >
               Solicitá tu diseño
-              <Rocket></Rocket>
+              <Rocket className="max-md:w-10 max-md:h-10"></Rocket>
             </Link>
           </div>
         </section>
