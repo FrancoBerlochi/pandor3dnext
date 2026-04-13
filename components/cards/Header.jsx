@@ -90,56 +90,56 @@ const Header = () => {
           href="/"
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-5xl"
+              ? "max-md:h-fit max-md:text-4xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
           onClick={topCero}
         >
-          Inicio
+          INICIO
         </Link>
         <Link
           href="/productos"
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-5xl"
+              ? "max-md:h-fit max-md:text-4xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
           onClick={topCero}
         >
-          Productos
+          PRODUCTOS
         </Link>
         <Link
           href="/personalizar"
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-5xl"
+              ? "max-md:h-fit max-md:text-4xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
           onClick={topCero}
         >
-          Personalizar
+          PERSONALIZAR
         </Link>
         <Link
           href="/pedidos"
           onClick={topCero}
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-5xl"
+              ? "max-md:h-fit max-md:text-4xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
         >
-          Pedidos
+          PEDIDOS
         </Link>
         <Link
           href="/contacto"
           onClick={topCero}
           className={`${
             menu
-              ? "max-md:h-fit max-md:text-5xl"
+              ? "max-md:h-fit max-md:text-4xl"
               : "max-md:h-0 max-md:text-[0px]"
           } transition-all duration-300`}
         >
-          Contacto
+          CONTACTO
         </Link>
         {menu && <ThemeToggle></ThemeToggle>}
       </nav>
