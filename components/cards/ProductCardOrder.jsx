@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 
-const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) => {
+const ProductCardOrder = ({ img, title, size, amount,description,category,material,colores, handleAmount,refresh }) => {
   const { resolvedTheme } = useTheme();
   const [amountDetails, setAmountDetail]  = useState(amount)
   const MIN = 1, MAX = 200;
@@ -74,11 +74,11 @@ const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) =>
       <img className="w-50 h-50" src={img} alt="" />
       <div className="flex flex-col mt-4 gap-4 ml-4 mr-auto">
         <p className="text-base text-cyan-500 dark:text-amber-400">
-          Categoría:
+          Categoría: {category}
         </p>
         <p className="text-xl font-semibold dark:text-white">{title}</p>
         <p className="text-base text-gray-600 w-62 dark:text-gray-200">
-          material
+          {material}
         </p>
         <p className="text-cyan-500 text-base dark:text-[hsl(41,98%,51%)]">
           {size} cm
@@ -87,7 +87,16 @@ const ProductCardOrder = ({ img, title, size, amount, handleAmount,refresh }) =>
       <div className="flex flex-col justify-center gap-4 items-center">
         <div className="">
           Color seleccionado:{" "}
-          <div className="w-6 h-6 bg-blue-600 rounded-md"></div>
+          <div className="flex gap-2">
+            {colores.map((c) => (
+              <div
+                key={c.colors.name}
+                className="w-8 h-8 rounded-md"
+                style={{ backgroundColor: `#${c.colors.hex_code}` }}
+              ></div>
+            ))}
+            
+          </div>
         </div>
         <div className="flex items-center">
           <div className="flex  bg-black/5 rounded-full px-5 py-3  shadow-md">

@@ -7,10 +7,18 @@ import ProductCardOrder from "../../components/cards/ProductCardOrder";
 import { LayoutGrid } from "lucide-react";
 import { useTheme } from "next-themes";
 
+type ColorRelation = {
+  colors: { name: string; hex_code: string };
+};
+
 interface OrderItem {
   img: string;
   title: string;
   amount: number;
+  description: string;
+  category: string;
+  material: string;
+  colores: ColorRelation[];
   size: number;
 }
 
@@ -109,6 +117,10 @@ const Order = () => {
                       title={ol.title}
                       size={ol.size}
                       amount={ol.amount}
+                      description={ol.description}
+                      category={ol.category}
+                      material={ol.material}
+                      colores={ol.colores}
                       handleAmount={handleAmount}
                       refresh={handleDelete}
                     ></ProductCardOrder>
