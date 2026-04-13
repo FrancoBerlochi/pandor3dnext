@@ -1,11 +1,19 @@
 "use client"
 import { useState, createContext } from "react";
 
+type ColorRelation = {
+  colors: { name: string; hex_code: string };
+};
+
+
 interface ViewDetailsData {
   img: string;
   title: string;
   size: number;
   description: string;
+  category: string | null;
+  material: string | null;
+  colores: ColorRelation[];
 }
 
 interface ViewDetailsContextType {
@@ -30,6 +38,9 @@ export const ViewDetailsProvider = ({ children }: { children: React.ReactNode })
     title: "",
     size: 0,
     description: "",
+    category: "",
+    material: "",
+    colores: [],
   });
 
   return (

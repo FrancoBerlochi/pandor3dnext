@@ -260,15 +260,27 @@ const Products = () => {
               <ProductCard
                 key={prod.id}
                 index={prod.id}
-                img={prod.image_url || "https://placehold.co/400"}
+                img={
+                  prod.image_url && prod.image_url !== ""
+                    ? prod.image_url
+                    : "https://placehold.co/400"
+                }
                 tittle={prod.title}
                 size={
-                  prod.length_cm && prod.width_cm
-                    ? `${prod.length_cm} x ${prod.width_cm}`
-                    : prod.height_cm
-                      ? `${prod.height_cm}`
-                      : ""
+                  prod.length_cm && prod.height_cm && prod.width_cm
+                    ? `${prod.length_cm} x ${prod.height_cm} x ${prod.width_cm}`
+                    : prod.length_cm && prod.height_cm
+                      ? `${prod.length_cm} x ${prod.height_cm}`
+                      : prod.length_cm && prod.width_cm
+                        ? `${prod.length_cm} x ${prod.width_cm}`
+                        : prod.height_cm && prod.width_cm
+                  ? `${prod.height_cm} x ${prod.width_cm}`: ""
                 }
+                description={(prod.description)}
+                category={(prod.product_categories as any)?.name ?? null}
+                material={(prod.product_materials as any)?.name ?? null}
+                colores={prod.colores ?? []}
+                estado={(prod.product_states as any)?.name ?? null}
               />
             ))}
           </div>
@@ -285,7 +297,7 @@ const Products = () => {
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
-                  onClick={()=> actual(i)}
+                  onClick={() => actual(i)}
                   className={`w-9 h-9 rounded-xl border text-sm transition-colors ${
                     i === currentPage
                       ? "bg-sky-400 border-sky-400 dark:bg-[hsl(36,100%,50%)] dark:border-dark1 text-white font-medium"

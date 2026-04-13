@@ -41,13 +41,14 @@ const ViewDetails = ({ order }) => {
     return () => document.body.classList.remove("no-scroll");
   }, [details]);
 
+
   return (
     <div
       className="fixed inset-0 backdrop-blur-md flex justify-center items-center z-20 "
       onClick={handleOpen}
     >
       <div
-        className="relative flex rounded-xl bg-white dark:bg-[#555] w-[75vw] h-[80vh] max-md:w-[95vw] max-md:h-[80vh] max-md:flex-col"
+        className="relative flex rounded-xl bg-white dark:bg-dark2 w-[75vw] h-[80vh] max-md:w-[95vw] max-md:h-[80vh] max-md:flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -56,47 +57,52 @@ const ViewDetails = ({ order }) => {
         >
           x
         </button>
-        <div className="w-full flex items-center justify-center bg-gray-200">
+        <div className="w-full flex items-center justify-center bg-gray-200 dark:bg-dark1">
           <img
             src={data.img}
-            className="w-[95%] h-[50vh] bg-white object-cover  rounded-xl"
+            className="w-[85%] h-[60vh] bg-white object-cover  rounded-xl"
             alt="producto"
           />
         </div>
 
         <div className="flex flex-col mt-20 ml-10 mr-20 dark:text-white max-md:ml-5 max-md:mr-0 max-md:mt-10">
-          <p className="text-cyan-400 font-bold">CATEGORÍA: insertar dato</p>
+          <p className="text-cyan-400 font-bold dark:text-[hsl(36,100%,50%)]">
+            CATEGORÍA: {data.category}
+          </p>
           <h3 className="text-6xl mb-8 font-semibold max-md:mb-6 w-60">
             {data.title}
           </h3>
-          <div className="flex gap-6">
+          <div className="flex gap-8">
             <div className="flex flex-col">
-              <p className="text-gray-600">DIMENSIONES</p>
+              <p className="text-gray-600 dark:text-gray-300">DIMENSIONES</p>
               <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
                 {data.size} cm
               </p>
             </div>
             <div className="flex flex-col">
-              <p className="text-gray-600">MATERIAL</p>
+              <p className="text-gray-600 dark:text-gray-300">MATERIAL</p>
               <p className="text-2xl mb-10 text-cyan-500 dark:text-[hsl(41,98%,51%)] max-md:mb-8">
-                {data.size} cm
+                {data.material}
               </p>
             </div>
           </div>
           <div className="flex flex-col">
-            <p className="text-gray-600">COLORES DISPONIBLES:</p>
+            <p className="text-gray-600 dark:text-gray-300">
+              COLORES DISPONIBLES:
+            </p>
             <ul className="flex gap-2 mt-1">
-              <li className="w-8 h-8 bg-red-400 rounded-md"></li>
-              <li className="w-8 h-8 bg-yellow-400 rounded-md"></li>
-              <li className="w-8 h-8 bg-green-400 rounded-md"></li>
-              <li className="w-8 h-8 bg-blue-400 rounded-md"></li>
+              {data.colores.map((c) => (
+                <li
+                  key={c.colors.name}
+                  className={`w-8 h-8 rounded-md`}
+                  style={{ backgroundColor: `#${c.colors.hex_code}` }}
+                ></li>
+              ))}
             </ul>
           </div>
-          <p className="text-[18px] mt-12">
-            Lleva la era prehistórica a tu escritorio con este modelo de{" "}
-            <span class="text-on-surface font-bold">precisión industrial</span>.
-            Una pieza maestra de ingeniería 3D con acabado premium y fidelidad
-            anatómica excepcional.
+
+          <p className="text-[18px] mt-12 w-100 break-all">
+            {data.description}
           </p>
           <p className="text-xl max-md:text-[1rem] max-md:w-full max-md:mb-5"></p>
           <div className="flex lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-4 items-center">
@@ -109,7 +115,7 @@ const ViewDetails = ({ order }) => {
                 <button
                   onClick={() => set(amount - 1)}
                   disabled={amount <= MIN}
-                  className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+                  className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-300 text-xl font-light hover:bg-gray-100 dark:hover:text-gray-700 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
                 >
                   −
                 </button>
@@ -120,14 +126,14 @@ const ViewDetails = ({ order }) => {
                   max={MAX}
                   value={amount}
                   onChange={(e) => set(Number(e.target.value))}
-                  className="w-8 text-center text-base font-medium text-gray-900 bg-transparent border-none outline-none
+                  className="w-8 text-center text-base font-medium text-gray-900 dark:text-gray-200 bg-transparent border-none outline-none
                   [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
 
                 <button
                   onClick={() => set(amount + 1)}
                   disabled={amount >= MAX}
-                  className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
+                  className="w-7 h-7 flex items-center justify-center rounded-full dark:text-gray-300 text-gray-500 text-xl font-light hover:bg-gray-100 dark:hover:text-gray-700 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
                 >
                   +
                 </button>
@@ -136,7 +142,7 @@ const ViewDetails = ({ order }) => {
 
             {/* Botón agregar */}
             <button
-              className="flex items-center text-white gap-2 px-6 py-2 bg-cyan-500 lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:p-4 rounded-4xl"
+              className="flex items-center text-white gap-2 px-6 py-2 bg-cyan-500 dark:bg-[hsl(36,100%,50%)] dark:text-black lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:p-4 rounded-4xl"
               onClick={order}
             >
               <ShoppingCart className="w-6 h-6" />
