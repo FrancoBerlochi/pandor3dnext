@@ -35,6 +35,13 @@ h4 {
   font-family: var(--font-bebas);
 }
 
+.no-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
+
+
 .dark .swiper-pagination-bullet-active {
   background-color: #fbbf24 !important; /* amber-400 */
   opacity: 1;

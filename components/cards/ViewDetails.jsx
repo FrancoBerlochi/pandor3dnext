@@ -37,8 +37,16 @@ const ViewDetails = ({ order }) => {
    }, [amount]);
 
   useEffect(() => {
-    document.body.classList.toggle("no-scroll", details);
-    return () => document.body.classList.remove("no-scroll");
+    if (details) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    // Cleanup al desmontar el componente
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
   }, [details]);
 
 
@@ -57,10 +65,10 @@ const ViewDetails = ({ order }) => {
         >
           x
         </button>
-        <div className="w-full flex items-center max-md:h-[45vh] max-md:  justify-center bg-gray-200 dark:bg-dark1">
+        <div className="w-full flex items-center max-md:h-[45vh] max-md:  justify-center  dark:bg-dark1">
           <img
             src={data.img}
-            className="w-[85%] h-[60vh] max-md:h-[80%] max-md:w-[90%] max-md:object-cover   bg-white object-cover  rounded-xl"
+            className="w-[85%] h-[60vh] max-md:h-[80%] max-md:w-[90%] max-md:object-cover shadow-xl  bg-white object-cover  rounded-xl"
             alt="producto"
           />
         </div>

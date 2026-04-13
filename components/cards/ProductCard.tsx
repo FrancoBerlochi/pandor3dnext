@@ -203,7 +203,7 @@ const ProductCard = ({
 
         <div className="flex flex-col gap-4 xl:mt-6 w-[80%] mx-auto">
           <button
-            className="bg-cyan-500 border dark:bg-[hsl(41,98%,51%)] dark:hover:text-[hsl(41,98%,51%)] dark:hover:bg-[#333] dark:hover:border-[hsl(41,98%,51%)] text-white rounded-2xl py-2 cursor-pointer hover:bg-cyan-200 hover:text-cyan-600 hover:border-cyan-500 transition-colors duration-300"
+            className="bg-cyan-500 border dark:border-black dark:bg-[hsl(41,98%,51%)] dark:hover:text-[hsl(41,98%,51%)] dark:hover:bg-[#333] dark:hover:border-[hsl(41,98%,51%)] text-white rounded-2xl py-2 cursor-pointer hover:bg-cyan-200 hover:text-cyan-600 hover:border-cyan-500 transition-colors duration-300"
             onClick={orderStorage}
           >
             Agregar Pedido
@@ -217,7 +217,7 @@ const ProductCard = ({
         </div>
       </div>
 
-      {details && id === index && <ViewDetails order={orderStorage} />}
+      {details && id === index && <ViewDetails order={orderStorage} />} 
     </div>
   );
 };
