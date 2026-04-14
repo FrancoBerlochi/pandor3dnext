@@ -2,11 +2,22 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
-
-const ProductCardOrder = ({ img, title, size, amount,description,category,material,colores, handleAmount,refresh }) => {
+const ProductCardOrder = ({
+  img,
+  title,
+  size,
+  amount,
+  description,
+  category,
+  material,
+  colores,
+  handleAmount,
+  refresh,
+}) => {
   const { resolvedTheme } = useTheme();
-  const [amountDetails, setAmountDetail]  = useState(amount)
-  const MIN = 1, MAX = 200;
+  const [amountDetails, setAmountDetail] = useState(amount);
+  const MIN = 1,
+    MAX = 200;
 
   const handleDeleteModal = () => {
     if (resolvedTheme === "dark") {
@@ -14,8 +25,8 @@ const ProductCardOrder = ({ img, title, size, amount,description,category,materi
         title: "Estás seguro?",
         text: `Vas a eliminar tu pedido de ${title}`,
         icon: "warning",
-        iconColor:"#fdaf09",
-        color:"white",
+        iconColor: "#fdaf09",
+        color: "white",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
         confirmButtonColor: "#fdaf09",
@@ -30,7 +41,7 @@ const ProductCardOrder = ({ img, title, size, amount,description,category,materi
             text: "Pedido eliminado con éxito",
             confirmButtonColor: "#fdaf09",
             color: "white",
-            background:"#111",
+            background: "#111",
             icon: "success",
             iconColor: "#fdaf09",
           });
@@ -59,21 +70,24 @@ const ProductCardOrder = ({ img, title, size, amount,description,category,materi
         }
       });
     }
-  }
+  };
 
-  useEffect(() => { 
-     const handleUpdateAmount = () => {
-       handleAmount(title, amountDetails);
-    }
-    handleUpdateAmount()
-  },
-  [amountDetails])
-  
+  useEffect(() => {
+    const handleUpdateAmount = () => {
+      handleAmount(title, amountDetails);
+    };
+    handleUpdateAmount();
+  }, [amountDetails]);
+
   return (
-    <div className="flex border-2 border-gray-300 dark:border-[#111] dark:bg-dark3 shadow-md rounded-2xl">
-      <img className="w-50 h-50" src={img} alt="" />
-      <div className="flex flex-col mt-4 gap-4 ml-4 mr-auto">
-        <p className="text-base text-cyan-500 dark:text-amber-400">
+    <div className="flex max-md:flex-col border-2 border-gray-300 dark:border-[#111] dark:bg-dark3 shadow-md rounded-2xl">
+      <img
+        className="w-50 h-50 max-md:w-full max-md:rounded-2xl max-md:mx-auto"
+        src={img}
+        alt=""
+      />
+      <div className="flex flex-col mt-4 gap-4 max-md:gap-1 ml-4 mr-auto">
+        <p className="text-base text-cyan-500 dark:text-amber-400 ">
           Categoría: {category}
         </p>
         <p className="text-xl font-semibold dark:text-white">{title}</p>
@@ -84,7 +98,7 @@ const ProductCardOrder = ({ img, title, size, amount,description,category,materi
           {size} cm
         </p>
       </div>
-      <div className="flex flex-col justify-center gap-4 items-center">
+      <div className="flex flex-col justify-center  max-md:items-start max-md:ml-4 gap-4 items-center">
         <div className="">
           Colores disponibles:{" "}
           <div className="flex gap-2">
@@ -95,11 +109,10 @@ const ProductCardOrder = ({ img, title, size, amount,description,category,materi
                 style={{ backgroundColor: `#${c.colors.hex_code}` }}
               ></div>
             ))}
-            
           </div>
         </div>
-        <div className="flex items-center">
-          <div className="flex  bg-black/5 rounded-full px-5 py-3  shadow-md">
+        <div className="flex items-center max-md:mx-auto">
+          <div className="flex  bg-black/25 rounded-full px-5 py-3  shadow-md">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {

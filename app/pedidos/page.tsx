@@ -79,8 +79,7 @@ const Order = () => {
           <span className="max-md:hidden border-b-sky-400 border-b-4 dark:border-b-amber-400 ">
             MIS
           </span>
-          <span className="lg:hidden">MIS</span>{" "}
-          PEDIDOS
+          <span className="lg:hidden">MIS</span> PEDIDOS
           <div className="lg:hidden border-b-sky-400 border-b-4  dark:border-b-amber-400 w-12 h-1"></div>
         </h1>
         <section className="grid grid-cols-3 gap-4 mt-4 max-md:grid-cols-1 max-md:w-[100vw] ">
@@ -88,19 +87,27 @@ const Order = () => {
             {orderList.length === 0 ? (
               <div className="h-[60vh] bg-white  dark:bg-dark2 rounded-xl shadow-xl flex flex-col justify-center items-center">
                 <div className="bg-sky-200 dark:bg-dark1 rounded-full p-6 relative">
-                  <div className="absolute bottom-2 right-2 border border-sky-300 dark:border-black bg-white shadow-2xs text-sky-500 dark:bg-dark2 dark:text-amber-400 text-xl w-8 h-8 rounded-full p-4 flex items-center justify-center">
+                  <div className="absolute bottom-2 right-2 max-md:w-6 max-md:h-6 border border-sky-300 dark:border-black bg-white shadow-2xs text-sky-500 dark:bg-dark2 dark:text-amber-400 text-xl w-8 h-8 rounded-full p-4 flex items-center justify-center">
                     !
                   </div>
                   {resolvedTheme === "dark" ? (
-                    <img src="archiveDark.svg" className="w-32 h-32" alt="" />
+                    <img
+                      src="archiveDark.svg"
+                      className="w-32 h-32 max-md:w-16 max-md:h-16"
+                      alt=""
+                    />
                   ) : (
-                    <img src="archive.svg" className="w-32 h-32" alt="" />
+                    <img
+                      src="archive.svg"
+                      className="w-32 h-32 max-md:w-16 max-md:h-16"
+                      alt=""
+                    />
                   )}
                 </div>
-                <p className="text-4xl mt-2 font-bold mb-6 dark:text-[hsl(41,98%,51%)]">
+                <p className="text-4xl mt-2 font-bold mb-6 max-md:text-2xl dark:text-[hsl(41,98%,51%)]">
                   ¡Aún no tenés pedidos!
                 </p>
-                <p className="text-2xl mb-6 w-100 text-center dark:text-white">
+                <p className="text-2xl mb-6 w-100 text-center max-md:text-base max-md:w-80 dark:text-white">
                   Explorá nuestro catálogo y dale vida a tus ideas en 3D!
                 </p>
                 <Link
@@ -113,7 +120,7 @@ const Order = () => {
               </div>
             ) : (
               <div>
-                <div className="flex bg-white dark:bg-dark2 flex-col max-h-140 overflow-y-auto gap-4 rounded-2xl shadow-xl">
+                <div className="flex max-md:w-[98vw]  bg-white dark:bg-dark2 flex-col max-h-140 overflow-y-auto gap-4 rounded-2xl shadow-xl">
                   {orderList.map((ol, index) => (
                     <ProductCardOrder
                       key={index}
