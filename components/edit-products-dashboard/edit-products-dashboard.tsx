@@ -243,530 +243,931 @@ export default function EditProductsClient({
   }
 
   return (
-    <main className="w-full relative min-h-screen bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16">
-      <div className="absolute top-6 right-6">
-        <ThemeToggle></ThemeToggle>
-      </div>
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex flex-col gap-6 mb-8">
-          <p
-            className="text-xs flex items-center gap-2 cursor-pointer hover:text-sky-400 dark:hover:text-orange-300"
-            onClick={comeBack}
-          >
-            {" "}
-            <ArrowLeft className="w-4  h-4"></ArrowLeft> Volver al Dashboard
-          </p>
-          <h1 className="text-2xl font-medium text-gray-800 dark:text-gray-200 tracking-wide ">
-            Editar productos
-          </h1>
+    <>
+      <main className="w-full relative min-h-screen max-md:hidden bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16">
+        <div className="absolute top-6 right-6">
+          <ThemeToggle></ThemeToggle>
         </div>
-
-        {/* Grilla */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              onClick={() => openModal(product)}
-              className="bg-white dark:bg-dark2 rounded-2xl border border-gray-200 dark:border-black overflow-hidden cursor-pointer hover:border-sky-400 hover:shadow-sm transition-all group"
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col gap-6 mb-8">
+            <p
+              className="text-xs flex items-center gap-2 cursor-pointer hover:text-sky-400 dark:hover:text-orange-300"
+              onClick={comeBack}
             >
-              <div className="aspect-square bg-gray-100 relative">
-                {product.badge_label && (
-                  <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-500 text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
-                    {product.badge_label}
-                  </div>
-                )}
-                {product.image_url ? (
-                  <Image
-                    src={product.image_url}
-                    alt={product.title}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <img
-                    src="https://placehold.co/400"
-                    alt="imagen"
-                    className="object-cover"
-                  />
-                )}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center gap-3">
-                  <PenLine
-                    size={20}
-                    className="text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity"
-                  />
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openModal(product);
-                      setTimeout(() => setShowDeleteConfirm(true), 0);
-                    }}
-                    className="opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <Trash2
-                      size={20}
-                      className="text-red-400 dark:text-red-400"
-                    />
-                  </button>
-                </div>
-              </div>
-              <div className="p-3">
-                <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
-                  {product.title}
-                </p>
-                <div className="flex gap-1 mt-2">
-                  {product.product_colors.slice(0, 4).map((pc) => {
-                    const color = colors.find((c) => c.id === pc.color_id);
-                    return color ? (
-                      <div
-                        key={pc.color_id}
-                        className="w-3 h-3 rounded-full border border-gray-200 dark:border-black"
-                        style={{ backgroundColor: `#${color.hex_code}` }}
-                      />
-                    ) : null;
-                  })}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+              {" "}
+              <ArrowLeft className="w-4  h-4"></ArrowLeft> Volver al Dashboard
+            </p>
+            <h1 className="text-2xl font-medium text-gray-800 dark:text-gray-200 tracking-wide ">
+              Editar productos
+            </h1>
+          </div>
 
-      {/* Modal */}
-      {selected && (
-        <div
-          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) closeModal();
-          }}
-        >
-          <div className="bg-white dark:bg-dark3 rounded-2xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-100">
-              <div>
-                <p className="text-[11px] tracking-widest text-sky-500 dark:text-[hsl(41,98%,65%)] uppercase font-medium">
-                  Editor de producto
-                </p>
-                <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">
-                  {selected.title}
-                </h2>
-              </div>
-              <button
-                onClick={closeModal}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+          {/* Grilla */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                onClick={() => openModal(product)}
+                className="bg-white dark:bg-dark2 rounded-2xl border border-gray-200 dark:border-black overflow-hidden cursor-pointer hover:border-sky-400 hover:shadow-sm transition-all group"
               >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="p-6 grid grid-cols-[1fr_220px] gap-6"
-            >
-              {/* Columna izquierda */}
-              <div className="flex flex-col gap-5">
-                <div>
-                  <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                    Título
-                  </label>
-                  <input
-                    name="title"
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                    className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                    Descripción
-                  </label>
-                  <textarea
-                    name="description"
-                    rows={4}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 resize-none"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Categoría
-                    </label>
-                    <div className="flex gap-2">
-                      <select
-                        name="category_id"
-                        value={categoryId}
-                        onChange={(e) => setCategoryId(e.target.value)}
-                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
-                      >
-                        <option value="">Sin categoría</option>
-                        {categoryList.map((c) => (
-                          <option key={c.id} value={c.id}>
-                            {c.name}
-                          </option>
-                        ))}
-                      </select>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setNewName("");
-                          setModal("category");
-                        }}
-                        className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] dark:hover:text-white hover:text-sky-500 transition-colors text-gray-400"
-                      >
-                        <Plus size={16} />
-                      </button>
+                <div className="aspect-square bg-gray-100 relative">
+                  {product.badge_label && (
+                    <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-500 text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
+                      {product.badge_label}
                     </div>
-                  </div>
-
-                  {/* Material */}
-                  <div>
-                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Material
-                    </label>
-                    <div className="flex gap-2">
-                      <select
-                        name="material_id"
-                        value={materialId}
-                        onChange={(e) => setMaterialId(e.target.value)}
-                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
-                      >
-                        <option value="">Sin material</option>
-                        {materialList.map((m) => (
-                          <option key={m.id} value={m.id}>
-                            {m.name}
-                          </option>
-                        ))}
-                      </select>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setNewName("");
-                          setModal("material");
-                        }}
-                        className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border dark:hover:text-white border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 transition-colors text-gray-400"
-                      >
-                        <Plus size={16} />
-                      </button>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Estado
-                    </label>
-                    <select
-                      name="state_id"
-                      value={stateId}
-                      onChange={(e) => setStateId(e.target.value)}
-                      className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
-                    >
-                      <option value="">Sin estado</option>
-                      {states.map((s) => (
-                        <option key={s.id} value={s.id}>
-                          {s.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Dimensiones (cm)
-                    </label>
-                    <div className="flex items-center gap-1">
-                      <input
-                        name="length_cm"
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        value={lengthCm}
-                        onChange={(e) => setLengthCm(e.target.value)}
-                        placeholder="L"
-                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
-                      />
-                      <span className="text-gray-300 text-xs shrink-0">×</span>
-                      <input
-                        name="width_cm"
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        value={widthCm}
-                        onChange={(e) => setWidthCm(e.target.value)}
-                        placeholder="W"
-                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
-                      />
-                      <span className="text-gray-300 text-xs shrink-0">×</span>
-                      <input
-                        name="height_cm"
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        value={heightCm}
-                        onChange={(e) => setHeightCm(e.target.value)}
-                        placeholder="H"
-                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Badge */}
-                <div>
-                  <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
-                    Badge label
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {BADGES.map((b) => (
-                      <button
-                        key={b}
-                        type="button"
-                        onClick={() => setBadge(b)}
-                        className={`text-xs px-3 py-1 rounded-full border transition-colors ${
-                          badge === b
-                            ? "bg-sky-400 border-sky-400 dark:bg-[hsl(41,98%,65%)] dark:border-orange-500 dark:text-gray-600 text-sky-900 font-medium"
-                            : "border-gray-200 text-gray-500 hover:border-gray-400"
-                        }`}
-                      >
-                        {b}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Colores */}
-                <div>
-                  <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
-                    Colores
-                  </label>
-                  <div className="flex flex-wrap gap-2 items-center">
-                    {colorList.map((c) => (
-                      <button
-                        key={c.id}
-                        type="button"
-                        onClick={() => toggleColor(c.id)}
-                        title={c.name}
-                        style={{ backgroundColor: `#${c.hex_code}` }}
-                        className={`w-7 h-7 rounded-full transition-all cursor-pointer ${
-                          selectedColors.includes(c.id)
-                            ? "ring-2 ring-offset-2 ring-gray-800 dark:ring-black scale-110"
-                            : "hover:scale-105"
-                        }`}
-                      />
-                    ))}
+                  )}
+                  {product.image_url ? (
+                    <Image
+                      src={product.image_url}
+                      alt={product.title}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <img
+                      src="https://placehold.co/400"
+                      alt="imagen"
+                      className="object-cover"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center gap-3">
+                    <PenLine
+                      size={20}
+                      className="text-white dark:text-black opacity-0 group-hover:opacity-100 transition-opacity"
+                    />
                     <button
                       type="button"
-                      onClick={() => {
-                        setNewHex("#000000");
-                        setModal("color");
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(product);
+                        setTimeout(() => setShowDeleteConfirm(true), 0);
                       }}
-                      className="w-7 h-7 rounded-full bg-gray-100 dark:bg-dark2 border border-dashed border-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] flex items-center justify-center transition-colors"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
                     >
-                      <Plus size={12} className="text-gray-400" />
+                      <Trash2
+                        size={20}
+                        className="text-red-400 dark:text-red-400"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
+                    {product.title}
+                  </p>
+                  <div className="flex gap-1 mt-2">
+                    {product.product_colors.slice(0, 4).map((pc) => {
+                      const color = colors.find((c) => c.id === pc.color_id);
+                      return color ? (
+                        <div
+                          key={pc.color_id}
+                          className="w-3 h-3 rounded-full border border-gray-200 dark:border-black"
+                          style={{ backgroundColor: `#${color.hex_code}` }}
+                        />
+                      ) : null;
+                    })}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Modal */}
+        {selected && (
+          <div
+            className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closeModal();
+            }}
+          >
+            <div className="bg-white dark:bg-dark3 rounded-2xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+              {/* Header */}
+              <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-gray-100">
+                <div>
+                  <p className="text-[11px] tracking-widest text-sky-500 dark:text-[hsl(41,98%,65%)] uppercase font-medium">
+                    Editor de producto
+                  </p>
+                  <h2 className="text-xl font-medium text-gray-800 dark:text-gray-200">
+                    {selected.title}
+                  </h2>
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Form */}
+              <form
+                onSubmit={handleSubmit}
+                className="p-6 grid grid-cols-[1fr_220px] gap-6"
+              >
+                {/* Columna izquierda */}
+                <div className="flex flex-col gap-5">
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                      Título
+                    </label>
+                    <input
+                      name="title"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      required
+                      className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                      Descripción
+                    </label>
+                    <textarea
+                      name="description"
+                      rows={4}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 resize-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Categoría
+                      </label>
+                      <div className="flex gap-2">
+                        <select
+                          name="category_id"
+                          value={categoryId}
+                          onChange={(e) => setCategoryId(e.target.value)}
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
+                        >
+                          <option value="">Sin categoría</option>
+                          {categoryList.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewName("");
+                            setModal("category");
+                          }}
+                          className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] dark:hover:text-white hover:text-sky-500 transition-colors text-gray-400"
+                        >
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Material */}
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Material
+                      </label>
+                      <div className="flex gap-2">
+                        <select
+                          name="material_id"
+                          value={materialId}
+                          onChange={(e) => setMaterialId(e.target.value)}
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
+                        >
+                          <option value="">Sin material</option>
+                          {materialList.map((m) => (
+                            <option key={m.id} value={m.id}>
+                              {m.name}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewName("");
+                            setModal("material");
+                          }}
+                          className="w-9 h-9 shrink-0 flex items-center justify-center rounded-lg border dark:hover:text-white border-gray-200 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] hover:text-sky-500 transition-colors text-gray-400"
+                        >
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Estado
+                      </label>
+                      <select
+                        name="state_id"
+                        value={stateId}
+                        onChange={(e) => setStateId(e.target.value)}
+                        className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 bg-white"
+                      >
+                        <option value="">Sin estado</option>
+                        {states.map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {s.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Dimensiones (cm)
+                      </label>
+                      <div className="flex items-center gap-1">
+                        <input
+                          name="length_cm"
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          value={lengthCm}
+                          onChange={(e) => setLengthCm(e.target.value)}
+                          placeholder="L"
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                        />
+                        <span className="text-gray-300 text-xs shrink-0">
+                          ×
+                        </span>
+                        <input
+                          name="width_cm"
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          value={widthCm}
+                          onChange={(e) => setWidthCm(e.target.value)}
+                          placeholder="W"
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                        />
+                        <span className="text-gray-300 text-xs shrink-0">
+                          ×
+                        </span>
+                        <input
+                          name="height_cm"
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          value={heightCm}
+                          onChange={(e) => setHeightCm(e.target.value)}
+                          placeholder="H"
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Badge */}
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
+                      Badge label
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {BADGES.map((b) => (
+                        <button
+                          key={b}
+                          type="button"
+                          onClick={() => setBadge(b)}
+                          className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                            badge === b
+                              ? "bg-sky-400 border-sky-400 dark:bg-[hsl(41,98%,65%)] dark:border-orange-500 dark:text-gray-600 text-sky-900 font-medium"
+                              : "border-gray-200 text-gray-500 hover:border-gray-400"
+                          }`}
+                        >
+                          {b}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Colores */}
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
+                      Colores
+                    </label>
+                    <div className="flex flex-wrap gap-2 items-center">
+                      {colorList.map((c) => (
+                        <button
+                          key={c.id}
+                          type="button"
+                          onClick={() => toggleColor(c.id)}
+                          title={c.name}
+                          style={{ backgroundColor: `#${c.hex_code}` }}
+                          className={`w-7 h-7 rounded-full transition-all cursor-pointer ${
+                            selectedColors.includes(c.id)
+                              ? "ring-2 ring-offset-2 ring-gray-800 dark:ring-black scale-110"
+                              : "hover:scale-105"
+                          }`}
+                        />
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNewHex("#000000");
+                          setModal("color");
+                        }}
+                        className="w-7 h-7 rounded-full bg-gray-100 dark:bg-dark2 border border-dashed border-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,65%)] flex items-center justify-center transition-colors"
+                      >
+                        <Plus size={12} className="text-gray-400" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Columna derecha — imagen */}
+                <div className="flex flex-col gap-3">
+                  <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block">
+                    Imagen
+                  </label>
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="aspect-square bg-gray-100 dark:bg-dark2 rounded-xl flex items-center justify-center border border-dashed border-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,55%)] transition-colors cursor-pointer overflow-hidden relative"
+                  >
+                    {badge !== "None" && (
+                      <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-600 text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
+                        {badge}
+                      </div>
+                    )}
+                    {imagePreview ? (
+                      <>
+                        <Image
+                          src={imagePreview}
+                          alt="Preview"
+                          fill
+                          className="object-cover"
+                        />
+                        {uploading && (
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <p className="text-white text-xs">Subiendo...</p>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <p className="text-xs text-gray-400">Click para subir</p>
+                    )}
+                  </div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    className="hidden"
+                    onChange={handleImageChange}
+                  />
+                </div>
+
+                {/* Footer */}
+                <div className="col-span-2 flex items-center justify-between pt-4 border-t border-gray-100">
+                  {error && <p className="text-xs text-red-500">{error}</p>}
+                  <button
+                    type="button"
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="flex items-center gap-1.5 text-sm text-red-600 hover:text-red-800 dark:bg-dark2/65 dark:text-red-400 dark:hover:text-red-500 border-red-6 00 rounded-2xl p-2 bg-red-200 border transition-colors"
+                  >
+                    <Trash2 size={15} />
+                    Eliminar
+                  </button>
+                  <div className="flex gap-3 ml-auto">
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="px-5 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 cursor-pointer dark:text-gray-200 dark:hover:border-[hsl(41,98%,65%)] hover:border-gray-400 transition-colors"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={loading || uploading}
+                      className="px-5 py-2 bg-sky-400 hover:bg-sky-500 dark:bg-[hsl(41,98%,65%)] dark:hover:bg-[hsl(41,98%,45%)] dark:text-gray-600 cursor-pointer text-sky-900 font-medium text-sm rounded-xl disabled:opacity-50 transition-colors"
+                    >
+                      {loading ? "Guardando..." : "Guardar cambios"}
+                    </button>
+                  </div>
+                </div>
+                {modal === "category" && (
+                  <AddOptionModal
+                    title="Categorías"
+                    onClose={() => setModal(null)}
+                    onConfirm={handleAddCategory}
+                    onDelete={handleDeleteCategory}
+                    loading={modalLoading}
+                    list={categoryList}
+                  >
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Nombre
+                      </label>
+                      <input
+                        type="text"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                        placeholder="e.g. Figuras"
+                        autoFocus
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                      />
+                    </div>
+                  </AddOptionModal>
+                )}
+
+                {modal === "material" && (
+                  <AddOptionModal
+                    title="Materiales"
+                    onClose={() => setModal(null)}
+                    onConfirm={handleAddMaterial}
+                    onDelete={handleDeleteMaterial}
+                    loading={modalLoading}
+                    list={materialList}
+                  >
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Nombre
+                      </label>
+                      <input
+                        type="text"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                        placeholder="e.g. Resina"
+                        autoFocus
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                      />
+                    </div>
+                  </AddOptionModal>
+                )}
+
+                {modal === "color" && (
+                  <AddOptionModal
+                    title="Colores"
+                    onClose={() => setModal(null)}
+                    onConfirm={handleAddColor}
+                    onDelete={handleDeleteColor}
+                    loading={modalLoading}
+                    list={colorList}
+                  >
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Nombre (opcional)
+                      </label>
+                      <input
+                        type="text"
+                        value={newName}
+                        onChange={(e) => setNewName(e.target.value)}
+                        placeholder="e.g. Azul Marino"
+                        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
+                        Color
+                      </label>
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="color"
+                          value={newHex}
+                          onChange={(e) => setNewHex(e.target.value)}
+                          className="w-12 h-12 rounded-lg border border-gray-200 cursor-pointer p-1"
+                        />
+                        <span className="text-sm text-gray-500 font-mono">
+                          {newHex}
+                        </span>
+                      </div>
+                    </div>
+                  </AddOptionModal>
+                )}
+              </form>
+            </div>
+            {showDeleteConfirm && (
+              <div className="absolute inset-0 z-10 bg-black/30 flex items-center justify-center rounded-2xl">
+                <div className="bg-white dark:bg-dark2 rounded-xl shadow-lg p-6 mx-4 max-w-sm w-full">
+                  <h3 className="text-base font-medium text-gray-800 dark:text-gray-200 mb-1 tracking-wider">
+                    ¿Eliminar producto?
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-5 ">
+                    Esta acción no se puede deshacer. Se eliminará{" "}
+                    <span className="font-semibold text-gray-700   dark:text-gray-300">
+                      {selected?.title}
+                    </span>{" "}
+                    permanentemente.
+                  </p>
+                  <div className="flex gap-3 justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setShowDeleteConfirm(false)}
+                      className="px-4 py-2 border border-gray-200 cursor-pointer rounded-xl text-sm text-gray-600 dark:text-gray-200 hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                      className="px-4 py-2 bg-red-500 hover:bg-red-600 cursor-pointer text-white text-sm font-medium rounded-xl disabled:opacity-50 transition-colors"
+                    >
+                      {deleting ? "Eliminando..." : "Sí, eliminar"}
                     </button>
                   </div>
                 </div>
               </div>
+            )}
+          </div>
+        )}
+      </main>
 
-              {/* Columna derecha — imagen */}
-              <div className="flex flex-col gap-3">
-                <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block">
-                  Imagen
-                </label>
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  className="aspect-square bg-gray-100 dark:bg-dark2 rounded-xl flex items-center justify-center border border-dashed border-gray-300 hover:border-sky-400 dark:hover:border-[hsl(41,98%,55%)] transition-colors cursor-pointer overflow-hidden relative"
-                >
-                  {badge !== "None" && (
-                    <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-600 text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
-                      {badge}
+      <main className="w-full relative min-h-screen bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16 hidden max-md:block">
+        <div className="absolute top-6 right-6">
+          <ThemeToggle />
+        </div>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col gap-6 mb-8">
+            <p
+              className="text-xs flex items-center gap-2 cursor-pointer hover:text-sky-400 dark:hover:text-orange-300"
+              onClick={comeBack}
+            >
+              <ArrowLeft className="w-4 h-4" /> Volver al Dashboard
+            </p>
+            <h1 className="text-2xl font-medium text-gray-800 dark:text-gray-200 tracking-wide">
+              Editar productos
+            </h1>
+          </div>
+
+          {/* Grilla Adaptativa: 2 columnas en mobile, hasta 4 en desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                onClick={() => openModal(product)}
+                className="bg-white dark:bg-dark2 rounded-2xl border border-gray-200 dark:border-black overflow-hidden cursor-pointer hover:border-sky-400 hover:shadow-sm transition-all group"
+              >
+                <div className="aspect-square bg-gray-100 relative">
+                  {product.badge_label && (
+                    <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-500 text-[10px] font-medium px-2 py-1 rounded-md tracking-wide uppercase">
+                      {product.badge_label}
                     </div>
                   )}
-                  {imagePreview ? (
-                    <>
-                      <Image
-                        src={imagePreview}
-                        alt="Preview"
-                        fill
-                        className="object-cover"
-                      />
-                      {uploading && (
-                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                          <p className="text-white text-xs">Subiendo...</p>
-                        </div>
-                      )}
-                    </>
+                  {product.image_url ? (
+                    <Image
+                      src={product.image_url}
+                      alt={product.title}
+                      fill
+                      className="object-cover"
+                    />
                   ) : (
-                    <p className="text-xs text-gray-400">Click para subir</p>
+                    <img
+                      src="https://placehold.co/400"
+                      alt="imagen"
+                      className="object-cover w-full h-full"
+                    />
                   )}
+                  {/* Overlay de acciones: Visible siempre en mobile para mejor UX, hover en desktop */}
+                  <div className="absolute inset-0 bg-black/5 md:bg-black/0 md:group-hover:bg-black/10 transition-colors flex items-center justify-center gap-3">
+                    <PenLine
+                      size={20}
+                      className="text-white md:opacity-0 md:group-hover:opacity-100 transition-opacity drop-shadow-md"
+                    />
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(product);
+                        setTimeout(() => setShowDeleteConfirm(true), 0);
+                      }}
+                      className="md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+                    >
+                      <Trash2
+                        size={20}
+                        className="text-red-500 drop-shadow-md"
+                      />
+                    </button>
+                  </div>
                 </div>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp"
-                  className="hidden"
-                  onChange={handleImageChange}
-                />
+                <div className="p-3">
+                  <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
+                    {product.title}
+                  </p>
+                  <div className="flex gap-1 mt-2">
+                    {product.product_colors.slice(0, 4).map((pc) => {
+                      const color = colors.find((c) => c.id === pc.color_id);
+                      return color ? (
+                        <div
+                          key={pc.color_id}
+                          className="w-3 h-3 rounded-full border border-gray-200 dark:border-black"
+                          style={{ backgroundColor: `#${color.hex_code}` }}
+                        />
+                      ) : null;
+                    })}
+                  </div>
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* Footer */}
-              <div className="col-span-2 flex items-center justify-between pt-4 border-t border-gray-100">
-                {error && <p className="text-xs text-red-500">{error}</p>}
+        {/* Modal */}
+        {selected && (
+          <div
+            className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) closeModal();
+            }}
+          >
+            <div className="bg-white dark:bg-dark3 rounded-t-3xl sm:rounded-2xl shadow-xl w-full max-w-3xl max-h-[92vh] overflow-y-auto">
+              {/* Header */}
+              <div className="sticky top-0 bg-white dark:bg-dark3 z-20 flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+                <div>
+                  <p className="text-[10px] tracking-widest text-sky-500 dark:text-[hsl(41,98%,65%)] uppercase font-medium">
+                    Editor de producto
+                  </p>
+                  <h2 className="text-lg font-medium text-gray-800 dark:text-gray-200 truncate max-w-[200px] sm:max-w-none">
+                    {selected.title}
+                  </h2>
+                </div>
                 <button
-                  type="button"
-                  onClick={() => setShowDeleteConfirm(true)}
-                  className="flex items-center gap-1.5 text-sm text-red-600 hover:text-red-800 dark:bg-dark2/65 dark:text-red-400 dark:hover:text-red-500 border-red-6 00 rounded-2xl p-2 bg-red-200 border transition-colors"
+                  onClick={closeModal}
+                  className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  <Trash2 size={15} />
-                  Eliminar
+                  <X size={20} />
                 </button>
-                <div className="flex gap-3 ml-auto">
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className="px-5 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 cursor-pointer dark:text-gray-200 dark:hover:border-[hsl(41,98%,65%)] hover:border-gray-400 transition-colors"
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loading || uploading}
-                    className="px-5 py-2 bg-sky-400 hover:bg-sky-500 dark:bg-[hsl(41,98%,65%)] dark:hover:bg-[hsl(41,98%,45%)] dark:text-gray-600 cursor-pointer text-sky-900 font-medium text-sm rounded-xl disabled:opacity-50 transition-colors"
-                  >
-                    {loading ? "Guardando..." : "Guardar cambios"}
-                  </button>
-                </div>
               </div>
-              {modal === "category" && (
-                <AddOptionModal
-                  title="Categorías"
-                  onClose={() => setModal(null)}
-                  onConfirm={handleAddCategory}
-                  onDelete={handleDeleteCategory}
-                  loading={modalLoading}
-                  list={categoryList}
-                >
-                  <div>
-                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Nombre
-                    </label>
-                    <input
-                      type="text"
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                      placeholder="e.g. Figuras"
-                      autoFocus
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
-                    />
-                  </div>
-                </AddOptionModal>
-              )}
 
-              {modal === "material" && (
-                <AddOptionModal
-                  title="Materiales"
-                  onClose={() => setModal(null)}
-                  onConfirm={handleAddMaterial}
-                  onDelete={handleDeleteMaterial}
-                  loading={modalLoading}
-                  list={materialList}
-                >
-                  <div>
-                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Nombre
-                    </label>
-                    <input
-                      type="text"
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                      placeholder="e.g. Resina"
-                      autoFocus
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
-                    />
+              {/* Form: Stacked on mobile (flex-col), Side-by-side on desktop (grid) */}
+              <form
+                onSubmit={handleSubmit}
+                className="p-6 flex flex-col md:grid md:grid-cols-[1fr_220px] gap-8"
+              >
+                {/* Columna Imagen (Primero en mobile para contexto visual) */}
+                <div className="flex flex-col gap-3 md:order-2">
+                  <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block">
+                    Imagen del producto
+                  </label>
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="aspect-square w-full max-w-[280px] mx-auto md:max-w-none bg-gray-100 dark:bg-dark2 rounded-xl flex items-center justify-center border border-dashed border-gray-300 hover:border-sky-400 transition-colors cursor-pointer overflow-hidden relative"
+                  >
+                    {badge !== "None" && (
+                      <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-600 text-[10px] font-medium px-2 py-1 rounded-md uppercase">
+                        {badge}
+                      </div>
+                    )}
+                    {imagePreview ? (
+                      <>
+                        <Image
+                          src={imagePreview}
+                          alt="Preview"
+                          fill
+                          className="object-cover"
+                        />
+                        {uploading && (
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                            <p className="text-white text-xs">Subiendo...</p>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <p className="text-xs text-gray-400">Click para subir</p>
+                    )}
                   </div>
-                </AddOptionModal>
-              )}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageChange}
+                  />
+                </div>
 
-              {modal === "color" && (
-                <AddOptionModal
-                  title="Colores"
-                  onClose={() => setModal(null)}
-                  onConfirm={handleAddColor}
-                  onDelete={handleDeleteColor}
-                  loading={modalLoading}
-                  list={colorList}
-                >
+                {/* Columna Datos */}
+                <div className="flex flex-col gap-5 md:order-1">
                   <div>
                     <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
-                      Nombre (opcional)
+                      Título
                     </label>
                     <input
+                      name="title"
                       type="text"
-                      value={newName}
-                      onChange={(e) => setNewName(e.target.value)}
-                      placeholder="e.g. Azul Marino"
-                      className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 dark:focus:border-[hsl(41,98%,65%)]"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      required
+                      className="w-full border border-gray-200 dark:bg-dark2/40 dark:text-white rounded-lg px-3 py-2.5 text-sm outline-none focus:border-sky-400"
                     />
                   </div>
+
+                  <div>
+                    <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                      Descripción
+                    </label>
+                    <textarea
+                      name="description"
+                      rows={3}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="w-full border border-gray-200 dark:bg-dark2/40 dark:text-white rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400 resize-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Categoría */}
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Categoría
+                      </label>
+                      <div className="flex gap-2">
+                        <select
+                          value={categoryId}
+                          onChange={(e) => setCategoryId(e.target.value)}
+                          className="flex-1 border border-gray-200 dark:bg-dark2/65 dark:text-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
+                        >
+                          <option value="">Sin categoría</option>
+                          {categoryList.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewName("");
+                            setModal("category");
+                          }}
+                          className="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400"
+                        >
+                          <Plus size={18} />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Material */}
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Material
+                      </label>
+                      <div className="flex gap-2">
+                        <select
+                          value={materialId}
+                          onChange={(e) => setMaterialId(e.target.value)}
+                          className="flex-1 border border-gray-200 dark:bg-dark2/65 dark:text-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
+                        >
+                          <option value="">Sin material</option>
+                          {materialList.map((m) => (
+                            <option key={m.id} value={m.id}>
+                              {m.name}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setNewName("");
+                            setModal("material");
+                          }}
+                          className="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400"
+                        >
+                          <Plus size={18} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dimensiones y Estado en Grid */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Estado
+                      </label>
+                      <select
+                        value={stateId}
+                        onChange={(e) => setStateId(e.target.value)}
+                        className="w-full border border-gray-200 dark:bg-dark2/65 dark:text-gray-200 rounded-lg px-3 py-2 text-sm outline-none"
+                      >
+                        <option value="">Sin estado</option>
+                        {states.map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {s.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
+                        Dimensiones (cm)
+                      </label>
+                      <div className="flex items-center gap-1">
+                        <input
+                          type="number"
+                          placeholder="L"
+                          value={lengthCm}
+                          onChange={(e) => setLengthCm(e.target.value)}
+                          className="w-full border border-gray-200 dark:bg-dark2/65 dark:text-white rounded-lg px-1 py-2 text-center text-xs"
+                        />
+                        <span className="text-gray-300">×</span>
+                        <input
+                          type="number"
+                          placeholder="W"
+                          value={widthCm}
+                          onChange={(e) => setWidthCm(e.target.value)}
+                          className="w-full border border-gray-200 dark:bg-dark2/65 dark:text-white rounded-lg px-1 py-2 text-center text-xs"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Colores */}
                   <div>
                     <label className="text-[11px] tracking-widest text-gray-400 uppercase block mb-2">
-                      Color
+                      Colores disponibles
                     </label>
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="color"
-                        value={newHex}
-                        onChange={(e) => setNewHex(e.target.value)}
-                        className="w-12 h-12 rounded-lg border border-gray-200 cursor-pointer p-1"
-                      />
-                      <span className="text-sm text-gray-500 font-mono">
-                        {newHex}
-                      </span>
+                    <div className="flex flex-wrap gap-3 items-center">
+                      {colorList.map((c) => (
+                        <button
+                          key={c.id}
+                          type="button"
+                          onClick={() => toggleColor(c.id)}
+                          style={{ backgroundColor: `#${c.hex_code}` }}
+                          className={`w-8 h-8 rounded-full transition-all ${
+                            selectedColors.includes(c.id)
+                              ? "ring-2 ring-offset-2 ring-sky-500 scale-110"
+                              : "border border-gray-200"
+                          }`}
+                        />
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNewHex("#000000");
+                          setModal("color");
+                        }}
+                        className="w-8 h-8 rounded-full border border-dashed border-gray-400 flex items-center justify-center"
+                      >
+                        <Plus size={14} />
+                      </button>
                     </div>
                   </div>
-                </AddOptionModal>
-              )}
-            </form>
-          </div>
-          {showDeleteConfirm && (
-            <div className="absolute inset-0 z-10 bg-black/30 flex items-center justify-center rounded-2xl">
-              <div className="bg-white dark:bg-dark2 rounded-xl shadow-lg p-6 mx-4 max-w-sm w-full">
-                <h3 className="text-base font-medium text-gray-800 dark:text-gray-200 mb-1 tracking-wider">
-                  ¿Eliminar producto?
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-5 ">
-                  Esta acción no se puede deshacer. Se eliminará{" "}
-                  <span className="font-semibold text-gray-700   dark:text-gray-300">
-                    {selected?.title}
-                  </span>{" "}
-                  permanentemente.
-                </p>
-                <div className="flex gap-3 justify-end">
+                </div>
+
+                {/* Footer Fijo en mobile opcionalmente, aquí lo dejo al final del form */}
+                <div className="md:col-span-2 flex flex-col-reverse sm:flex-row items-center gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
                   <button
                     type="button"
-                    onClick={() => setShowDeleteConfirm(false)}
-                    className="px-4 py-2 border border-gray-200 cursor-pointer rounded-xl text-sm text-gray-600 dark:text-gray-200 hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 text-red-500 font-medium text-sm"
                   >
-                    Cancelar
+                    <Trash2 size={16} /> Eliminar Producto
                   </button>
-                  <button
-                    type="button"
-                    onClick={handleDelete}
-                    disabled={deleting}
-                    className="px-4 py-2 bg-red-500 hover:bg-red-600 cursor-pointer text-white text-sm font-medium rounded-xl disabled:opacity-50 transition-colors"
-                  >
-                    {deleting ? "Eliminando..." : "Sí, eliminar"}
-                  </button>
+
+                  <div className="w-full sm:w-auto flex gap-3 sm:ml-auto">
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="flex-1 sm:px-6 py-2.5 border border-gray-200 dark:text-gray-300 rounded-xl text-sm"
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={loading || uploading}
+                      className="flex-[2] sm:px-8 py-2.5 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-800 font-bold rounded-xl text-sm disabled:opacity-50"
+                    >
+                      {loading ? "Guardando..." : "Guardar"}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            {/* Confirmación de eliminación (Ajustado para mobile) */}
+            {showDeleteConfirm && (
+              <div className="absolute inset-0 z-[60] bg-black/50 flex items-center justify-center p-4">
+                <div className="bg-white dark:bg-dark2 rounded-2xl p-6 max-w-xs w-full text-center">
+                  <div className="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Trash2 size={24} />
+                  </div>
+                  <h3 className="text-lg font-bold tracking-wide text-gray-800 dark:text-white mb-2">
+                    ¿Estás seguro?
+                  </h3>
+                  <p className="text-sm text-gray-500 mb-6">
+                    Esta acción eliminará permanentemente el producto.
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    <button
+                      onClick={handleDelete}
+                      className="w-full py-3 bg-red-500 text-white rounded-xl font-medium"
+                    >
+                      Sí, eliminar
+                    </button>
+                    <button
+                      onClick={() => setShowDeleteConfirm(false)}
+                      className="w-full py-3 text-gray-500 font-medium"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
-    </main>
+            )}
+          </div>
+        )}
+      </main>
+    </>
   );
 }

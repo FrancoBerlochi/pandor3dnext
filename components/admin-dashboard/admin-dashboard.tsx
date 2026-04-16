@@ -593,7 +593,7 @@ export default function AdminDashboard({
                     <ThemeToggle />
                   </div>
                   <Link
-                    href="admin/new-product"
+                    href="admin/edit-products"
                     className={`${showBurguer ? "px-3" : "w-0 h-0"}  bg-sky-500 dark:bg-[hsl(41,98%,65%)] rounded-full text-white dark:text-dark3 justify-center items-center flex`}
                   >
                     <PenLine size={20} />
