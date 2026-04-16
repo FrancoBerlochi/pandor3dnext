@@ -582,11 +582,11 @@ export default function AdminDashboard({
               className={`z-300 flex justify-center bg-black/65 items-center fixed top-0 left-0 ${showBurguer ? "min-w-screen min-h-screen" : "w-0 min-h-screen"}`}
             >
               <div
-                className={`bg-blue-600 dark:bg-dark3 rounded-2xl transition-all duration-200 gap-2 flex items-center justify-center ${showBurguer ? "w-60 min-h-35" : "w-0 min-h-60"}`}
+                className={`bg-blue-700 dark:bg-dark3 rounded-2xl transition-all duration-200 gap-2 flex items-center justify-center ${showBurguer ? "w-60 min-h-35 translate-x-[calc(50vw - 240px)]" : "-translate-x-50 w-60 h-35"}`}
               >
                 <X
                   onClick={handleShowBurguer}
-                  className={`transition-all duration-200 cursor-pointer ${showBurguer ? "max-md:flex" : "max-md:hidden"} w-8 h-8 `}
+                  className={`transition-all text-red-500 rounded-full bg-white dark:bg-dark2 duration-200 cursor-pointer ${showBurguer ? "max-md:flex" : "max-md:hidden"} w-9 h-9 p-1 `}
                 ></X>
                 <div className="transition-all duration-200 flex gap-4">
                   <div className={`${showBurguer ? "" : "hidden"}`}>
@@ -596,14 +596,14 @@ export default function AdminDashboard({
                     href="admin/new-product"
                     className={`${showBurguer ? "px-3" : "w-0 h-0"}  bg-sky-500 dark:bg-[hsl(41,98%,65%)] rounded-full text-white dark:text-dark3 justify-center items-center flex`}
                   >
-                    {loading ? "Cargando..." : <PenLine size={20} />}
+                    <PenLine size={20} />
                   </Link>
                   <Link
                     href="admin/new-product"
-                    className={`${showBurguer ? "px-3" : "w-0 h-0"} hover:brightness-90 text-white px-3 dark:text-dark3 dark:bg-[hsl(41,98%,65%)] rounded-4xl flex text-[14px] text-center justify-center items-center bg-sky-500`}
+                    className={`${showBurguer ? "px-3" : "w-0 h-0"}   hover:brightness-90 text-white px-3 dark:text-dark3 dark:bg-[hsl(41,98%,65%)] rounded-4xl flex text-[14px] text-center justify-center items-center bg-sky-500`}
                     onClick={() => setLoading("new")}
                   >
-                    {loading ? "Cargando..." : <Plus size={20}></Plus>}
+                     <Plus size={20}></Plus>
                   </Link>
                 </div>
               </div>
