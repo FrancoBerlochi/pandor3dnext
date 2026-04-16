@@ -582,23 +582,25 @@ export default function AdminDashboard({
               className={`z-300 flex justify-center bg-black/65 items-center fixed top-0 left-0 ${showBurguer ? "min-w-screen min-h-screen" : "w-0 min-h-screen"}`}
             >
               <div
-                className={` bg-amber-400 transition-all duration-200  flex items-center justify-center ${showBurguer ? "w-60 min-h-35" : "w-0 min-h-60"}`}
+                className={`bg-blue-600 dark:bg-dark3 rounded-2xl transition-all duration-200 gap-2 flex items-center justify-center ${showBurguer ? "w-60 min-h-35" : "w-0 min-h-60"}`}
               >
-                <Menu
+                <X
                   onClick={handleShowBurguer}
-                  className={`transition-all duration-200 ${showBurguer ? "max-md:flex" : "max-md:hidden"} w-8 h-8 `}
-                ></Menu>
-                <div className="transition-all duration-200 flex gap-2">
-                  <ThemeToggle />
+                  className={`transition-all duration-200 cursor-pointer ${showBurguer ? "max-md:flex" : "max-md:hidden"} w-8 h-8 `}
+                ></X>
+                <div className="transition-all duration-200 flex gap-4">
+                  <div className={`${showBurguer ? "" : "hidden"}`}>
+                    <ThemeToggle />
+                  </div>
                   <Link
                     href="admin/new-product"
-                    className="p-2 bg-sky-500 dark:bg-[hsl(41,98%,65%)] rounded-full text-white dark:text-dark3"
+                    className={`${showBurguer ? "px-3" : "w-0 h-0"}  bg-sky-500 dark:bg-[hsl(41,98%,65%)] rounded-full text-white dark:text-dark3 justify-center items-center flex`}
                   >
                     {loading ? "Cargando..." : <PenLine size={20} />}
                   </Link>
                   <Link
                     href="admin/new-product"
-                    className=" hover:brightness-90 text-white dark:text-dark3 dark:bg-[hsl(41,98%,65%)] rounded-4xl flex text-[14px] text-center justify-center items-center bg-sky-500"
+                    className={`${showBurguer ? "px-3" : "w-0 h-0"} hover:brightness-90 text-white px-3 dark:text-dark3 dark:bg-[hsl(41,98%,65%)] rounded-4xl flex text-[14px] text-center justify-center items-center bg-sky-500`}
                     onClick={() => setLoading("new")}
                   >
                     {loading ? "Cargando..." : <Plus size={20}></Plus>}
