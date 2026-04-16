@@ -2,7 +2,17 @@
 import Link from "next/link";
 import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { PenLine, SlidersHorizontal, X, FunnelX, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import {
+  PenLine,
+  SlidersHorizontal,
+  X,
+  FunnelX,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  Menu,
+  Plus
+} from "lucide-react";
 import { ThemeToggle } from "../ui/theme-toggle";
 // const productos = [
 //   {
@@ -135,14 +145,19 @@ export default function AdminDashboard({
   const totalPages = Math.ceil(totalCount / pageSize);
   const [clampedItems, setClampedItems] = useState<Set<string>>(new Set());
   const [viewMore, setViewMore] = useState("");
+  const [showBurguer, setShowBurguer] = useState(false);
   const measuredIds = useRef<Set<string>>(new Set());
   const [loading, setLoading] = useState("");
 
- const activeFiltersCount =
-   activeFilters.categories.length +
-   activeFilters.materials.length +
-   activeFilters.states.length +
-   activeFilters.badges.length;
+  const activeFiltersCount =
+    activeFilters.categories.length +
+    activeFilters.materials.length +
+    activeFilters.states.length +
+    activeFilters.badges.length;
+
+  const handleShowBurguer = () => {
+    setShowBurguer(!showBurguer);
+  };
 
   function buildUrl(overrides: Record<string, string | undefined>) {
     const params = new URLSearchParams();
@@ -223,7 +238,6 @@ export default function AdminDashboard({
   function goToPage(page: number) {
     router.push(buildUrl({ page: String(page) }));
   }
-
 
   const handleViewMore = (id: string) => {
     setViewMore(viewMore === id ? "" : id);
@@ -560,14 +574,37 @@ export default function AdminDashboard({
                 Admin Panel
               </p>
             </div>
-            <div className="flex gap-2">
-              <ThemeToggle />
-              <Link
-                href="admin/new-product"
-                className="p-2 bg-sky-500 dark:bg-[hsl(41,98%,65%)] rounded-full text-white dark:text-dark3"
+            <Menu
+              onClick={handleShowBurguer}
+              className={`${showBurguer ? "max-md:hidden" : "max-md:flex"} w-8 h-8 `}
+            ></Menu>
+            <div
+              className={`z-300 flex justify-center bg-black/65 items-center fixed top-0 left-0 ${showBurguer ? "min-w-screen min-h-screen" : "w-0 min-h-screen"}`}
+            >
+              <div
+                className={` bg-amber-400 transition-all duration-200  flex items-center justify-center ${showBurguer ? "w-60 min-h-35" : "w-0 min-h-60"}`}
               >
-                <PenLine size={20} />
-              </Link>
+                <Menu
+                  onClick={handleShowBurguer}
+                  className={`transition-all duration-200 ${showBurguer ? "max-md:flex" : "max-md:hidden"} w-8 h-8 `}
+                ></Menu>
+                <div className="transition-all duration-200 flex gap-2">
+                  <ThemeToggle />
+                  <Link
+                    href="admin/new-product"
+                    className="p-2 bg-sky-500 dark:bg-[hsl(41,98%,65%)] rounded-full text-white dark:text-dark3"
+                  >
+                    {loading ? "Cargando..." : <PenLine size={20} />}
+                  </Link>
+                  <Link
+                    href="admin/new-product"
+                    className=" hover:brightness-90 text-white dark:text-dark3 dark:bg-[hsl(41,98%,65%)] rounded-4xl flex text-[14px] text-center justify-center items-center bg-sky-500"
+                    onClick={() => setLoading("new")}
+                  >
+                    {loading ? "Cargando..." : <Plus size={20}></Plus>}
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 
