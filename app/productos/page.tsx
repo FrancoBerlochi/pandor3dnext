@@ -293,7 +293,7 @@ const Products = () => {
                           ? `${prod.height_cm} x ${prod.width_cm}`
                           : ""
                 }
-                description={prod.description}
+                description={prod.description ?? ""}
                 category={(prod.product_categories as any)?.name ?? null}
                 material={(prod.product_materials as any)?.name ?? null}
                 colores={prod.colores ?? []}

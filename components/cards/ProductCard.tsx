@@ -27,8 +27,8 @@ const ProductCard = ({
   index: string;
   img: string;
   tittle: string;
-  size: string;
-  description: string | null;
+    size: string;
+  description: string ;
   category: string | null;
   material: string | null;
   colores: ColorRelation[];
@@ -57,12 +57,12 @@ const ProductCard = ({
       img,
       title: tittle,
       size,
-      amount,
       description,
       category,
       material,
       colores,
     });
+    setAmount(amount);
   };
 
   useEffect(() => {
@@ -177,7 +177,10 @@ const ProductCard = ({
           </span>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => set(amount - 1)}
+              onClick={() => {
+                set(amount - 1);
+   
+              }}
               disabled={amount <= MIN}
               className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
             >
@@ -192,7 +195,10 @@ const ProductCard = ({
               className="w-8 text-center text-base font-medium text-gray-900 dark:text-gray-300 bg-transparent border-none outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <button
-              onClick={() => set(amount + 1)}
+              onClick={() => {
+                set(amount + 1);
+        
+              }}
               disabled={amount >= MAX}
               className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 text-xl font-light hover:bg-gray-100 hover:text-gray-900 active:scale-90 disabled:opacity-30 transition-all"
             >

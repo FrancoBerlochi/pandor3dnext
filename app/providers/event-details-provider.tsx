@@ -9,7 +9,7 @@ type ColorRelation = {
 interface ViewDetailsData {
   img: string;
   title: string;
-  size: number;
+  size: string;
   description: string;
   category: string | null;
   material: string | null;
@@ -21,8 +21,8 @@ interface ViewDetailsContextType {
   setDetails: (v: boolean) => void;
   amount: number;
   setAmount: (v: number) => void;
-  id: number;
-  setId: (v: number) => void;
+  id: string;
+  setId: (v: string) => void;
   data: ViewDetailsData;
   setData: (v: ViewDetailsData) => void;
 }
@@ -32,12 +32,12 @@ export const ViewDetailsContext = createContext<ViewDetailsContextType>({
   setDetails: () => {},
   amount: 1,
   setAmount: () => {},
-  id: 0,
+  id: "",
   setId: () => {},
   data: {
     img: "",
     title: "",
-    size: 0,
+    size: "",
     description: "",
     category: "",
     material: "",
@@ -49,11 +49,11 @@ export const ViewDetailsContext = createContext<ViewDetailsContextType>({
 export const ViewDetailsProvider = ({ children }: { children: React.ReactNode }) => {
   const [details, setDetails] = useState(false);
   const [amount, setAmount] = useState(1);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("");
   const [data, setData] = useState<ViewDetailsData>({
     img: "",
     title: "",
-    size: 0,
+    size: "",
     description: "",
     category: "",
     material: "",
