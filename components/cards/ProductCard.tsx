@@ -52,6 +52,7 @@ const ProductCard = ({
   const { resolvedTheme } = useTheme();
 
   const [order, setOrder] = useState<OrderItem[]>(() => {
+    if (typeof window === "undefined") return [];
     return JSON.parse(localStorage.getItem("products") || "[]");
   });
 
