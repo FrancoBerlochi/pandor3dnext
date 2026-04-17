@@ -41,7 +41,7 @@ const ProductCard = ({
   const { resolvedTheme } = useTheme();
 
   const [order, setOrder] = useState(() => {
-    return JSON.parse(localStorage.getItem("products")) || [];
+    return JSON.parse(localStorage.getItem("products") || "[]");
   });
 
   const set = (next: number) => {
@@ -217,7 +217,7 @@ const ProductCard = ({
         </div>
       </div>
 
-      {details && id === index && <ViewDetails order={orderStorage} />} 
+      {details && id === index && <ViewDetails order={orderStorage} />}
     </div>
   );
 };
