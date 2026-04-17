@@ -12,6 +12,17 @@ type ColorRelation = {
   colors: { name: string; hex_code: string };
 };
 
+type OrderItem = {
+  img: string;
+  title: string;
+  size: string;
+  amount: number;
+  description: string;
+  category: string | null;
+  material: string | null;
+  colores: ColorRelation[];
+};
+
 
 const ProductCard = ({
   index,
@@ -40,7 +51,7 @@ const ProductCard = ({
   const { data, setData } = useContext(ViewDetailsContext);
   const { resolvedTheme } = useTheme();
 
-  const [order, setOrder] = useState(() => {
+  const [order, setOrder] = useState<OrderItem[]>(() => {
     return JSON.parse(localStorage.getItem("products") || "[]");
   });
 
