@@ -43,7 +43,6 @@ const ViewDetails = ({ order }) => {
       document.body.classList.remove("no-scroll");
     }
 
-    // Cleanup al desmontar el componente
     return () => {
       document.body.classList.remove("no-scroll");
     };
@@ -77,7 +76,7 @@ const ViewDetails = ({ order }) => {
           <p className="text-cyan-400 font-bold max-md:text-[12px] dark:text-[hsl(36,100%,50%)]">
             CATEGORÍA: {data.category}
           </p>
-          <h3 className="text-6xl tracking-wide mb-8 max-md:mt-2 font-semibold max-md:mb-4 w-60 max-md:text-4xl">
+          <h3 className="text-6xl max-[1460px]:min-[1300px]:text-5xl tracking-wide mb-8 max-md:mt-2 font-semibold max-md:mb-4 w-60 max-md:text-4xl">
             {data.title}
           </h3>
           <div className="flex gap-8 max-md:mb-4">
@@ -85,7 +84,7 @@ const ViewDetails = ({ order }) => {
               <p className="text-gray-600 dark:text-gray-300 max-md:text-[12px]">
                 DIMENSIONES
               </p>
-              <p className="text-2xl text-cyan-500 max-md:text-base dark:text-[hsl(41,98%,51%)] ">
+              <p className="text-2xl max-[1460px]:min-[1300px]:text-xl text-cyan-500 max-md:text-base dark:text-[hsl(41,98%,51%)] ">
                 {data.size} cm
               </p>
             </div>
@@ -93,7 +92,7 @@ const ViewDetails = ({ order }) => {
               <p className="text-gray-600 dark:text-gray-300 max-md:text-[12px]">
                 MATERIAL
               </p>
-              <p className="text-2xl text-cyan-500 max-md:text-base dark:text-[hsl(41,98%,51%)]">
+              <p className="text-2xl max-[1460px]:min-[1300px]:text-xl text-cyan-500 max-md:text-base dark:text-[hsl(41,98%,51%)]">
                 {data.material}
               </p>
             </div>
@@ -113,7 +112,7 @@ const ViewDetails = ({ order }) => {
             </ul>
           </div>
 
-          <p className="text-[18px] max-md:text-[0.9rem] mt-12  max-md:mt-4  max-md:w-fit max-md:pr-2 w-100 break-all">
+          <p className="text-[18px] max-[1460px]:min-[1300px]:text-[14px] max-md:text-[0.9rem] mt-12  max-md:mt-4  max-md:w-fit max-md:pr-2 w-100 break-all">
             {data.description}
           </p>
           <div className="flex max-md:mt-6 lg:mt-16 max-md:gap-2 max-md:justify-around max-md:items-center max-md:mr-4 max-md:mb-3 lg:gap-4 items-center">
@@ -153,10 +152,10 @@ const ViewDetails = ({ order }) => {
 
             {/* Botón agregar */}
             <button
-              className="flex items-center text-white gap-2 px-6 py-2 bg-cyan-500 dark:bg-[hsl(36,100%,50%)] dark:text-black lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:text-[1rem] max-md:p-2 rounded-4xl"
+              className="flex items-center max-[1460px]:min-[1300px]:text-[14px] text-white gap-2 px-6 py-2 bg-cyan-500 dark:bg-[hsl(36,100%,50%)] dark:text-black lg:w-[10vw] lg:mb-0 hover:bg-cyan-600 cursor-pointer text-xl max-md:text-[1rem] max-md:p-2 rounded-4xl"
               onClick={order}
             >
-              <ShoppingCart className="w-6 h-6 max-md:w-8 max-md:h-8" />
+              <ShoppingCart className="w-6 h-6 max-[1460px]:min-[1300px]:w-7 max-[1460px]:min-[1300px]:h-7 max-md:w-8 max-md:h-8" />
               Añadir al Pedido
             </button>
           </div>

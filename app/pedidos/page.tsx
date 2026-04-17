@@ -74,7 +74,7 @@ const Order = () => {
     <div id="inicio" className="dark:bg-[#333] bg-sky-50/60">
       <WhatsApp></WhatsApp>
       <Header></Header>
-      <main className="flex flex-col pt-28 h-screen w-[60vw] mx-auto max-md:mx-0 max-md:h-fit">
+      <main className="flex flex-col max-[1650px]:min-[1550px]:pt-20 max-[1460px]:min-[1300px]:pt-18 max-[1460px]:min-[1300px]:w-[80vw] max-[1460px]:min-[1300px]:mb-32  pt-28 h-screen w-[60vw] max-[1650px]:min-[1550px]:w-[75vw] mx-auto max-md:mx-0 max-md:h-fit">
         <h1 className="text-7xl my-4 font-semibold dark:text-white max-md:ml-16 max-md:w-fit">
           <span className="max-md:hidden border-b-sky-400 border-b-4 dark:border-b-amber-400 ">
             MIS
@@ -82,7 +82,7 @@ const Order = () => {
           <span className="lg:hidden">MIS</span> PEDIDOS
           <div className="lg:hidden border-b-sky-400 border-b-4  dark:border-b-amber-400 w-12 h-1"></div>
         </h1>
-        <section className="grid grid-cols-3 gap-4 mt-4 max-md:grid-cols-1 max-md:w-[100vw] ">
+        <section className="grid grid-cols-3 gap-4 mt-4 max-md:grid-cols-1 max-md:w-[100vw] max-[1650px]:min-[1550px]:w-[75vw] max-[1650px]:min-[1550px]: ">
           <div className="col-span-2 max-md:order-1 max-md:mb-12 max-md:w-[98vw]">
             {orderList.length === 0 ? (
               <div className="h-[60vh] bg-white  dark:bg-dark2 rounded-xl shadow-xl flex flex-col justify-center items-center">
@@ -120,7 +120,7 @@ const Order = () => {
               </div>
             ) : (
               <div>
-                <div className="flex max-md:w-[98vw]  bg-white dark:bg-dark2 flex-col max-h-140 overflow-y-auto gap-4 rounded-2xl shadow-xl">
+                <div className="flex max-md:w-[98vw] max-[1650px]:min-[1550px]:w-[50vw]  bg-white dark:bg-dark2 flex-col max-h-140 overflow-y-auto gap-4 rounded-2xl shadow-xl">
                   {orderList.map((ol, index) => (
                     <ProductCardOrder
                       key={index}

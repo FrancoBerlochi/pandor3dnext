@@ -1,7 +1,7 @@
 const OrderSummaryCard = () => {
   return (
-    <div className=" flex flex-col  max-md:mb-8 max-md:order-1 max-md:">
-      <div className="flex flex-col border-2 bg-white border-gray-200 dark:bg-[hsl(36,100%,45%)] dark:border-[#111] rounded-2xl mx-2 shadow-xl ">
+    <div className=" flex flex-col max-[1650px]:min-[1550px]:w-[22vw]   max-md:mb-8 max-md:order-1 ">
+      <div className="flex flex-col  border-2 bg-white border-gray-200 dark:bg-[hsl(36,100%,45%)] dark:border-[#111] rounded-2xl mx-2 shadow-xl ">
         <h3 className="text-[21px] tracking-wider font-semibold mt-4 ml-4 dark:text-white">
           Proceso de Pedido
         </h3>

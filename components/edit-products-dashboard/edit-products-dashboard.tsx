@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { X, PenLine, Grid2x2, Plus, Trash2, ArrowLeft, Check } from "lucide-react";
 import { updateProduct, deleteProduct } from "../../app/admin/edit-products/actions";
@@ -197,6 +197,18 @@ export default function EditProductsClient({
     window.location.href = "/admin";
   }
 
+   useEffect(() => {
+      if (selected) {
+        document.body.classList.add("no-scroll");
+      } else {
+        document.body.classList.remove("no-scroll");
+      }
+  
+      return () => {
+        document.body.classList.remove("no-scroll");
+      };
+    }, [selected]);
+
   async function handleAddCategory() {
     if (!newName.trim()) return;
     setModalLoading(true);
@@ -358,7 +370,12 @@ export default function EditProductsClient({
           <div
             className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center p-0 sm:p-4"
             onClick={(e) => {
-              if (e.target === e.currentTarget) closeModal();
+              if (e.target === e.currentTarget) {
+                e.stopPropagation();
+                closeModal();
+              } else {
+                e.stopPropagation();
+              }
             }}
           >
             <div className="bg-white dark:bg-dark3 rounded-t-3xl sm:rounded-2xl shadow-xl w-full max-w-3xl max-h-[92vh] overflow-y-auto">
