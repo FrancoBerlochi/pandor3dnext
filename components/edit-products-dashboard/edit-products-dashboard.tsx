@@ -82,6 +82,7 @@ export default function EditProductsClient({
   const [newHex, setNewHex] = useState("#000000");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [successModal, setSuccessModal] = useState(false)
+  const [errorModal, setErrorModal] = useState(false);
 
   function openModal(product: Product) {
     setSelected(product);
@@ -185,6 +186,8 @@ export default function EditProductsClient({
         setSuccessModal(false);
       }, 3000);
     } else {
+      setErrorModal(true); 
+      setTimeout(() => setErrorModal(false), 3000);
       setError(result.error ?? "Error al guardar");
     }
     setLoading(false);
@@ -252,7 +255,16 @@ export default function EditProductsClient({
   return (
     <>
       <main className="w-full relative min-h-screen bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16">
-        {successModal ? <div className="fixed top-6 left-6 bg-green-400  z-1000 px-2 py-1 text-white flex gap-2 rounded-xl"><Check></Check> Editado con éxito</div> : <></>}
+        {successModal && (
+          <div className="fixed top-6 left-6 bg-green-400  z-1000 px-2 py-1 text-white flex gap-2 rounded-xl">
+            <Check></Check> Editado con éxito
+          </div>
+        )}
+        {errorModal && (
+          <div className="fixed top-6 left-6 bg-red-500 z-1000 px-3 py-2 text-white flex items-center gap-2 rounded-xl shadow-lg animate-in fade-in slide-in-from-left-4">
+            <X size={18} /> Error al guardar cambios
+          </div>
+        )}
         <div className="absolute top-6 right-6">
           <ThemeToggle />
         </div>
