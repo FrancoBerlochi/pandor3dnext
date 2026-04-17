@@ -27,7 +27,24 @@ interface ViewDetailsContextType {
   setData: (v: ViewDetailsData) => void;
 }
 
-export const ViewDetailsContext = createContext<ViewDetailsContextType | null>(null);
+export const ViewDetailsContext = createContext<ViewDetailsContextType>({
+  details: false,
+  setDetails: () => {},
+  amount: 1,
+  setAmount: () => {},
+  id: 0,
+  setId: () => {},
+  data: {
+    img: "",
+    title: "",
+    size: 0,
+    description: "",
+    category: "",
+    material: "",
+    colores: [],
+  },
+  setData: () => {},
+});
 
 export const ViewDetailsProvider = ({ children }: { children: React.ReactNode }) => {
   const [details, setDetails] = useState(false);
