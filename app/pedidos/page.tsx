@@ -20,14 +20,15 @@ interface OrderItem {
   category: string;
   material: string;
   colores: ColorRelation[];
-  size: number;
+  size: string;
 }
 
 const Order = () => {
   const {resolvedTheme} = useTheme()
-  const [orderList, setOrderList] = useState<OrderItem[]>(
-    JSON.parse(localStorage.getItem("products") ?? "[]"),
-  );
+  const [orderList, setOrderList] = useState<OrderItem[]>(() => {
+      if (typeof window === "undefined") return [];
+      return JSON.parse(localStorage.getItem("products") || "[]");
+    });
 
   
   const handleAmount = (tittle: string, amount: number) => {
