@@ -191,7 +191,7 @@ const Products = () => {
     topCero();
   };
 
-  const actual = (i) => {
+  const actual = (i:number) => {
     setCurrentPage(i);
     topCero();
   }
