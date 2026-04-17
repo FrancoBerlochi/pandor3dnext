@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { X, PenLine, Grid2x2, Plus, Trash2, ArrowLeft } from "lucide-react";
+import { X, PenLine, Grid2x2, Plus, Trash2, ArrowLeft, Check } from "lucide-react";
 import { updateProduct, deleteProduct } from "../../app/admin/edit-products/actions";
 import { uploadProductImage } from "@/lib/supabase/upload";
 import { ThemeToggle } from "../ui/theme-toggle";
@@ -81,6 +81,7 @@ export default function EditProductsClient({
   const [newName, setNewName] = useState("");
   const [newHex, setNewHex] = useState("#000000");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [successModal, setSuccessModal] = useState(false)
 
   function openModal(product: Product) {
     setSelected(product);
@@ -103,6 +104,8 @@ export default function EditProductsClient({
     setSelected(null);
     setImagePreview("");
   }
+
+   
 
   function toggleColor(id: number) {
     setSelectedColors((prev) =>
@@ -177,6 +180,10 @@ export default function EditProductsClient({
         ),
       );
       closeModal();
+      setSuccessModal(true);
+      setTimeout(() => {
+        setSuccessModal(false);
+      }, 3000);
     } else {
       setError(result.error ?? "Error al guardar");
     }
@@ -245,6 +252,7 @@ export default function EditProductsClient({
   return (
     <>
       <main className="w-full relative min-h-screen bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16">
+        {successModal ? <div className="fixed top-6 left-6 bg-green-400  z-1000 px-2 py-1 text-white flex gap-2 rounded-xl"><Check></Check> Editado con éxito</div> : <></>}
         <div className="absolute top-6 right-6">
           <ThemeToggle />
         </div>
@@ -267,7 +275,7 @@ export default function EditProductsClient({
               <div
                 key={product.id}
                 onClick={() => openModal(product)}
-                className="bg-white dark:bg-dark2 rounded-2xl border border-gray-200 dark:border-black overflow-hidden cursor-pointer hover:border-sky-400 hover:shadow-sm transition-all group"
+                className="bg-white dark:bg-dark2 rounded-2xl border border-gray-200 dark:border-black overflow-hidden cursor-pointer hover:border-sky-400  hover:shadow-sm transition-all group"
               >
                 <div className="aspect-square bg-gray-100 relative">
                   {product.badge_label && (
@@ -372,7 +380,7 @@ export default function EditProductsClient({
                   </label>
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="aspect-square w-full max-w-[280px] mx-auto md:max-w-none bg-gray-100 dark:bg-dark2 rounded-xl flex items-center justify-center border border-dashed border-gray-300 hover:border-sky-400 transition-colors cursor-pointer overflow-hidden relative"
+                    className="aspect-square w-full max-w-[280px] mx-auto md:max-w-none bg-gray-100 dark:bg-dark2 rounded-xl flex items-center justify-center border border-dashed border-gray-300 dark:hover:border-[hsl(35,100%,50%)] hover:border-sky-400 transition-colors cursor-pointer overflow-hidden relative"
                   >
                     {badge !== "None" && (
                       <div className="absolute top-2 left-2 z-10 bg-sky-400 dark:bg-[hsl(41,98%,65%)] text-sky-900 dark:text-gray-600 text-[10px] font-medium px-2 py-1 rounded-md uppercase">
@@ -460,7 +468,7 @@ export default function EditProductsClient({
                             setNewName("");
                             setModal("category");
                           }}
-                          className=" w-10 h-10 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400"
+                          className="dark:hover:border-[hsl(35,100%,50%)] cursor-pointer w-10 h-10 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400"
                         >
                           <Plus size={18} />
                         </button>
@@ -491,7 +499,7 @@ export default function EditProductsClient({
                             setNewName("");
                             setModal("material");
                           }}
-                          className="w-10 h-10 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400"
+                          className="dark:hover:border-[hsl(35,100%,50%)] cursor-pointer w-10 h-10 shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400"
                         >
                           <Plus size={18} />
                         </button>
@@ -522,21 +530,47 @@ export default function EditProductsClient({
                       <label className="text-[11px] tracking-widest text-gray-400 dark:text-gray-200 uppercase block mb-1">
                         Dimensiones (cm)
                       </label>
+
                       <div className="flex items-center gap-1">
                         <input
+                          name="length_cm"
                           type="number"
-                          placeholder="L"
+                          step="0.1"
+                          min="0"
                           value={lengthCm}
                           onChange={(e) => setLengthCm(e.target.value)}
-                          className="w-full border border-gray-200 dark:bg-dark2/65 dark:text-white rounded-lg px-1 py-2 text-center text-xs"
+                          placeholder="L"
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
                         />
-                        <span className="text-gray-300">×</span>
+
+                        <span className="text-gray-300 text-xs shrink-0">
+                          ×
+                        </span>
+
                         <input
+                          name="width_cm"
                           type="number"
-                          placeholder="W"
+                          step="0.1"
+                          min="0"
                           value={widthCm}
                           onChange={(e) => setWidthCm(e.target.value)}
-                          className="w-full border border-gray-200 dark:bg-dark2/65 dark:text-white rounded-lg px-1 py-2 text-center text-xs"
+                          placeholder="W"
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
+                        />
+
+                        <span className="text-gray-300 text-xs shrink-0">
+                          ×
+                        </span>
+
+                        <input
+                          name="height_cm"
+                          type="number"
+                          step="0.1"
+                          min="0"
+                          value={heightCm}
+                          onChange={(e) => setHeightCm(e.target.value)}
+                          placeholder="H"
+                          className="w-full border border-gray-200 dark:focus:border-[hsl(41,98%,65%)] dark:text-gray-200 dark:bg-dark2/65 rounded-lg px-2 py-2 text-sm outline-none focus:border-sky-400"
                         />
                       </div>
                     </div>
@@ -567,7 +601,7 @@ export default function EditProductsClient({
                           setNewHex("#000000");
                           setModal("color");
                         }}
-                        className="w-8 h-8 rounded-full border border-dashed border-gray-400 flex items-center justify-center"
+                        className="w-8 h-8 cursor-pointer  dark:hover:border-[hsl(35,100%,50%)] rounded-full border border-dashed border-gray-400 flex items-center justify-center"
                       >
                         <Plus size={14} />
                       </button>
@@ -714,3 +748,5 @@ export default function EditProductsClient({
     </>
   );
 }
+
+

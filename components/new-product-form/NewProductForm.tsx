@@ -5,7 +5,7 @@ import { uploadProductImage } from "@/lib/supabase/upload";
 import Image from "next/image";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { PenLine, Grid2x2 } from "lucide-react";
+import { PenLine, Grid2x2, Check } from "lucide-react";
 import { ThemeToggle } from "../ui/theme-toggle";
 import {
   createProduct,
@@ -47,6 +47,7 @@ export default function NewProductForm({ categories, materials, states, colors }
   const [modalLoading, setModalLoading] = useState(false);
   const [newName, setNewName] = useState("");
   const [newHex, setNewHex] = useState("#000000");
+  const [successModal, setSuccessModal] = useState(false)
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
@@ -66,7 +67,12 @@ export default function NewProductForm({ categories, materials, states, colors }
     const result = await createProduct(formData);
 
     if (result.success) {
-      router.push("/admin");
+      setSuccessModal(true);
+      setTimeout(() => {
+        setSuccessModal(false);
+        router.push("/admin");
+      }, 2000);
+      
     } else {
       setError(result.error ?? "Error al crear el producto");
       setLoading(false);
@@ -155,6 +161,13 @@ export default function NewProductForm({ categories, materials, states, colors }
   return (
     <>
       <main className="w-full min-h-screen max-md:hidden bg-[#f0f2f5] dark:bg-dark3 pt-12 pb-16 flex gap-12 flex-col items-center justify-center relative">
+        {successModal ? (
+          <div className="fixed top-6 left-6 bg-green-400  z-1000 px-2 py-1 text-white flex gap-2 rounded-xl">
+            <Check></Check> Publicado con éxito
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="absolute top-6 right-6">
           <ThemeToggle />
         </div>
@@ -453,7 +466,7 @@ export default function NewProductForm({ categories, materials, states, colors }
                 disabled={loading}
                 className="w-full py-3 bg-sky-400 hover:bg-sky-500 dark:bg-[hsl(41,98%,65%)] cursor-pointer dark:text-white text-sky-900 font-medium text-sm rounded-xl tracking-widest disabled:opacity-50 transition-colors"
               >
-                {loading ? "PUBLISHING..." : "PUBLISH PRODUCT"}
+                {loading ? "PUBLICANDO..." : "PUBLICAR PRODUCTO"}
               </button>
             </div>
           </div>
